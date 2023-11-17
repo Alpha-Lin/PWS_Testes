@@ -1,0 +1,206 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\CritereRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: CritereRepository::class)]
+class Critere
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column]
+    private ?int $idCritere = null;
+
+    #[ORM\Column]
+    private ?float $scoreMax = null;
+
+    #[ORM\Column]
+    private ?float $scoreDefaut = null;
+
+    #[ORM\ManyToOne(inversedBy: 'criteres')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Teste $teste = null;
+
+    #[ORM\ManyToMany(targetEntity: Solution::class, inversedBy: 'criteres')]
+    private Collection $solutions;
+
+    #[ORM\Column(length: 255)]
+    private ?string $interpretationMaxTexte = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $interpretationMinTexte = null;
+
+    #[ORM\Column]
+    private ?int $interpretationMaxCouleur = null;
+
+    #[ORM\Column]
+    private ?int $interpretationMinCouleur = null;
+
+    #[ORM\Column(type: Types::BLOB)]
+    private $interpretationMaxImage = null;
+
+    #[ORM\Column(type: Types::BLOB)]
+    private $interpretationMinImage = null;
+
+    public function __construct()
+    {
+        $this->solutions = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getIdCritere(): ?int
+    {
+        return $this->idCritere;
+    }
+
+    public function setIdCritere(int $idCritere): static
+    {
+        $this->idCritere = $idCritere;
+
+        return $this;
+    }
+
+    public function getScoreMax(): ?float
+    {
+        return $this->scoreMax;
+    }
+
+    public function setScoreMax(float $scoreMax): static
+    {
+        $this->scoreMax = $scoreMax;
+
+        return $this;
+    }
+
+    public function getScoreDefaut(): ?float
+    {
+        return $this->scoreDefaut;
+    }
+
+    public function setScoreDefaut(float $scoreDefaut): static
+    {
+        $this->scoreDefaut = $scoreDefaut;
+
+        return $this;
+    }
+
+    public function getTeste(): ?Teste
+    {
+        return $this->teste;
+    }
+
+    public function setTeste(?Teste $teste): static
+    {
+        $this->teste = $teste;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Solution>
+     */
+    public function getSolutions(): Collection
+    {
+        return $this->solutions;
+    }
+
+    public function addSolution(Solution $solution): static
+    {
+        if (!$this->solutions->contains($solution)) {
+            $this->solutions->add($solution);
+        }
+
+        return $this;
+    }
+
+    public function removeSolution(Solution $solution): static
+    {
+        $this->solutions->removeElement($solution);
+
+        return $this;
+    }
+
+    public function getInterpretationMaxTexte(): ?string
+    {
+        return $this->interpretationMaxTexte;
+    }
+
+    public function setInterpretationMaxTexte(string $interpretationMaxTexte): static
+    {
+        $this->interpretationMaxTexte = $interpretationMaxTexte;
+
+        return $this;
+    }
+
+    public function getInterpretationMinTexte(): ?string
+    {
+        return $this->interpretationMinTexte;
+    }
+
+    public function setInterpretationMinTexte(string $interpretationMinTexte): static
+    {
+        $this->interpretationMinTexte = $interpretationMinTexte;
+
+        return $this;
+    }
+
+    public function getInterpretationMaxCouleur(): ?int
+    {
+        return $this->interpretationMaxCouleur;
+    }
+
+    public function setInterpretationMaxCouleur(int $interpretationMaxCouleur): static
+    {
+        $this->interpretationMaxCouleur = $interpretationMaxCouleur;
+
+        return $this;
+    }
+
+    public function getInterpretationMinCouleur(): ?int
+    {
+        return $this->interpretationMinCouleur;
+    }
+
+    public function setInterpretationMinCouleur(int $interpretationMinCouleur): static
+    {
+        $this->interpretationMinCouleur = $interpretationMinCouleur;
+
+        return $this;
+    }
+
+    public function getInterpretationMaxImage()
+    {
+        return $this->interpretationMaxImage;
+    }
+
+    public function setInterpretationMaxImage($interpretationMaxImage): static
+    {
+        $this->interpretationMaxImage = $interpretationMaxImage;
+
+        return $this;
+    }
+
+    public function getInterpretationMinImage()
+    {
+        return $this->interpretationMinImage;
+    }
+
+    public function setInterpretationMinImage($interpretationMinImage): static
+    {
+        $this->interpretationMinImage = $interpretationMinImage;
+
+        return $this;
+    }
+}
