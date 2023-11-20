@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Controller;
+
+namespace App\Controller\auth;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
@@ -19,6 +20,10 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
+
+        if ($this->getUser()) {
+            return $this->redirectToRoute('user_index');
+        }
 
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -44,7 +49,7 @@ class RegistrationController extends AbstractController
             );
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('auth/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
