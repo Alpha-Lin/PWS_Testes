@@ -49,10 +49,9 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class);
         yield MenuItem::linkToCrud('Type de teste', 'fas fa-tags', TypeTeste::class);
-        yield MenuItem::linkToCrud('Testes', 'fas fa-bars-staggered', Teste::class);
-        yield MenuItem::linkToCrud('Tentatives', 'fas fa-list-check', Tentative::class);
+        yield MenuItem::linkToCrud('Testes', 'fas fa-bars-staggered', Teste::class)->setController(TesteCrudController::class);
+        yield MenuItem::linkToCrud('Tentatives', 'fas fa-list-check', Tentative::class);            
     }
 }

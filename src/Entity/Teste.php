@@ -169,7 +169,11 @@ class Teste
     public function setTypeTeste(?TypeTeste $typeTeste): static
     {
         $this->typeTeste = $typeTeste;
-
         return $this;
+    }
+
+
+    public function __toString() {
+        return (string) $this->id;
     }
 }
