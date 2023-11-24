@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TesteRepository;
+use App\Entity\TypeTeste;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -31,8 +32,10 @@ class Teste
     #[ORM\ManyToOne(inversedBy: 'testes')]
     private ?User $user = null;
 
-    #[ORM\Column]
-    private ?int $typeTest = null;
+
+    #[ORM\ManyToOne(inversedBy: 'label')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?typeTeste $typeTeste = null;
 
     public function __construct()
     {
@@ -160,14 +163,14 @@ class Teste
         return $this;
     }
 
-    public function getTypeTest(): ?int
+    public function getTypeTeste(): ?TypeTeste
     {
-        return $this->typeTest;
+        return $this->typeTeste;
     }
 
-    public function setTypeTest(int $typeTest): static
+    public function setTypeTeste(?TypeTeste $typeTeste): static
     {
-        $this->typeTest = $typeTest;
+        $this->typeTeste = $typeTeste;
 
         return $this;
     }
