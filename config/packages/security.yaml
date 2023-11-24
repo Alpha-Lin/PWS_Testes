@@ -31,7 +31,7 @@ security:
                 enable_csrf: true
             logout:
                 path: app_logout
-                target: app_index
+                target: public_index
             entry_point: 'form_login'
             custom_authenticator: App\Security\LoginAuthenticator
     
@@ -46,6 +46,7 @@ security:
     access_control:
         - { path: ^/dashboard, role: ROLE_USER,  }
         - { path: ^/login, role: PUBLIC_ACCESS }
+        - { path: ^/teste, role: ROLE_USER }
         - { path: ^/register, role: PUBLIC_ACCESS } 
         # - { path: ^/home, roles: [ROLE_ADMIN,ROLE_USER] } 
 

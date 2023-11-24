@@ -8,24 +8,24 @@
     <table class="table">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>ImageTeste</th>
-                <th>TypeTest</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for teste in testes %}
             <tr>
+                <td>{{ teste.id }}</td>
                 <td>{{ teste.imageTeste }}</td>
-                <td>{{ teste.typeTest }}</td>
                 <td>
-                    <a href="{{ path('app_teste_show', {'idTeste': teste.idTeste}) }}">show</a>
-                    <a href="{{ path('app_teste_edit', {'idTeste': teste.idTeste}) }}">edit</a>
+                    <a href="{{ path('app_teste_show', {'id': teste.id}) }}">show</a>
+                    <a href="{{ path('app_teste_edit', {'id': teste.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="3">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
