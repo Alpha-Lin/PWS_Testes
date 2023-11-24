@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Tentative;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -48,9 +49,10 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-list', User::class);
-        yield MenuItem::linkToCrud('Type de teste', 'fas fa-list', TypeTeste::class);
-        yield MenuItem::linkToCrud('Testes', 'fas fa-list', Teste::class);
+
+        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class);
+        yield MenuItem::linkToCrud('Type de teste', 'fas fa-tags', TypeTeste::class);
+        yield MenuItem::linkToCrud('Testes', 'fas fa-bars-staggered', Teste::class);
+        yield MenuItem::linkToCrud('Tentatives', 'fas fa-list-check', Tentative::class);
     }
 }
