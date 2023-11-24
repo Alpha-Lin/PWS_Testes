@@ -14,7 +14,8 @@ class TesteType extends AbstractType
         $builder
             ->add('imageTeste')
             ->add('typeTest')
-            ->add('user');
+            ->add('user')
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

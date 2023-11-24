@@ -71,7 +71,7 @@ class TesteController extends AbstractController
     #[Route('/{id}', name: 'app_teste_delete', methods: ['POST'])]
     public function delete(Request $request, Teste $teste, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $teste->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$teste->getId(), $request->request->get('_token'))) {
             $entityManager->remove($teste);
             $entityManager->flush();
         }
