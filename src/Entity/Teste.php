@@ -12,8 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Teste
 {
     #[ORM\Id]
+    #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $idTeste = null;
+    private ?int $id = null;
 
     #[ORM\Column(type: Types::BLOB, nullable: true)]
     private $imageTeste = null;
@@ -39,19 +40,7 @@ class Teste
 
     public function getId(): ?int
     {
-        return $this->idTeste;
-    }
-
-    public function getIdTeste(): ?int
-    {
-        return $this->idTeste;
-    }
-
-    public function setIdTeste(int $idTeste): static
-    {
-        $this->idTeste = $idTeste;
-
-        return $this;
+        return $this->id;
     }
 
     public function getImageTeste()

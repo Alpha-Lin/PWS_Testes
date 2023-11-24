@@ -12,8 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Tentative
 {
     #[ORM\Id]
+    #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $idTentative = null;
+    private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateTentative = null;
@@ -36,19 +37,7 @@ class Tentative
 
     public function getId(): ?int
     {
-        return $this->idTentative;
-    }
-
-    public function getIdTentative(): ?int
-    {
-        return $this->idTentative;
-    }
-
-    public function setIdTentative(int $idTentative): static
-    {
-        $this->idTentative = $idTentative;
-
-        return $this;
+        return $this->id;
     }
 
     public function getDateTentative(): ?\DateTimeInterface

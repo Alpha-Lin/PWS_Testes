@@ -12,8 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Critere
 {
     #[ORM\Id]
+    #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $idCritere = null;
+    private ?int $id = null;
 
     #[ORM\Column]
     private ?float $scoreMax = null;
@@ -53,19 +54,7 @@ class Critere
 
     public function getId(): ?int
     {
-        return $this->idCritere;
-    }
-
-    public function getIdCritere(): ?int
-    {
-        return $this->idCritere;
-    }
-
-    public function setIdCritere(int $idCritere): static
-    {
-        $this->idCritere = $idCritere;
-
-        return $this;
+        return $this->id;
     }
 
     public function getScoreMax(): ?float
