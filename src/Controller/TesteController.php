@@ -30,6 +30,7 @@ class TesteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $teste->setUser($this->getUser());
             $entityManager->persist($teste);
             $entityManager->flush();
 

@@ -13,7 +13,6 @@ class TesteType extends AbstractType
     {
         $builder
             ->add('imageTeste')
-            ->add('user')
             ->add('typeTeste')
         ;
     }

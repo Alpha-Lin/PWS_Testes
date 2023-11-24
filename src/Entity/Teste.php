@@ -32,10 +32,8 @@ class Teste
     #[ORM\ManyToOne(inversedBy: 'testes')]
     private ?User $user = null;
 
-
-    #[ORM\ManyToOne(inversedBy: 'label')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?typeTeste $typeTeste = null;
+    #[ORM\ManyToOne(inversedBy: 'testes')]
+    private ?TypeTeste $typeTeste = null;
 
     public function __construct()
     {
@@ -174,4 +172,5 @@ class Teste
 
         return $this;
     }
+
 }
