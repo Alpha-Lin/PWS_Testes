@@ -14,7 +14,6 @@ class TesteType extends AbstractType
         $builder
             ->add('imageTeste')
             ->add('typeTest')
-            ->add('user')
         ;
     }
 

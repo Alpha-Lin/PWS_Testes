@@ -10,8 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/teste')]
+#[Route('/teste'), IsGranted('ROLE_USER')]
 class TesteController extends AbstractController
 {
     #[Route('/', name: 'app_teste_index', methods: ['GET'])]
@@ -30,6 +31,7 @@ class TesteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $teste->setUser($this->getUser());
             $entityManager->persist($teste);
             $entityManager->flush();
 
