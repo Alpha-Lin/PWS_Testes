@@ -30,6 +30,9 @@ class Teste
     #[ORM\ManyToOne(inversedBy: 'testes')]
     private ?User $user = null;
 
+    #[ORM\Column]
+    private ?int $typeTest = null;
+
     public function __construct()
     {
         $this->tentatives = new ArrayCollection();
@@ -164,6 +167,18 @@ class Teste
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getTypeTest(): ?int
+    {
+        return $this->typeTest;
+    }
+
+    public function setTypeTest(int $typeTest): static
+    {
+        $this->typeTest = $typeTest;
 
         return $this;
     }
