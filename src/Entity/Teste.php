@@ -171,4 +171,8 @@ class Teste
 
         return $this;
     }
+    public function __toString(): string
+    {
+        return $username;
+    }
 }

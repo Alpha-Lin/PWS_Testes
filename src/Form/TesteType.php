@@ -12,7 +12,7 @@ class TesteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('idTeste')
+            ->add('id')
             ->add('imageTeste')
             ->add('typeTest')
             ->add('user')
