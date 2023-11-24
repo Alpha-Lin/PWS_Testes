@@ -3,21 +3,14 @@
 {% block title %}Teste{% endblock %}
 
 {% block body %}
+{{ teste.imageTeste }}
     <h1>Teste</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>IdTeste</th>
-                <td>{{ teste.idTeste }}</td>
-            </tr>
-            <tr>
-                <th>ImageTeste</th>
-                <td>{{ teste.imageTeste }}</td>
-            </tr>
-            <tr>
-                <th>TypeTest</th>
-                <td>{{ teste.typeTest }}</td>
+                <th>{{ question.question }}</th>
+                <td></td>
             </tr>
         </tbody>
     </table>

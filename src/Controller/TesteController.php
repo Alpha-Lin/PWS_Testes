@@ -42,7 +42,7 @@ class TesteController extends AbstractController
         ]);
     }
 
-    #[Route('/{idTeste}', name: 'app_teste_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_teste_show', methods: ['GET'])]
     public function show(Teste $teste): Response
     {
         return $this->render('teste/show.html.twig', [
@@ -50,7 +50,7 @@ class TesteController extends AbstractController
         ]);
     }
 
-    #[Route('/{idTeste}/edit', name: 'app_teste_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_teste_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Teste $teste, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(TesteType::class, $teste);
@@ -68,10 +68,10 @@ class TesteController extends AbstractController
         ]);
     }
 
-    #[Route('/{idTeste}', name: 'app_teste_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_teste_delete', methods: ['POST'])]
     public function delete(Request $request, Teste $teste, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$teste->getIdTeste(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $teste->getId(), $request->request->get('_token'))) {
             $entityManager->remove($teste);
             $entityManager->flush();
         }
