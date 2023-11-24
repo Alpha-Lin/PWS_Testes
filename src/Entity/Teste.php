@@ -22,10 +22,6 @@ class Teste
     #[ORM\Column(type: Types::BLOB, nullable: true)]
     private $imageTeste = null;
 
-    #[ORM\ManyToOne(inversedBy: 'testes')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Utilisateur $createur = null;
-
     #[ORM\OneToMany(mappedBy: 'teste', targetEntity: Tentative::class)]
     private Collection $tentatives;
 
@@ -34,6 +30,9 @@ class Teste
 
     #[ORM\OneToMany(mappedBy: 'teste', targetEntity: Critere::class)]
     private Collection $criteres;
+
+    #[ORM\ManyToOne(inversedBy: 'testes')]
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -67,18 +66,6 @@ class Teste
     public function setImageTeste($imageTeste): static
     {
         $this->imageTeste = $imageTeste;
-
-        return $this;
-    }
-
-    public function getCreateur(): ?Utilisateur
-    {
-        return $this->createur;
-    }
-
-    public function setCreateur(?Utilisateur $createur): static
-    {
-        $this->createur = $createur;
 
         return $this;
     }
@@ -169,6 +156,18 @@ class Teste
                 $critere->setTeste(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

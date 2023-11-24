@@ -24,14 +24,13 @@ class Tentative
 
     #[ORM\ManyToOne(inversedBy: 'tentatives')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Utilisateur $utilisateur = null;
-
-    #[ORM\ManyToOne(inversedBy: 'tentatives')]
-    #[ORM\JoinColumn(nullable: false)]
     private ?Teste $teste = null;
 
     #[ORM\ManyToMany(targetEntity: Solution::class, mappedBy: 'tentatives')]
     private Collection $solutions;
+
+    #[ORM\ManyToOne(inversedBy: 'Tentatives')]
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -64,18 +63,6 @@ class Tentative
     public function setDateTentative(\DateTimeInterface $dateTentative): static
     {
         $this->dateTentative = $dateTentative;
-
-        return $this;
-    }
-
-    public function getUtilisateur(): ?Utilisateur
-    {
-        return $this->utilisateur;
-    }
-
-    public function setUtilisateur(?Utilisateur $utilisateur): static
-    {
-        $this->utilisateur = $utilisateur;
 
         return $this;
     }
@@ -115,6 +102,18 @@ class Tentative
         if ($this->solutions->removeElement($solution)) {
             $solution->removeTentative($this);
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
