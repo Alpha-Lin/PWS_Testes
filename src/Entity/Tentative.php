@@ -12,10 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Tentative
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
     #[ORM\Column]
     private ?int $idTentative = null;
 
@@ -40,7 +36,7 @@ class Tentative
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->idTentative;
     }
 
     public function getIdTentative(): ?int

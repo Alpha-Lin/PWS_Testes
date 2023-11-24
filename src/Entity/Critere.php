@@ -12,10 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Critere
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
     #[ORM\Column]
     private ?int $idCritere = null;
 
@@ -57,7 +53,7 @@ class Critere
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->idCritere;
     }
 
     public function getIdCritere(): ?int
