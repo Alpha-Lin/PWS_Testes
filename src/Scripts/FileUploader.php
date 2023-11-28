@@ -1,11 +1,14 @@
 <?php
-namespace  App\Script;
-Class fileUploader {
+
+namespace  App\Scripts;
+
+Class FileUploader {
     public $directory;
     
     function __construct(?string $targetDirectory) {
         $this->directory = $targetDirectory;
     }
+
     function upload(){
         $target_file =basename($_FILES["fileToUpload"]["name"]);
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -22,11 +25,11 @@ Class fileUploader {
                 echo "L'image ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " a été mise en ligne";
                   return $filename.$directory.$newname;
               }else {
-                echo "Problème durant l'upload";
+                throw new Exception("Error Processing Image");
+                
               }
           } else {
-              //si il y a un probleme
-            echo "Pas une image";
+              throw new Exception("Pas d'image.");
           }
         }
     }
