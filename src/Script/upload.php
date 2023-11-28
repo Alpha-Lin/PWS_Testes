@@ -1,4 +1,6 @@
 <?php
+namespace  App\Script;
+
 $target_file =basename($_FILES["fileToUpload"]["name"]);
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
