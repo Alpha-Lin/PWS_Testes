@@ -3,8 +3,8 @@ namespace  App\Script;
 Class fileUploader {
     public $directory;
     
-    function __construct(?string $name) {
-        $this->directory = $name;
+    function __construct(?string $targetDirectory) {
+        $this->directory = $targetDirectory;
     }
     function upload(){
         $target_file =basename($_FILES["fileToUpload"]["name"]);
