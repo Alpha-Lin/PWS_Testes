@@ -2,25 +2,23 @@
 
 namespace App\Form;
 
-use App\Entity\Teste;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TesteType extends AbstractType
+class NewsletterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('imageTeste')
-            ->add('typeTeste')
+            ->add('field_name')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Teste::class,
+            // Configure your form options here
         ]);
     }
 }
