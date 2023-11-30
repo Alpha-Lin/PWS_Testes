@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Question;
 use App\Entity\Teste;
 use App\Form\TesteType;
 use App\Repository\TesteRepository;
@@ -22,15 +23,24 @@ class TesteController extends AbstractController
         ]);
     }
 
+    // https://symfony.com/doc/current/form/form_collections.html
     #[Route('/new', name: 'app_teste_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $teste = new Teste();
+        // Pas sûr
+        $firstQuestion = new Question();
+        $teste->getQuestions()->add($firstQuestion);
+
+        foreach ($teste->getQuestions() as $question)
+            $question->setTeste($teste);
+
         $form = $this->createForm(TesteType::class, $teste);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $teste->setUser($this->getUser());
+
             $entityManager->persist($teste);
             $entityManager->flush();
 
@@ -38,7 +48,7 @@ class TesteController extends AbstractController
         }
 
         return $this->render('teste/new.html.twig', [
-            'teste' => $teste,
+            //'teste' => $teste,
             'form' => $form,
         ]);
     }
@@ -72,7 +82,7 @@ class TesteController extends AbstractController
     #[Route('/{id}', name: 'app_teste_delete', methods: ['POST'])]
     public function delete(Request $request, Teste $teste, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$teste->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $teste->getId(), $request->request->get('_token'))) {
             $entityManager->remove($teste);
             $entityManager->flush();
         }
