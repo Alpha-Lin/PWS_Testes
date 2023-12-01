@@ -12,6 +12,8 @@
                 <th>Objet</th>
                 <th>Message</th>
                 <th>BeenSend</th>
+                <th>Sender</th>
+                <th>Receiver</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -22,6 +24,10 @@
                 <td>{{ message.objet }}</td>
                 <td>{{ message.message }}</td>
                 <td>{{ message.beenSend ? 'Yes' : 'No' }}</td>
+                <td>{{ message.sender }}</td>
+                <td>{{ message.receiver }}</td>
+
+                
                 <td>
                     <a href="{{ path('app_message_show', {'id': message.id}) }}">show</a>
                     <a href="{{ path('app_message_edit', {'id': message.id}) }}">edit</a>
