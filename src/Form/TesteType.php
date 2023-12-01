@@ -19,7 +19,7 @@ class TesteType extends AbstractType
             ->add('label')
             ->add('description')
             ->add('imageTeste', FileType::class, [
-                'required' => false, 
+                'required' => false,
                 'data_class' => null
             ])
             ->add('typeTeste', EntityType::class, [
@@ -32,7 +32,6 @@ class TesteType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false,
             ]);
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void
