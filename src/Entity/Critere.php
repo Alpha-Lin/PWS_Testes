@@ -26,9 +26,6 @@ class Critere
     #[ORM\JoinColumn(nullable: false)]
     private ?Teste $teste = null;
 
-    #[ORM\ManyToMany(targetEntity: Solution::class, inversedBy: 'criteres')]
-    private Collection $solutions;
-
     #[ORM\Column(length: 255)]
     private ?string $interpretationMaxTexte = null;
 
@@ -47,9 +44,16 @@ class Critere
     #[ORM\Column(type: Types::BLOB)]
     private $interpretationMinImage = null;
 
+    #[ORM\OneToMany(mappedBy: 'critere', targetEntity: Solution::class)]
+    private Collection $solutions;
+
+    #[ORM\OneToMany(mappedBy: 'critere', targetEntity: CritereSolution::class)]
+    private Collection $critereSolutions;
+
     public function __construct()
     {
         $this->solutions = new ArrayCollection();
+        $this->critereSolutions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -89,30 +93,6 @@ class Critere
     public function setTeste(?Teste $teste): static
     {
         $this->teste = $teste;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Solution>
-     */
-    public function getSolutions(): Collection
-    {
-        return $this->solutions;
-    }
-
-    public function addSolution(Solution $solution): static
-    {
-        if (!$this->solutions->contains($solution)) {
-            $this->solutions->add($solution);
-        }
-
-        return $this;
-    }
-
-    public function removeSolution(Solution $solution): static
-    {
-        $this->solutions->removeElement($solution);
 
         return $this;
     }
@@ -185,6 +165,66 @@ class Critere
     public function setInterpretationMinImage($interpretationMinImage): static
     {
         $this->interpretationMinImage = $interpretationMinImage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Solution>
+     */
+    public function getSolutions(): Collection
+    {
+        return $this->solutions;
+    }
+
+    public function addSolution(Solution $solution): static
+    {
+        if (!$this->solutions->contains($solution)) {
+            $this->solutions->add($solution);
+            $solution->setCritere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSolution(Solution $solution): static
+    {
+        if ($this->solutions->removeElement($solution)) {
+            // set the owning side to null (unless already changed)
+            if ($solution->getCritere() === $this) {
+                $solution->setCritere(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CritereSolution>
+     */
+    public function getCritereSolutions(): Collection
+    {
+        return $this->critereSolutions;
+    }
+
+    public function addCritereSolution(CritereSolution $critereSolution): static
+    {
+        if (!$this->critereSolutions->contains($critereSolution)) {
+            $this->critereSolutions->add($critereSolution);
+            $critereSolution->setCritere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCritereSolution(CritereSolution $critereSolution): static
+    {
+        if ($this->critereSolutions->removeElement($critereSolution)) {
+            // set the owning side to null (unless already changed)
+            if ($critereSolution->getCritere() === $this) {
+                $critereSolution->setCritere(null);
+            }
+        }
 
         return $this;
     }
