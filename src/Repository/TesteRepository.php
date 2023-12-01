@@ -22,10 +22,10 @@ class TesteRepository extends ServiceEntityRepository
     }
     
     
-    public function findByLabel($value,$label): array
+    public function findByLabel($label): array
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('a.label LIKE :inLanguage')
+            ->andWhere('m.label LIKE :inLanguage')
             ->setParameter('inLanguage', '%'.$label.'%')
             ->getQuery()
             ->getResult()
