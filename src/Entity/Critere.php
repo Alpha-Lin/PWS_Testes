@@ -17,9 +17,6 @@ class Critere
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?int $idCritere = null;
-
-    #[ORM\Column]
     private ?float $scoreMax = null;
 
     #[ORM\Column]
@@ -58,18 +55,6 @@ class Critere
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getIdCritere(): ?int
-    {
-        return $this->idCritere;
-    }
-
-    public function setIdCritere(int $idCritere): static
-    {
-        $this->idCritere = $idCritere;
-
-        return $this;
     }
 
     public function getScoreMax(): ?float

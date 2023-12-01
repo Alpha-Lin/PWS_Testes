@@ -1,0 +1,12 @@
+{# templates/admin/questions_tab.html.twig #}
+
+{% extends '@EasyAdmin/crud/field/collection.html.twig' %}
+
+{% block collection_contents %}
+    {% for element in elements %}
+        <div class="collection-entry">
+            {{ easyadmin_render_field_item(form, element.form, {'render_rest': false}) }}
+            {{ easyadmin_render_field_item(form, element.form.solutions, {'render_rest': true}) }}
+        </div>
+    {% endfor %}
+{% endblock %}

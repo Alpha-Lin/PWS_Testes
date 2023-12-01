@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Teste{% endblock %}
+
+{% block body %}
+    <h1>Teste</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ teste.id }}</td>
+            </tr>
+            {% if teste.imageTeste is not empty %}
+            <tr>
+                <th>ImageTeste</th>
+                <td>
+                    <img class="imageTeste" src="{{ asset('img/' ~ teste.imageTeste) }}" alt="teste image">
+                </td>
+                
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_teste_index') }}">back to list</a>
+
+    <a href="{{ path('app_teste_edit', {'id': teste.id}) }}">edit</a>
+
+    {{ include('teste/_delete_form.html.twig') }}
+{% endblock %}

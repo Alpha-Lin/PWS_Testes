@@ -15,9 +15,6 @@ class Question
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $idQuestion = null;
-
     #[ORM\Column(length: 255)]
     private ?string $question = null;
 
@@ -36,18 +33,6 @@ class Question
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getIdQuestion(): ?int
-    {
-        return $this->idQuestion;
-    }
-
-    public function setIdQuestion(int $idQuestion): static
-    {
-        $this->idQuestion = $idQuestion;
-
-        return $this;
     }
 
     public function getQuestion(): ?string
@@ -102,5 +87,10 @@ class Question
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->question;
     }
 }

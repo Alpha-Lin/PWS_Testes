@@ -1,0 +1,62 @@
+{{ form_start(form) }}
+    {{ form_row(form.label) }}
+    {{ form_row(form.description) }}
+
+    <h3>Questions</h3>
+    <ul class="questions"
+        data-index="{{ form.questions|length > 0 ? form.questions|last.vars.name + 1 : 0 }}"
+        data-prototype="{{ form_widget(form.questions.vars.prototype)|e('html_attr') }}"
+    >
+        {% for question in form.questions %}
+            <li>{{ form_row(question.question) }}</li>
+        {% endfor %}
+    </ul>
+
+    <button type="button" class="add_question_link" data-collection-holder-class="questions">Add a question</button>
+
+    <script>
+        const addQuestionFormDeleteLink = (item) => {
+            const removeFormButton = document.createElement('button');
+            removeFormButton.innerText = 'Delete this question';
+
+            item.append(removeFormButton);
+
+            removeFormButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                item.remove();
+            });
+        }
+
+        const addFormToCollection = (e) => {
+            const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+
+            const item = document.createElement('li');
+
+            item.innerHTML = collectionHolder.dataset.prototype.replace(
+              /__name__/g,
+              collectionHolder.dataset.item
+            );
+
+            collectionHolder.appendChild(item);
+
+            collectionHolder.dataset.index++;
+
+            addQuestionFormDeleteLink(item);
+        }; 
+
+        document.querySelectorAll('.add_question_link').forEach(btnAddQuestion => {
+                btnAddQuestion.addEventListener("click", addFormToCollection)
+        });
+    </script>
+
+    {% if teste is defined and teste.imageTeste is not empty %}
+    <tr>
+        <th>ImageTeste</th>
+        <td>
+            <img class="imageTeste" src="{{ asset('img/' ~ teste.imageTeste) }}" alt="teste image">
+        </td>
+    </tr>
+    {% endif %}
+
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TesteRepository;
+use App\Entity\TypeTeste;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -16,24 +17,29 @@ class Teste
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $idTeste = null;
-
-    #[ORM\Column(type: Types::BLOB, nullable: true)]
-    private $imageTeste = null;
-
-    #[ORM\ManyToOne(inversedBy: 'testes')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Utilisateur $createur = null;
-
     #[ORM\OneToMany(mappedBy: 'teste', targetEntity: Tentative::class)]
     private Collection $tentatives;
 
-    #[ORM\OneToMany(mappedBy: 'teste', targetEntity: Question::class)]
+    #[ORM\OneToMany(mappedBy: 'teste', targetEntity: Question::class, cascade: ["persist"])]
     private Collection $questions;
 
     #[ORM\OneToMany(mappedBy: 'teste', targetEntity: Critere::class)]
     private Collection $criteres;
+
+    #[ORM\ManyToOne(inversedBy: 'testes')]
+    private ?User $user = null;
+
+    #[ORM\ManyToOne(inversedBy: 'testes')]
+    private ?TypeTeste $typeTeste = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $label = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $imageTeste = null;
 
     public function __construct()
     {
@@ -45,42 +51,6 @@ class Teste
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getIdTeste(): ?int
-    {
-        return $this->idTeste;
-    }
-
-    public function setIdTeste(int $idTeste): static
-    {
-        $this->idTeste = $idTeste;
-
-        return $this;
-    }
-
-    public function getImageTeste()
-    {
-        return $this->imageTeste;
-    }
-
-    public function setImageTeste($imageTeste): static
-    {
-        $this->imageTeste = $imageTeste;
-
-        return $this;
-    }
-
-    public function getCreateur(): ?Utilisateur
-    {
-        return $this->createur;
-    }
-
-    public function setCreateur(?Utilisateur $createur): static
-    {
-        $this->createur = $createur;
-
-        return $this;
     }
 
     /**
@@ -169,6 +139,71 @@ class Teste
                 $critere->setTeste(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getTypeTeste(): ?TypeTeste
+    {
+        return $this->typeTeste;
+    }
+
+    public function setTypeTeste(?TypeTeste $typeTeste): static
+    {
+        $this->typeTeste = $typeTeste;
+        return $this;
+    }
+
+
+    public function __toString()
+    {
+        return (string) $this->id;
+    }
+
+    public function getLabel(): ?string
+    {
+        return $this->label;
+    }
+
+    public function setLabel(string $label): static
+    {
+        $this->label = $label;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getImageTeste(): ?string
+    {
+        return $this->imageTeste;
+    }
+
+    public function setImageTeste(string $imageTeste): static
+    {
+        $this->imageTeste = $imageTeste;
 
         return $this;
     }
