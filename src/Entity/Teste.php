@@ -17,9 +17,6 @@ class Teste
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::BLOB, nullable: true)]
-    private $imageTeste = null;
-
     #[ORM\OneToMany(mappedBy: 'teste', targetEntity: Tentative::class)]
     private Collection $tentatives;
 
@@ -41,6 +38,9 @@ class Teste
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $imageTeste = null;
+
     public function __construct()
     {
         $this->tentatives = new ArrayCollection();
@@ -51,18 +51,6 @@ class Teste
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getImageTeste()
-    {
-        return $this->imageTeste;
-    }
-
-    public function setImageTeste($imageTeste): static
-    {
-        $this->imageTeste = $imageTeste;
-
-        return $this;
     }
 
     /**
@@ -179,7 +167,8 @@ class Teste
     }
 
 
-    public function __toString() {
+    public function __toString()
+    {
         return (string) $this->id;
     }
 
@@ -203,6 +192,18 @@ class Teste
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getImageTeste(): ?string
+    {
+        return $this->imageTeste;
+    }
+
+    public function setImageTeste(string $imageTeste): static
+    {
+        $this->imageTeste = $imageTeste;
 
         return $this;
     }

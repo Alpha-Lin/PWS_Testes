@@ -11,10 +11,15 @@
                 <th>Id</th>
                 <td>{{ teste.id }}</td>
             </tr>
+            {% if teste.imageTeste is not empty %}
             <tr>
                 <th>ImageTeste</th>
-                <td>{{ teste.imageTeste }}</td>
+                <td>
+                    <img class="imageTeste" src="{{ asset('img/' ~ teste.imageTeste) }}" alt="teste image">
+                </td>
+                
             </tr>
+            {% endif %}
         </tbody>
     </table>
 

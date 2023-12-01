@@ -26,4 +26,5 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 /src/Script/uploads/
+/public/img/*
 
