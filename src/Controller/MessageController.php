@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 #[Route('/message')]
 class MessageController extends AbstractController
@@ -23,7 +25,7 @@ class MessageController extends AbstractController
     }
 
     #[Route('/new', name: 'app_message_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
@@ -31,8 +33,13 @@ class MessageController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($message);
+            $email = (new Email())
+                ->from($message->getSender()->getEmail())
+                ->to($message->getReceiver()->getEmail())
+                ->subject($message->getObjet())
+                ->text($message->getMessage());
+            $mailer->send($email);
             $entityManager->flush();
-
             return $this->redirectToRoute('app_message_index', [], Response::HTTP_SEE_OTHER);
         }
 
