@@ -25,13 +25,17 @@ class Solution
     #[ORM\ManyToMany(targetEntity: Tentative::class, inversedBy: 'solutions')]
     private Collection $tentatives;
 
-    #[ORM\ManyToMany(targetEntity: Critere::class, mappedBy: 'solutions')]
-    private Collection $criteres;
+    #[ORM\ManyToOne(inversedBy: 'solutions')]
+    private ?Critere $critere = null;
+
+    #[ORM\Column]
+    private ?float $point = null;
+
+
 
     public function __construct()
     {
         $this->tentatives = new ArrayCollection();
-        $this->criteres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -87,34 +91,32 @@ class Solution
         return $this;
     }
 
-    /**
-     * @return Collection<int, Critere>
-     */
-    public function getCriteres(): Collection
-    {
-        return $this->criteres;
-    }
-
-    public function addCritere(Critere $critere): static
-    {
-        if (!$this->criteres->contains($critere)) {
-            $this->criteres->add($critere);
-            $critere->addSolution($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCritere(Critere $critere): static
-    {
-        if ($this->criteres->removeElement($critere)) {
-            $critere->removeSolution($this);
-        }
-
-        return $this;
-    }
     public function __toString(): string
     {
         return $nomSolution;
+    }
+
+    public function getCritere(): ?Critere
+    {
+        return $this->critere;
+    }
+
+    public function setCritere(?Critere $critere): static
+    {
+        $this->critere = $critere;
+
+        return $this;
+    }
+
+    public function getPoint(): ?float
+    {
+        return $this->point;
+    }
+
+    public function setPoint(float $point): static
+    {
+        $this->point = $point;
+
+        return $this;
     }
 }

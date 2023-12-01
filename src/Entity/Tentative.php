@@ -23,15 +23,15 @@ class Tentative
     #[ORM\JoinColumn(nullable: false)]
     private ?Teste $teste = null;
 
-    #[ORM\ManyToMany(targetEntity: Solution::class, mappedBy: 'tentatives')]
-    private Collection $solutions;
-
     #[ORM\ManyToOne(inversedBy: 'Tentatives')]
     private ?User $user = null;
 
+    #[ORM\OneToMany(mappedBy: 'tentativ', targetEntity: CritereSolution::class)]
+    private Collection $critereSolutions;
+
     public function __construct()
     {
-        $this->solutions = new ArrayCollection();
+        $this->critereSolutions = new ArrayCollection();
     }
 
 
@@ -64,33 +64,6 @@ class Tentative
         return $this;
     }
 
-    /**
-     * @return Collection<int, Solution>
-     */
-    public function getSolutions(): Collection
-    {
-        return $this->solutions;
-    }
-
-    public function addSolution(Solution $solution): static
-    {
-        if (!$this->solutions->contains($solution)) {
-            $this->solutions->add($solution);
-            $solution->addTentative($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSolution(Solution $solution): static
-    {
-        if ($this->solutions->removeElement($solution)) {
-            $solution->removeTentative($this);
-        }
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -99,6 +72,36 @@ class Tentative
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CritereSolution>
+     */
+    public function getCritereSolutions(): Collection
+    {
+        return $this->critereSolutions;
+    }
+
+    public function addCritereSolution(CritereSolution $critereSolution): static
+    {
+        if (!$this->critereSolutions->contains($critereSolution)) {
+            $this->critereSolutions->add($critereSolution);
+            $critereSolution->setTentativ($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCritereSolution(CritereSolution $critereSolution): static
+    {
+        if ($this->critereSolutions->removeElement($critereSolution)) {
+            // set the owning side to null (unless already changed)
+            if ($critereSolution->getTentativ() === $this) {
+                $critereSolution->setTentativ(null);
+            }
+        }
 
         return $this;
     }
