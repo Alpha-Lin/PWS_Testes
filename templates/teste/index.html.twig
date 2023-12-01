@@ -17,6 +17,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Label</th>
                 <th>ImageTeste</th>
                 <th>actions</th>
             </tr>
@@ -25,6 +26,7 @@
         {% for teste in testes %}
             <tr>
                 <td>{{ teste.id }}</td>
+                <td>{{ teste.label }}</td>
                 <td>{{ teste.imageTeste }}</td>
                 <td>
                     <a href="{{ path('app_teste_show', {'id': teste.id}) }}">show</a>
