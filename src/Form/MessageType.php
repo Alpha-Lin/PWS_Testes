@@ -15,7 +15,6 @@ class MessageType extends AbstractType
             ->add('objet')
             ->add('message')
             ->add('beenSend')
-            ->add('sender')
             ->add('receiver')
         ;
     }

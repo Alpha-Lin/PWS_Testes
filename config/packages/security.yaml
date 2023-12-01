@@ -48,6 +48,8 @@ security:
         - { path: ^/login, role: PUBLIC_ACCESS }
         - { path: ^/teste, role: ROLE_USER }
         - { path: ^/register, role: PUBLIC_ACCESS } 
+        - { path: ^/message, role: ROLE_USER } 
+
         # - { path: ^/home, roles: [ROLE_ADMIN,ROLE_USER] } 
 
 when@test:

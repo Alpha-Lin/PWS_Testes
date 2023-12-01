@@ -32,6 +32,7 @@ class MessageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $message->setSender($this->getUser());
             $entityManager->persist($message);
             $email = (new Email())
                 ->from($message->getSender()->getEmail())
