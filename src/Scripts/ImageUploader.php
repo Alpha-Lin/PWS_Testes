@@ -18,7 +18,7 @@ Class ImageUploader {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = $this->slugger->slug($originalFilename);
 
-        $newname = "img_"  .$safeFilename . '_' . '.' . $file->guessExtension();
+        $newname = "img_"  . $safeFilename . '_' . uniqid() . '_'  . '.' . $file->guessExtension();
 
         if (!getimagesize($file)) {
           throw new ExtensionFileException ("Il y a un probleme avec l'extension.");
