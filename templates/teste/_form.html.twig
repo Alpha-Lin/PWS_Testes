@@ -49,5 +49,14 @@
         });
     </script>
 
+    {% if teste is defined and teste.imageTeste is not empty %}
+    <tr>
+        <th>ImageTeste</th>
+        <td>
+            <img class="imageTeste" src="{{ asset('img/' ~ teste.imageTeste) }}" alt="teste image">
+        </td>
+    </tr>
+    {% endif %}
+
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

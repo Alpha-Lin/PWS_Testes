@@ -19,7 +19,8 @@ class TesteType extends AbstractType
             ->add('label')
             ->add('description')
             ->add('imageTeste', FileType::class, [
-                'required' => false
+                'required' => false,
+                //'data' => null
             ])
             ->add('typeTeste', EntityType::class, [
                 'class' => TypeTeste::class

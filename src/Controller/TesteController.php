@@ -44,7 +44,9 @@ class TesteController extends AbstractController
             foreach ($teste->getQuestions() as $question)
                 $question->setTeste($teste);
 
-            $teste->setImageTeste($uploader->upload($form->get('imageTeste')->getData()));
+            // Vérifie qu'une image est envoyée
+            if ($form->get('imageTeste')->getData() != null)
+                $teste->setImageTeste($uploader->upload($form->get('imageTeste')->getData()));
 
             $entityManager->persist($teste);
             $entityManager->flush();
@@ -67,12 +69,19 @@ class TesteController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_teste_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Teste $teste, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Teste $teste, EntityManagerInterface $entityManager, ScriptsImageUploader $uploader): Response
     {
         $form = $this->createForm(TesteType::class, $teste);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($teste->getQuestions() as $question)
+                $question->setTeste($teste);
+
+            // Vérifie qu'une image est envoyée
+            if ($form->get('imageTeste')->getData() != null)
+                $teste->setImageTeste($uploader->upload($form->get('imageTeste')->getData()));
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_teste_index', [], Response::HTTP_SEE_OTHER);
