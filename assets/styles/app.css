@@ -3,5 +3,37 @@
 @tailwind utilities;
 
 body {
-    background-color: lightgray;
+    background-color: rgba(235, 235, 255, 0.1);
+    object-fit: fill;
+}
+
+.sideBarOptions {
+    display: grid;
+    grid-template-columns: 25% 75%;
+    align-items: center;
+    justify-items: center;
+    color: #ebebff;
+    transition: 300ms ease-in-out;
+}
+
+
+.sideBarOptions:hover {
+    background-color: rgba(1, 255, 98, 0.603);
+    color: #272D3C; 
+}
+
+.backgroundDesktop {
+    background-image: url('../../public/resrc/DesktopBg3.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.backgroundMobile {
+    background-image: url('../../public/resrc/MobileBg3.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.logo {
+    background-image: url('../../public/resrc/StonksQuizz.png');
 }
