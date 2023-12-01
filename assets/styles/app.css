@@ -23,17 +23,17 @@ body {
 }
 
 .backgroundDesktop {
-    background-image: url('../../public/img/DesktopBg3.png');
+    background-image: url('../../public/resrc/DesktopBg3.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .backgroundMobile {
-    background-image: url('../../public/img/MobileBg3.png');
+    background-image: url('../../public/resrc/MobileBg3.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .logo {
-    background-image: url('../../public/img/StonksQuizz.png');
+    background-image: url('../../public/resrc/StonksQuizz.png');
 }
