@@ -6,6 +6,7 @@ use App\Entity\Question;
 use App\Entity\Teste;
 use App\Form\TesteType;
 use App\Repository\TesteRepository;
+use App\Scripts\ImageUploader as ScriptsImageUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,21 +26,25 @@ class TesteController extends AbstractController
 
     // https://symfony.com/doc/current/form/form_collections.html
     #[Route('/new', name: 'app_teste_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, ScriptsImageUploader $uploader): Response
     {
         $teste = new Teste();
-        // Pas sûr
+
         $firstQuestion = new Question();
         $teste->getQuestions()->add($firstQuestion);
-
-        foreach ($teste->getQuestions() as $question)
-            $question->setTeste($teste);
 
         $form = $this->createForm(TesteType::class, $teste);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $teste->setUser($this->getUser());
+
+            $teste->removeQuestion($firstQuestion);
+
+            foreach ($teste->getQuestions() as $question)
+                $question->setTeste($teste);
+
+            $teste->setImageTeste($uploader->upload($form->get('imageTeste')->getData()));
 
             $entityManager->persist($teste);
             $entityManager->flush();

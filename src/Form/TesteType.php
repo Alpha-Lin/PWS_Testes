@@ -20,7 +20,7 @@ class TesteType extends AbstractType
             ->add('description')
             ->add('imageTeste', FileType::class, [
                 'required' => false
-            ]) // Demander Andreas
+            ])
             ->add('typeTeste', EntityType::class, [
                 'class' => TypeTeste::class
             ])
