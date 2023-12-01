@@ -17,11 +17,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class TesteController extends AbstractController
 {
     #[Route('/', name: 'app_teste_index', methods: ['GET'])]
-    public function index(Request $request,TesteRepository $testeRepository): Response
+    public function index(Request $request, TesteRepository $testeRepository): Response
     {
         $name = $request->query->get('name');
         //$tests = $testeRepository->findByLabel($name);
-        if(is_null($name)){
+        if (is_null($name)) {
             $name = "";
         }
 
@@ -35,15 +35,15 @@ class TesteController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager, ScriptsImageUploader $uploader): Response
     {
         $teste = new Teste();
+
         $firstQuestion = new Question();
         $teste->getQuestions()->add($firstQuestion);
+
         $form = $this->createForm(TesteType::class, $teste);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $teste->setUser($this->getUser());
-
-            $teste->removeQuestion($firstQuestion);
 
             foreach ($teste->getQuestions() as $question)
                 $question->setTeste($teste);

@@ -32,9 +32,10 @@
 
             const item = document.createElement('li');
 
+            console.log(item)
             item.innerHTML = collectionHolder.dataset.prototype.replace(
               /__name__/g,
-              collectionHolder.dataset.item
+              collectionHolder.dataset.index
             );
 
             collectionHolder.appendChild(item);

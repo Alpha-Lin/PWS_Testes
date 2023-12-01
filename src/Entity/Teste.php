@@ -20,7 +20,7 @@ class Teste
     #[ORM\OneToMany(mappedBy: 'teste', targetEntity: Tentative::class)]
     private Collection $tentatives;
 
-    #[ORM\OneToMany(mappedBy: 'teste', targetEntity: Question::class, cascade: ["persist"])]
+    #[ORM\OneToMany(mappedBy: 'teste', targetEntity: Question::class, cascade: ["all"])]
     private Collection $questions;
 
     #[ORM\OneToMany(mappedBy: 'teste', targetEntity: Critere::class)]
