@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use App\Entity\User;
 use App\Entity\Teste;
 use App\Entity\TypeTeste;
+use App\Entity\Message;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -52,6 +53,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class);
         yield MenuItem::linkToCrud('Type de teste', 'fas fa-tags', TypeTeste::class);
         yield MenuItem::linkToCrud('Testes', 'fas fa-bars-staggered', Teste::class)->setController(TesteCrudController::class);
-        yield MenuItem::linkToCrud('Tentatives', 'fas fa-list-check', Tentative::class);            
+        yield MenuItem::linkToCrud('Tentatives', 'fas fa-list-check', Tentative::class);  
+        yield MenuItem::linkToCrud('Message', 'fas fa-list-letter', Message::class);              
     }
 }

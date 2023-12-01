@@ -40,6 +40,7 @@ class MessageController extends AbstractController
                 ->subject($message->getObjet())
                 ->text($message->getMessage());
             $mailer->send($email);
+            $message->setBeenSend(true);
             $entityManager->flush();
             return $this->redirectToRoute('app_message_index', [], Response::HTTP_SEE_OTHER);
         }
