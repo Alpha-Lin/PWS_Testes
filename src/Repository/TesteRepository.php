@@ -20,6 +20,17 @@ class TesteRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Teste::class);
     }
+    
+    
+    public function findByLabel($label): array
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.label LIKE :inLanguage')
+            ->setParameter('inLanguage', '%'.$label.'%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    /**
 //     * @return Teste[] Returns an array of Teste objects
