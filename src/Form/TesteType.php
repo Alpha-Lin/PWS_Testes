@@ -12,6 +12,8 @@ class TesteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('label')
+            ->add('description')
             ->add('imageTeste')
             ->add('typeTeste')
         ;
