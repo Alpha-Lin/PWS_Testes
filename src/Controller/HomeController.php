@@ -16,10 +16,12 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/dashboard', name: 'user_index')]
-    public function logged_index(): Response
+    #[Route('/dashboard', name:'user_index')]
+    public function user_index(): Response
     {
         return $this->render('home/dashboard.html.twig');
     }
+
+
 
 }
