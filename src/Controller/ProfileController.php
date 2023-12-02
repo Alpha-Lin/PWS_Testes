@@ -36,15 +36,9 @@ class ProfileController extends AbstractController
     {
         $user = $this->getUser();
         if (!$user) {
-<<<<<<< HEAD
             return $this->redirectToRoute('app_login');
-=======
-            return $this->render('auth/index.html.twig', [
-                'user' => $this->getUser(),
-            ]);
->>>>>>> 945145afef309b36daa594edf8b2340629f07c15
         }
-
+        
         return $this->render('profile/show.html.twig', [
             'user' => $this->getUser(),
         ]);
