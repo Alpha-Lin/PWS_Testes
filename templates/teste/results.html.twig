@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos résultats{% endblock %}
+
+{% block body %}
+<div>
+  <canvas id="myChart"></canvas>
+</div>
+
+
+
+<script type="module" src="{{ asset('/javascript/acquisitions.js') }}">
+</script>
+
+
+{% endblock %}
