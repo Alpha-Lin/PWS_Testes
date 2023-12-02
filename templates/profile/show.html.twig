@@ -27,7 +27,12 @@
             </tr>
             <tr>
                 <th>Avatar</th>
-                <img class="imageTeste" src="{{ asset(uploaded_image ~ user.avatar) }}" alt="teste image">
+                
+                {% if user.avatar %}
+                    <img class="imageTeste" src="{{ asset(uploaded_image ~ user.avatar) }}" alt="avatar image">
+                {% else %}
+                    <img class="imageTeste" src="{{ asset(default_avatar) }}" alt="avatar image" width="200">
+                {% endif %}
             </tr>
         </tbody>
     </table>
