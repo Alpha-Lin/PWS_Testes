@@ -28,3 +28,4 @@ yarn-error.log
 /src/Script/uploads/
 public/uploads/img/*
 public/img/*
+.idea/

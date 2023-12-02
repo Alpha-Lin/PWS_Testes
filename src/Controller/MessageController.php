@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 
-#[Route('/message')]
+#[Route('/contact')]
 class MessageController extends AbstractController
 {
     #[Route('/', name: 'app_message_index', methods: ['GET'])]
@@ -40,6 +40,7 @@ class MessageController extends AbstractController
                 ->subject($message->getObjet())
                 ->text($message->getMessage());
             $mailer->send($email);
+            $message->setBeenSend(true);
             $entityManager->flush();
             return $this->redirectToRoute('app_message_index', [], Response::HTTP_SEE_OTHER);
         }
