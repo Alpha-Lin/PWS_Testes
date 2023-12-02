@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
@@ -38,7 +39,7 @@ class ProfileController extends AbstractController
         if (!$user) {
             return $this->redirectToRoute('app_login');
         }
-        
+
         return $this->render('profile/show.html.twig', [
             'user' => $this->getUser(),
         ]);
@@ -79,6 +80,7 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+  
             $existingUsernameUser = $userRepository->findOneBy(['username' => $user->getUsername()]);
             $existingEmailUser = $userRepository->findOneBy(['email' => $user->getEmail()]);
 
@@ -86,20 +88,22 @@ class ProfileController extends AbstractController
                 $form->get('username')->addError(new FormError('Pseudo non disponible.'));
             }
 
+            
+            if ($existingEmailUser && $existingEmailUser->getId() !== $user->getId()) {
+                $form->get('email')->addError(new FormError('Cet email est deja utilise.'));
+            }    
+
             if (!$form->getErrors()->count()) {
                 $user->setUsername($form->get('username')->getData());
                 $user->setEmail($form->get('email')->getData());
 
-                if ($existingEmailUser && $existingEmailUser->getId() !== $user->getId()) {
-                    $form->get('email')->addError(new FormError('Cet email est deja utilise.'));
-                }    
 
                 if ($form->get('avatar')->getData() != null) {
                     $user->setAvatar($uploader->upload($form->get('avatar')->getData()));
                 }
 
                 $entityManager->flush();
-                return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_profile', [], Response::HTTP_SEE_OTHER);
             }
         }
 
