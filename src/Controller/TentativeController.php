@@ -29,30 +29,31 @@ class TentativeController extends AbstractController
     }
 
     #[Route('/new', name: 'app_tentative_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, Teste $test = null): Response
     {
         $tentative = new Tentative();
         $form = $this->createForm(TentativeType::class, $tentative);
         $form->handleRequest($request);
         //$questionRepository = new QuestionRepository();
-        $test = new Teste(); // a changer plus tard
-        $tentative->setTeste($test);
-        $question1 = new Question();
-        $question2 = new Question();
-        
-        $question1->setQuestion("Chien ou banane");
-        
-        $solution1 = new Solution();
-        $solution1->setNomSolution("banane");
-        $question1->addSolution($solution1);
-        
-        $solution2 = new Solution();
-        $solution2->setNomSolution("chien");
-        $question1->addSolution($solution2);
-        
-        $test->addQuestion($question1);
-        $test->addQuestion($question2);
-        
+        if(is_null($test)){
+            $test = new Teste(); // a changer plus tard
+            $tentative->setTeste($test);
+            $question1 = new Question();
+            $question2 = new Question();
+
+            $question1->setQuestion("Chien ou banane");
+
+            $solution1 = new Solution();
+            $solution1->setNomSolution("banane");
+            $question1->addSolution($solution1);
+
+            $solution2 = new Solution();
+            $solution2->setNomSolution("chien");
+            $question1->addSolution($solution2);
+
+            $test->addQuestion($question1);
+            $test->addQuestion($question2);
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($tentative);
@@ -63,7 +64,7 @@ class TentativeController extends AbstractController
         return $this->render('tentative/new.html.twig', [
             'tentative' => $tentative,
             'form' => $form,
-            'questions' => $tentative->getTeste()->getQuestions() //change later
+            'questions' => $tentative->getTeste()->getQuestions()
         ]);
     }
 
