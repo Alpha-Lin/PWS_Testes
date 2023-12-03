@@ -19,7 +19,7 @@ class Solution
     private ?string $nomSolution = null;
 
     #[ORM\ManyToOne(inversedBy: 'solutions')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)] //a changer plus tard
     private ?Question $Question = null;
 
     #[ORM\ManyToMany(targetEntity: Tentative::class, inversedBy: 'solutions')]

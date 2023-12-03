@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Tentative;
 use App\Entity\Teste;
 use App\Entity\Question;
+use App\Entity\Solution;
 
 use App\Form\TentativeType;
 use App\Repository\TentativeRepository;
@@ -38,8 +39,20 @@ class TentativeController extends AbstractController
         $tentative->setTeste($test);
         $question1 = new Question();
         $question2 = new Question();
+        
+        $question1->setQuestion("Chien ou banane");
+        
+        $solution1 = new Solution();
+        $solution1->setNomSolution("banane");
+        $question1->addSolution($solution1);
+        
+        $solution2 = new Solution();
+        $solution2->setNomSolution("chien");
+        $question1->addSolution($solution2);
+        
         $test->addQuestion($question1);
         $test->addQuestion($question2);
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($tentative);

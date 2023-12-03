@@ -8,10 +8,12 @@
     {{ include('tentative/_form.html.twig') }}
 
     {% for question in questions %}
-        <p>test</p>
-        <select name="marque">
-            <option value="0" >Choix de la marque</option>
-
+        <p>{{question.question }}</p>
+        <select name="choice">
+            <option value="0" > </option>
+            {% for solution in question.solutions %}
+                <option value="{{ solution.nomSolution }}">{{ solution.nomSolution }}</option>
+            {% endfor %}
         </select>
     {% endfor %}
 
