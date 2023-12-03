@@ -71,7 +71,7 @@ Encore
     // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
     .addAliases({
-        'chart.js': 'chart.js/dist/charts.js'
+        'chart.js': 'chart.js'
     });
 ;
 

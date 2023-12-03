@@ -3,14 +3,31 @@
 {% block title %}Vos résultats{% endblock %}
 
 {% block body %}
-<div>
-  <canvas id="myChart"></canvas>
-</div>
 
 
 
-<script type="module" src="{{ asset('/javascript/acquisitions.js') }}">
-</script>
+<canvas id="graph"></canvas>
+
+<!--  !!! LA MANIÈRE DONT LES DONNÉES SONT PASSÉES AU JS VA CHANGER -->
+
+<!-- Diagramme baton 
+<div class="js-graph-params" data-val='[{"crit":"nom1", "val":5}, {"crit":"nom2", "val":10}, {"crit":"nom3", "val":15}, {"crit":"nom4", "val":20}, {"crit":"nom5", "val":25}, {"crit":"nom6", "val":100}]'>
+
+<script type="module" src="{{ asset('javascript/frequence.js') }}"></script>
+-->
+
+<!-- "8values" type graph -->
+<div class="js-graph-params" data-val='[
+  {"borne":5s0},
+  {"crit1":"A", "crit2":"B", "val":-20}, 
+  {"crit1":"A", "crit2":"B", "val":10}, 
+  {"crit1":"A", "crit2":"B", "val":-5}, 
+  {"crit1":"A", "crit2":"B", "val":30}, 
+  {"crit1":"A", "crit2":"B", "val":0}, 
+  {"crit1":"A", "crit2":"B", "val":15}
+]'>
+
+<script type="module" src="{{ asset('javascript/8values.js') }}"></script>
 
 
 {% endblock %}
