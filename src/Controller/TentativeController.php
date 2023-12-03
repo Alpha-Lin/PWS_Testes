@@ -3,8 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Tentative;
+use App\Entity\Teste;
+use App\Entity\Question;
+
 use App\Form\TentativeType;
 use App\Repository\TentativeRepository;
+//use App\Repository\QuestionRepository;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,6 +33,13 @@ class TentativeController extends AbstractController
         $tentative = new Tentative();
         $form = $this->createForm(TentativeType::class, $tentative);
         $form->handleRequest($request);
+        //$questionRepository = new QuestionRepository();
+        $test = new Teste(); // a changer plus tard
+        $tentative->setTeste($test);
+        $question1 = new Question();
+        $question2 = new Question();
+        $test->addQuestion($question1);
+        $test->addQuestion($question2);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($tentative);
@@ -35,10 +47,10 @@ class TentativeController extends AbstractController
 
             return $this->redirectToRoute('app_tentative_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->render('tentative/new.html.twig', [
             'tentative' => $tentative,
             'form' => $form,
+            'questions' => $tentative->getTeste()->getQuestions() //change later
         ]);
     }
 

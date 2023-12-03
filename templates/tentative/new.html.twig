@@ -7,5 +7,14 @@
 
     {{ include('tentative/_form.html.twig') }}
 
+    {% for question in questions %}
+        <p>test</p>
+        <select name="marque">
+            <option value="0" >Choix de la marque</option>
+
+        </select>
+    {% endfor %}
+
+
     <a href="{{ path('app_tentative_index') }}">back to list</a>
 {% endblock %}
