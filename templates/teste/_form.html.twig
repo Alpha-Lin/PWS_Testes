@@ -7,6 +7,28 @@
         data-index="{{ form.criteres|length > 0 ? form.criteres|last.vars.name + 1 : 0 }}"
         data-prototype="{{ form_widget(form.criteres.vars.prototype)|e('html_attr') }}"
     >
+        {% for critere in form.criteres %}
+            <li>{{ form_row(critere.scoreMax) }}</li>
+            <li>{{ form_row(critere.scoreDefaut) }}</li>
+            <li>{{ form_row(critere.interpretationMaxTexte) }}</li>
+            <li>{{ form_row(critere.interpretationMinTexte) }}</li>
+            <li>{{ form_row(critere.interpretationMaxCouleur) }}</li>
+            <li>{{ form_row(critere.interpretationMinCouleur) }}</li>
+            <li>
+                {{ form_row(critere.interpretationMaxImage) }}
+            
+                {% if critere.vars.value.interpretationMaxImage is not empty %}
+                    <img class="imageCritereMax" src="{{ asset(uploaded_image ~ critere.vars.value.interpretationMaxImage) }}" alt="Critère max image">
+                {% endif %}
+            </li>
+            <li>
+                {{ form_row(critere.interpretationMinImage) }}
+                
+                {% if critere.vars.value.interpretationMinImage is not empty %}
+                    <img class="imageCritereMax" src="{{ asset(uploaded_image ~ critere.vars.value.interpretationMinImage) }}" alt="Critère min image">
+                {% endif %}
+            </li>
+        {% endfor %}
     </ul>
     
     <button type="button" class="add_critere_link" data-collection-holder-class="criteres">Add a critere</button>
@@ -18,16 +40,30 @@
     >
         {% for question in form.questions %}
             <li>{{ form_row(question.question) }}</li>
+            <li>
+                <h3>Solutions</h3>
+                <ul class="solutions"
+                    data-index="{{ question.solutions|length > 0 ? question.solutions|last.vars.name + 1 : 0 }}"
+                    data-prototype="{{ form_widget(question.solutions.vars.prototype)|e('html_attr') }}"
+                >
+                    {% for solution in question.solutions %}
+                        <li>{{ form_row(solution.nomSolution) }}</li>
+                        <li>{{ form_row(solution.point) }}</li>
+                        <li>{{ form_row(solution.critere) }}</li>
+                    {% endfor %}
+                </ul>
+
+                <button type="button" class="add_solution_link" data-collection-holder-class="solutions">Add a solution</button>
+            </li>
         {% endfor %}
     </ul>
     
     <button type="button" class="add_question_link" data-collection-holder-class="questions">Add a question</button>
 
     <script>
-        // Questions
-        const addQuestionFormDeleteLink = (item) => {
+        const addFormDeleteLink = (item, msg) => {
             const removeFormButton = document.createElement('button');
-            removeFormButton.innerText = 'Delete this question';
+            removeFormButton.innerText = 'Delete this ' + msg;
 
             item.append(removeFormButton);
 
@@ -37,7 +73,7 @@
             });
         }
 
-        const addQuestionFormToCollection = (e) => {
+        const addFormToCollection = (e) => {
             const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
 
             const item = document.createElement('li');
@@ -51,54 +87,29 @@
 
             collectionHolder.dataset.index++;
 
-            addQuestionFormDeleteLink(item);
+            let msg = "";
+
+            switch(e.currentTarget.className){
+                case "add_question_link":
+                    msg = "question";
+                    break;
+                case "add_critere_link":
+                    msg = "critere";
+                    break;
+                case "add_solution_link":
+                    msg = "solution";
+                    break;
+            }
+
+            addFormDeleteLink(item, msg);
         }; 
 
-        document.querySelectorAll('.add_question_link').forEach(btnAddQuestion => {
-                btnAddQuestion.addEventListener("click", addQuestionFormToCollection)
-        });
-
-        // Critères
-        const addCritereFormDeleteLink = (item) => {
-            const removeFormButton = document.createElement('button');
-            removeFormButton.innerText = 'Delete this critere';
-
-            item.append(removeFormButton);
-
-            removeFormButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                item.remove();
-            });
-        }
-
-        const addCritereFormToCollection = (e) => {
-            const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
-
-            const item = document.createElement('li');
-
-            item.innerHTML = collectionHolder.dataset.prototype.replace(
-              /__name__/g,
-              collectionHolder.dataset.index
-            );
-
-            collectionHolder.appendChild(item);
-
-            collectionHolder.dataset.index++;
-
-            addCritereFormDeleteLink(item);
-        };
-
-        document.querySelectorAll('.add_critere_link').forEach(btnAddCritere => {
-                btnAddCritere.addEventListener("click", addCritereFormToCollection)
+        document.querySelectorAll('.add_solution_link, .add_question_link, .add_critere_link').forEach(btnAdd => {
+            btnAdd.addEventListener("click", addFormToCollection)
         });
     </script>
 
     {% if teste is defined and teste.imageTeste is not empty %}
-    <tr>
-        <th>ImageTeste</th>
-        <td>
-            <img class="imageTeste" src="{{ asset(uploaded_image ~ teste.imageTeste) }}" alt="teste image">
-        </td>
-    </tr>
+        <img class="imageTeste" src="{{ asset(uploaded_image ~ teste.imageTeste) }}" alt="teste image">
     {% endif %}
 {{ form_end(form) }}

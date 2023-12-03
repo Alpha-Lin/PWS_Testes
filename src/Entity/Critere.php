@@ -228,4 +228,9 @@ class Critere
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return "Critère n°" . $this->id;
+    }
 }

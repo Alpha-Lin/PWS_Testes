@@ -15,6 +15,7 @@ class QuestionType extends AbstractType
         $builder
             ->add('question')
             ->add('solutions', CollectionType::class, [
+                'label' => false,
                 'entry_type' => SolutionType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
