@@ -38,10 +38,10 @@ class Critere
     #[ORM\Column]
     private ?int $interpretationMinCouleur = null;
 
-    #[ORM\Column(type: Types::BLOB)]
+    #[ORM\Column(length: 255, nullable: true)]
     private $interpretationMaxImage = null;
 
-    #[ORM\Column(type: Types::BLOB)]
+    #[ORM\Column(length: 255, nullable: true)]
     private $interpretationMinImage = null;
 
     #[ORM\OneToMany(mappedBy: 'critere', targetEntity: Solution::class)]
@@ -145,24 +145,24 @@ class Critere
         return $this;
     }
 
-    public function getInterpretationMaxImage()
+    public function getInterpretationMaxImage(): ?string
     {
         return $this->interpretationMaxImage;
     }
 
-    public function setInterpretationMaxImage($interpretationMaxImage): static
+    public function setInterpretationMaxImage(string $interpretationMaxImage): static
     {
         $this->interpretationMaxImage = $interpretationMaxImage;
 
         return $this;
     }
 
-    public function getInterpretationMinImage()
+    public function getInterpretationMinImage(): ?string
     {
         return $this->interpretationMinImage;
     }
 
-    public function setInterpretationMinImage($interpretationMinImage): static
+    public function setInterpretationMinImage(string $interpretationMinImage): static
     {
         $this->interpretationMinImage = $interpretationMinImage;
 
@@ -227,5 +227,10 @@ class Critere
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return "Critère n°" . $this->id;
     }
 }
