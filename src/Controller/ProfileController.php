@@ -3,14 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\UserType;
+use App\Form\ResetPasswordType;
+use App\Form\EditUserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use App\Security\LoginAuthenticator;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -25,9 +28,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\EqualTo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
 use App\Scripts\ImageUploader;
-
 
 #[Route('/profile')]
 class ProfileController extends AbstractController
@@ -46,37 +47,14 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/edit', name: 'app_profile_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, EntityManagerInterface $entityManager, ImageUploader $uploader, UserRepository $userRepository): Response
+    public function edit(
+        Request $request, EntityManagerInterface $entityManager, ImageUploader $uploader, UserRepository $userRepository,
+        UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator
+        ): Response
     {
         $user = $this->getUser();
 
-        $form = $this->createFormBuilder($user)
-            ->add('username', TextType::class, [
-                'constraints' => [
-                    new NotBlank(),
-                ],
-            ])
-            ->add('email', EmailType::class, [
-                'constraints' => [
-                    new NotBlank(),
-                ],
-            ])
-            ->add('avatar', FileType::class, [
-                'required' => false,
-                'data_class' => null,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/png',
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid image file',
-                    ]),
-                ],
-            ])
-            ->getForm();
-        
+        $form = $this->createForm(EditUserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -103,7 +81,9 @@ class ProfileController extends AbstractController
                 }
 
                 $entityManager->flush();
-                return $this->redirectToRoute('app_profile', [], Response::HTTP_SEE_OTHER);
+                return $this->render('profile/show.html.twig', [
+                    'user' => $user
+                ]);
             }
         }
 
@@ -112,5 +92,45 @@ class ProfileController extends AbstractController
             'form' => $form
         ]);
 
+    }
+
+    #[Route('/edit-password', name: 'app_profile_password_reset', methods: ['GET', 'POST'])]
+    public function editPassword(
+        Request $request, EntityManagerInterface $entityManager, ImageUploader $uploader, UserRepository $userRepository,
+        UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator,
+        UserPasswordHasherInterface  $userPasswordHasher
+    ): Response
+    {
+        $user = $this->getUser();
+
+        $form = $this->createForm(ResetPasswordType::class);
+        $form->handleRequest($request);
+ 
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
+            $oldPassword =  $form->get('oldPassword')->getData();
+            if (!$userPasswordHasher->isPasswordValid($user, $oldPassword)) {
+                $form->get('oldPassword')->addError(new FormError('Mauvais mot de passe.'));
+            } else {
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        $form->get('newPassword')->getData()
+                    )
+                );
+
+                $entityManager->flush(); 
+                $this->addFlash('success', 'Votre password vient d\'etre mis a jour.');
+                return $this->render('profile/show.html.twig', [
+                    'user' => $user
+                ]);
+            }
+        }
+
+        return $this->render('profile/edit_password.html.twig', [
+            'user' => $user,
+            'form' => $form
+        ]);
     }
 }
