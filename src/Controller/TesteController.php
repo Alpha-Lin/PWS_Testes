@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 
 #[Route('/teste')]
 class TesteController extends AbstractController
@@ -124,5 +125,12 @@ class TesteController extends AbstractController
         }
 
         return $this->redirectToRoute('app_teste_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/results', name: 'app_teste_results', methods: ['GET'])]
+    public function results(Request $request, Teste $teste): Response
+    {
+        
+        return $this->render('teste/results.html.twig');
     }
 }
