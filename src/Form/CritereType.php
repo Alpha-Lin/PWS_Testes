@@ -22,11 +22,13 @@ class CritereType extends AbstractType
             ->add('interpretationMinCouleur')
             ->add('interpretationMaxImage', FileType::class, [
                 'required' => false,
-                'data_class' => null
+                'data_class' => null,
+                'mapped' => false
             ])
             ->add('interpretationMinImage', FileType::class, [
                 'required' => false,
-                'data_class' => null
+                'data_class' => null,
+                'mapped' => false
             ]);
     }
 
