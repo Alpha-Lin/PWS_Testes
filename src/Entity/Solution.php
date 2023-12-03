@@ -93,7 +93,7 @@ class Solution
 
     public function __toString(): string
     {
-        return $nomSolution;
+        return $this->nomSolution;
     }
 
     public function getCritere(): ?Critere
