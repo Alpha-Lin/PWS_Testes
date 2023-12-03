@@ -31,8 +31,6 @@ class Solution
     #[ORM\Column]
     private ?float $point = null;
 
-
-
     public function __construct()
     {
         $this->tentatives = new ArrayCollection();
