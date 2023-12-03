@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Question;
+use App\Entity\Critere;
 use App\Entity\Teste;
 use App\Form\TesteType;
 use App\Repository\TesteRepository;
@@ -36,30 +37,36 @@ class TesteController extends AbstractController
     {
         $teste = new Teste();
 
-        $firstQuestion = new Question();
-        $teste->getQuestions()->add($firstQuestion);
-
         $form = $this->createForm(TesteType::class, $teste);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $teste->setUser($this->getUser());
 
-            foreach ($teste->getQuestions() as $question)
-                $question->setTeste($teste);
+            // Vérifie si des images sont envoyées pour les critères
+            $indexCriteres = 0;
 
-            // Vérifie qu'une image est envoyée
+            foreach ($teste->getCriteres() as $critere) {
+                if ($form->get('criteres')->get($indexCriteres)->get('interpretationMaxImage')->getData() != null)
+                    $critere->setInterpretationMaxImage($uploader->upload($form->get('criteres')->get(0)->get('interpretationMaxImage')->getData()));
+                if ($form->get('criteres')->get($indexCriteres)->get('interpretationMinImage')->getData() != null)
+                    $critere->setInterpretationMinImage($uploader->upload($form->get('criteres')->get(0)->get('interpretationMinImage')->getData()));
+
+                $indexCriteres++;
+            }
+
+            // Vérifie qu'une image est envoyée pour le teste
             if ($form->get('imageTeste')->getData() != null)
                 $teste->setImageTeste($uploader->upload($form->get('imageTeste')->getData()));
 
             $entityManager->persist($teste);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_teste_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_teste_edit', ['id' => $teste->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('teste/new.html.twig', [
-            //'teste' => $teste,
+            'teste' => $teste,
             'form' => $form,
         ]);
     }
@@ -75,20 +82,31 @@ class TesteController extends AbstractController
     #[Route('/{id}/edit', name: 'app_teste_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Teste $teste, EntityManagerInterface $entityManager, ScriptsImageUploader $uploader): Response
     {
+        
         $form = $this->createForm(TesteType::class, $teste);
+            
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            foreach ($teste->getQuestions() as $question)
-                $question->setTeste($teste);
+            // Vérifie si des images sont envoyées pour les critères
+            $indexCriteres = 0;
 
+            foreach ($teste->getCriteres() as $critere) {
+                if ($form->get('criteres')->get($indexCriteres)->get('interpretationMaxImage')->getData() != null)
+                    $critere->setInterpretationMaxImage($uploader->upload($form->get('criteres')->get(0)->get('interpretationMaxImage')->getData()));
+                if ($form->get('criteres')->get($indexCriteres)->get('interpretationMinImage')->getData() != null)
+                    $critere->setInterpretationMinImage($uploader->upload($form->get('criteres')->get(0)->get('interpretationMinImage')->getData()));
+
+                $indexCriteres++;
+            }
+ 
             // Vérifie qu'une image est envoyée
             if ($form->get('imageTeste')->getData() != null)
                 $teste->setImageTeste($uploader->upload($form->get('imageTeste')->getData()));
 
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_teste_index', [], Response::HTTP_SEE_OTHER);
+  
+            return $this->redirectToRoute('app_teste_edit', ['id' => $teste->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('teste/edit.html.twig', [

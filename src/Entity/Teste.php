@@ -23,7 +23,7 @@ class Teste
     #[ORM\OneToMany(mappedBy: 'teste', targetEntity: Question::class, cascade: ["all"])]
     private Collection $questions;
 
-    #[ORM\OneToMany(mappedBy: 'teste', targetEntity: Critere::class)]
+    #[ORM\OneToMany(mappedBy: 'teste', targetEntity: Critere::class, cascade: ["all"])]
     private Collection $criteres;
 
     #[ORM\ManyToOne(inversedBy: 'testes')]

@@ -22,7 +22,7 @@ class Question
     #[ORM\JoinColumn(nullable: false)]
     private ?Teste $teste = null;
 
-    #[ORM\OneToMany(mappedBy: 'Question', targetEntity: Solution::class)]
+    #[ORM\OneToMany(mappedBy: 'Question', targetEntity: Solution::class, cascade: ["all"])]
     private Collection $solutions;
 
     public function __construct()
