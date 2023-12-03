@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\auth;
+namespace App\Controller\Auth;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,8 +15,7 @@ class LoginController extends AbstractController
         if ($this->getUser()) {
             return $this->redirectToRoute('user_index');
         }
-
-
+        
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user

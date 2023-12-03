@@ -12,6 +12,7 @@ security:
             entity:
                 class: App\Entity\User
                 property: username
+                
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -29,6 +30,9 @@ security:
                 login_path: app_login
                 check_path: app_login
                 enable_csrf: true
+                default_target_path: user_index
+                always_use_default_target_path: true
+
             logout:
                 path: app_logout
                 target: public_index
