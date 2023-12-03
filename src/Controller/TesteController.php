@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Question;
+use App\Entity\Critere;
 use App\Entity\Teste;
 use App\Form\TesteType;
 use App\Repository\TesteRepository;
@@ -36,14 +37,21 @@ class TesteController extends AbstractController
     {
         $teste = new Teste();
 
-        $firstQuestion = new Question();
-        $teste->getQuestions()->add($firstQuestion);
-
         $form = $this->createForm(TesteType::class, $teste);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $teste->setUser($this->getUser());
+
+            foreach ($teste->getCriteres() as $critere) {
+                $critere->setTeste($teste);
+
+                // À changer pour les critères
+                if ($form->get('imageTeste')->getData() != null)
+                    $critere->setInterpretationMaxImage($uploader->upload($form->get('imageTeste')->getData()));
+                if ($form->get('imageTeste')->getData() != null)
+                    $critere->setInterpretationMinImage($uploader->upload($form->get('imageTeste')->getData()));
+            }
 
             foreach ($teste->getQuestions() as $question)
                 $question->setTeste($teste);
@@ -59,7 +67,7 @@ class TesteController extends AbstractController
         }
 
         return $this->render('teste/new.html.twig', [
-            //'teste' => $teste,
+            'teste' => $teste,
             'form' => $form,
         ]);
     }

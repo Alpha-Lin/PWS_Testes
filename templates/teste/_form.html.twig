@@ -2,6 +2,25 @@
     {{ form_row(form.label) }}
     {{ form_row(form.description) }}
 
+    <h3>Critères</h3>
+    <ul class="criteres"
+        data-index="{{ form.criteres|length > 0 ? form.criteres|last.vars.name + 1 : 0 }}"
+        data-prototype="{{ form_widget(form.criteres.vars.prototype)|e('html_attr') }}"
+    >
+        {% for critere in form.criteres %}
+            <li>{{ form_row(critere.scoreMax) }}</li>
+            <li>{{ form_row(critere.scoreDefaut) }}</li>
+            <li>{{ form_row(critere.interpretationMaxTexte) }}</li>
+            <li>{{ form_row(critere.interpretationMinTexte) }}</li>
+            <li>{{ form_row(critere.interpretationMaxCouleur) }}</li>
+            <li>{{ form_row(critere.interpretationMinCouleur) }}</li>
+            <li>{{ form_row(critere.interpretationMaxImage) }}</li>
+            <li>{{ form_row(critere.interpretationMinImage) }}</li>
+        {% endfor %}
+    </ul>
+    
+    <button type="button" class="add_critere_link" data-collection-holder-class="criteres">Add a critere</button>
+
     <h3>Questions</h3>
     <ul class="questions"
         data-index="{{ form.questions|length > 0 ? form.questions|last.vars.name + 1 : 0 }}"
@@ -11,10 +30,11 @@
             <li>{{ form_row(question.question) }}</li>
         {% endfor %}
     </ul>
-
+    
     <button type="button" class="add_question_link" data-collection-holder-class="questions">Add a question</button>
 
     <script>
+        // Questions
         const addQuestionFormDeleteLink = (item) => {
             const removeFormButton = document.createElement('button');
             removeFormButton.innerText = 'Delete this question';
@@ -27,12 +47,11 @@
             });
         }
 
-        const addFormToCollection = (e) => {
+        const addQuestionFormToCollection = (e) => {
             const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
 
             const item = document.createElement('li');
 
-            console.log(item)
             item.innerHTML = collectionHolder.dataset.prototype.replace(
               /__name__/g,
               collectionHolder.dataset.index
@@ -46,7 +65,41 @@
         }; 
 
         document.querySelectorAll('.add_question_link').forEach(btnAddQuestion => {
-                btnAddQuestion.addEventListener("click", addFormToCollection)
+                btnAddQuestion.addEventListener("click", addQuestionFormToCollection)
+        });
+
+        // Critères
+        const addCritereFormDeleteLink = (item) => {
+            const removeFormButton = document.createElement('button');
+            removeFormButton.innerText = 'Delete this critere';
+
+            item.append(removeFormButton);
+
+            removeFormButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                item.remove();
+            });
+        }
+
+        const addCritereFormToCollection = (e) => {
+            const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+
+            const item = document.createElement('li');
+
+            item.innerHTML = collectionHolder.dataset.prototype.replace(
+              /__name__/g,
+              collectionHolder.dataset.index
+            );
+
+            collectionHolder.appendChild(item);
+
+            collectionHolder.dataset.index++;
+
+            addCritereFormDeleteLink(item);
+        };
+
+        document.querySelectorAll('.add_critere_link').forEach(btnAddCritere => {
+                btnAddCritere.addEventListener("click", addCritereFormToCollection)
         });
     </script>
 
@@ -58,6 +111,4 @@
         </td>
     </tr>
     {% endif %}
-
-    <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
