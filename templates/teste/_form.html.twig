@@ -7,16 +7,6 @@
         data-index="{{ form.criteres|length > 0 ? form.criteres|last.vars.name + 1 : 0 }}"
         data-prototype="{{ form_widget(form.criteres.vars.prototype)|e('html_attr') }}"
     >
-        {% for critere in form.criteres %}
-            <li>{{ form_row(critere.scoreMax) }}</li>
-            <li>{{ form_row(critere.scoreDefaut) }}</li>
-            <li>{{ form_row(critere.interpretationMaxTexte) }}</li>
-            <li>{{ form_row(critere.interpretationMinTexte) }}</li>
-            <li>{{ form_row(critere.interpretationMaxCouleur) }}</li>
-            <li>{{ form_row(critere.interpretationMinCouleur) }}</li>
-            <li>{{ form_row(critere.interpretationMaxImage) }}</li>
-            <li>{{ form_row(critere.interpretationMinImage) }}</li>
-        {% endfor %}
     </ul>
     
     <button type="button" class="add_critere_link" data-collection-holder-class="criteres">Add a critere</button>

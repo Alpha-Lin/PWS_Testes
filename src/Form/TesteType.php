@@ -27,6 +27,7 @@ class TesteType extends AbstractType
                 'class' => TypeTeste::class
             ])
             ->add('criteres', CollectionType::class, [
+                'label' => false,
                 'entry_type' => CritereType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
@@ -34,6 +35,7 @@ class TesteType extends AbstractType
                 'by_reference' => false,
             ])
             ->add('questions', CollectionType::class, [
+                'label' => false,
                 'entry_type' => QuestionType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,

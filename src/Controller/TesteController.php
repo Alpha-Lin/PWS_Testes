@@ -46,17 +46,17 @@ class TesteController extends AbstractController
             foreach ($teste->getCriteres() as $critere) {
                 $critere->setTeste($teste);
 
-                // À changer pour les critères
-                if ($form->get('imageTeste')->getData() != null)
+                // À changer pour les critères, représente ses 2 images
+                /*if ($form->get('imageTeste')->getData() != null)
                     $critere->setInterpretationMaxImage($uploader->upload($form->get('imageTeste')->getData()));
                 if ($form->get('imageTeste')->getData() != null)
-                    $critere->setInterpretationMinImage($uploader->upload($form->get('imageTeste')->getData()));
+                    $critere->setInterpretationMinImage($uploader->upload($form->get('imageTeste')->getData()));*/
             }
 
             foreach ($teste->getQuestions() as $question)
                 $question->setTeste($teste);
 
-            // Vérifie qu'une image est envoyée
+            // Vérifie qu'une image est envoyée pour le teste
             if ($form->get('imageTeste')->getData() != null)
                 $teste->setImageTeste($uploader->upload($form->get('imageTeste')->getData()));
 
