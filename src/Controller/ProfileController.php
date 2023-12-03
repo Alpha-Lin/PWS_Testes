@@ -3,18 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\UserType;
+use App\Form\ResetPasswordType;
+use App\Form\EditUserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use App\Security\LoginAuthenticator;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -29,9 +28,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\EqualTo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
 use App\Scripts\ImageUploader;
-
 
 #[Route('/profile')]
 class ProfileController extends AbstractController
@@ -57,33 +54,7 @@ class ProfileController extends AbstractController
     {
         $user = $this->getUser();
 
-        $form = $this->createFormBuilder($user)
-            ->add('username', TextType::class, [
-                'constraints' => [
-                    new NotBlank(),
-                ],
-            ])
-            ->add('email', EmailType::class, [
-                'constraints' => [
-                    new NotBlank(),
-                ],
-            ])
-            ->add('avatar', FileType::class, [
-                'required' => false,
-                'data_class' => null,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/png',
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid image file',
-                    ]),
-                ],
-            ])
-            ->getForm();
-        
+        $form = $this->createForm(EditUserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -132,29 +103,7 @@ class ProfileController extends AbstractController
     {
         $user = $this->getUser();
 
-        $form = $this->createFormBuilder()
-            ->add('oldPassword', PasswordType::class, [
-                'label' => 'Mot de passe',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'S\'il vousplait entrez votre mot de passe actuel.',
-                    ]),
-                ],
-            ])
-            ->add('newPassword', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'first_options' => ['label' => 'Nouveau mot de pass'],
-                'second_options' => ['label' => 'Repeter nouveau mot de passe'],
-                'invalid_message' => 'Les mots de passe ne matchent pas.',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'S\'il vous plait entrez un nouveau mot de passe.',
-                    ]),
-                ]
-            ])
-            ->getForm();
-            
-        
+        $form = $this->createForm(ResetPasswordType::class);
         $form->handleRequest($request);
  
         if ($form->isSubmitted() && $form->isValid()) {
