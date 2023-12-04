@@ -48,7 +48,7 @@
             <li>{{ form_row(question.question) }}</li>
             <li>
                 <h3>Solutions</h3>
-                <ul class="solutions"
+                <ul class="solutions_{{ question.vars.value.id }}"
                     data-index="{{ question.solutions|length > 0 ? question.solutions|last.vars.name + 1 : 0 }}"
                     data-prototype="{{ form_widget(question.solutions.vars.prototype)|e('html_attr') }}"
                 >
@@ -59,7 +59,7 @@
                     {% endfor %}
                 </ul>
 
-                <button type="button" class="add_solution_link" data-collection-holder-class="solutions">Add a solution</button>
+                <button type="button" class="add_solution_link" data-collection-holder-class="solutions_{{ question.vars.value.id }}">Add a solution</button>
             </li>
         {% endfor %}
     </ul>
