@@ -37,3 +37,40 @@ body {
 .logo {
     background-image: url('../../public/resrc/StonksQuizz.png');
 }
+
+.formDefault {
+    align-self: center;
+    justify-self: center;
+    width: 50vh;
+    display: grid;
+    grid-template-rows: 3em;
+    grid-auto-rows: 5em;
+    align-content: center;
+    gap:2em;
+    
+}
+
+.formDefault h1 {
+    font-size: xx-large;
+    text-align: center;
+}
+
+.field {
+    display: grid;
+    grid-template-rows: auto auto;
+}
+
+.formDefault input {
+    border-radius: 10px;
+    border: solid 2px #5A5BFF;
+}
+
+.formDefault button {
+    background-color: #5A5BFF;
+    border-radius: 10px;
+    width: 20vw;
+    height: 50%;
+    margin: 0 auto 0 auto;
+}
+
+
