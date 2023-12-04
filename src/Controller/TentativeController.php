@@ -10,6 +10,8 @@ use App\Entity\Solution;
 use App\Form\TentativeType;
 use App\Repository\TentativeRepository;
 use App\Repository\TesteRepository;
+use App\Repository\QuestionRepository;
+
 
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -30,15 +32,12 @@ class TentativeController extends AbstractController
     }
 
     #[Route('/new', name: 'app_tentative_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager,TesteRepository $testeRepository): Response
+    public function new(Request $request, EntityManagerInterface $entityManager,TesteRepository $testeRepository, QuestionRepository $questionRepository): Response
     {
-        $save = $request->get('testId');
-        //echo ("test##################################");
-        //echo ($save);
+        $save = $request->query->get('testId');
         $test = $testeRepository->findById($save);
         $tentative = new Tentative();
-        $form = $this->createForm(TentativeType::class, $tentative);
-        $form->handleRequest($request);
+        $tentative->setTeste($test);
         if(is_null($test)){
             $test = new Teste();
             $test->setLabel("pour les tests");
@@ -70,12 +69,12 @@ class TentativeController extends AbstractController
             $entityManager->persist($solution2);
             $entityManager->persist($solution3);
         }
-
+        //dd($test->getQuestions());
+        $form = $this->createForm(TentativeType::class, $tentative);
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($tentative);
-
             $entityManager->flush();
-
             return $this->redirectToRoute('app_tentative_index', [], Response::HTTP_SEE_OTHER);
         }
         return $this->render('tentative/new.html.twig', [

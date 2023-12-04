@@ -56,7 +56,7 @@ public function findAll(): array
 public function findByTestId($value): array
    {
         return $this->createQueryBuilder('q')
-            ->andWhere('q.teste_id = :val')
+            ->andWhere('q.teste = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getResult()
