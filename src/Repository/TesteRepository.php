@@ -31,6 +31,15 @@ class TesteRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    public function findById($id): ?Teste
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.id = :inLanguage')
+            ->setParameter('inLanguage', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 
 //    /**
 //     * @return Teste[] Returns an array of Teste objects

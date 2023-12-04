@@ -155,6 +155,7 @@ class Teste
         return $this;
     }
 
+
     public function getTypeTeste(): ?TypeTeste
     {
         return $this->typeTeste;
@@ -207,4 +208,5 @@ class Teste
 
         return $this;
     }
+
 }

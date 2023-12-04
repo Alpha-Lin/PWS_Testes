@@ -9,6 +9,7 @@ use App\Entity\Solution;
 
 use App\Form\TentativeType;
 use App\Repository\TentativeRepository;
+use App\Repository\TesteRepository;
 
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -29,8 +30,12 @@ class TentativeController extends AbstractController
     }
 
     #[Route('/new', name: 'app_tentative_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, Teste $test = null): Response
+    public function new(Request $request, EntityManagerInterface $entityManager,TesteRepository $testeRepository): Response
     {
+        $save = $request->get('testId');
+        //echo ("test##################################");
+        //echo ($save);
+        $test = $testeRepository->findById($save);
         $tentative = new Tentative();
         $form = $this->createForm(TentativeType::class, $tentative);
         $form->handleRequest($request);
