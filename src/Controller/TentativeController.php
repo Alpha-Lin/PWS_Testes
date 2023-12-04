@@ -73,11 +73,14 @@ class TentativeController extends AbstractController
         $form = $this->createForm(TentativeType::class, $tentative);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $tentative->setUser(this->getUser());
+            $tentative->setUser($this->getUser());
             $tentative->setDateTentative(new \Datetime());
+            dd($request);
+
+            
             $entityManager->persist($tentative);
             $entityManager->flush();
-            return $this->redirectToRoute('app_tentative_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_tentative_show', ["id"=>$tentative->getId()], Response::HTTP_SEE_OTHER);
         }
         return $this->render('tentative/new.html.twig', [
             'tentative' => $tentative,
@@ -87,8 +90,9 @@ class TentativeController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_tentative_show', methods: ['GET'])]
-    public function show(Tentative $tentative): Response
+    public function show(Request $request, Tentative $tentative): Response
     {
+        dd($request);
         return $this->render('tentative/show.html.twig', [
             'tentative' => $tentative,
         ]);
