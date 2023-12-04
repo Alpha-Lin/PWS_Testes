@@ -73,6 +73,8 @@ class TentativeController extends AbstractController
         $form = $this->createForm(TentativeType::class, $tentative);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $tentative->setUser(this->getUser());
+            $tentative->setDateTentative(new \Datetime());
             $entityManager->persist($tentative);
             $entityManager->flush();
             return $this->redirectToRoute('app_tentative_index', [], Response::HTTP_SEE_OTHER);

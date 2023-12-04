@@ -9,10 +9,10 @@
 
     {% for question in questions %}
         <p>{{question.question }}</p>
-        <select name="{question.question}}">
+        <select name={{question.id}}>
             <option value="0" > </option>
             {% for solution in question.solutions %}
-                <option value="{{ solution.nomSolution}}">{{ solution.nomSolution }}</option>
+                <option value={{ solution.id}}>{{ solution.nomSolution }}</option>
             {% endfor %}
         </select>
     {% endfor %}

@@ -12,9 +12,7 @@ class TentativeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('dateTentative')
-            ->add('teste')
-            ->add('user')
+
         ;
     }
 
