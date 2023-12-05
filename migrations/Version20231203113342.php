@@ -10,11 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-<<<<<<<< HEAD:migrations/Version20231203113342.php
 final class Version20231203113342 extends AbstractMigration
-========
-final class Version20231203173821 extends AbstractMigration
->>>>>>>> main:migrations/Version20231203173821.php
 {
     public function getDescription(): string
     {
@@ -24,7 +20,7 @@ final class Version20231203173821 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE critere (id INT AUTO_INCREMENT NOT NULL, teste_id INT NOT NULL, score_max DOUBLE PRECISION NOT NULL, score_defaut DOUBLE PRECISION NOT NULL, interpretation_max_texte VARCHAR(255) NOT NULL, interpretation_min_texte VARCHAR(255) NOT NULL, interpretation_max_couleur INT NOT NULL, interpretation_min_couleur INT NOT NULL, interpretation_max_image VARCHAR(255) DEFAULT NULL, interpretation_min_image VARCHAR(255) DEFAULT NULL, INDEX IDX_7F6A805380AA0132 (teste_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE critere (id INT AUTO_INCREMENT NOT NULL, teste_id INT NOT NULL, score_max DOUBLE PRECISION NOT NULL, score_defaut DOUBLE PRECISION NOT NULL, interpretation_max_texte VARCHAR(255) NOT NULL, interpretation_min_texte VARCHAR(255) NOT NULL, interpretation_max_couleur INT NOT NULL, interpretation_min_couleur INT NOT NULL, interpretation_max_image LONGBLOB NOT NULL, interpretation_min_image LONGBLOB NOT NULL, INDEX IDX_7F6A805380AA0132 (teste_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE critere_solution (id INT AUTO_INCREMENT NOT NULL, tentativ_id INT DEFAULT NULL, critere_id INT DEFAULT NULL, point DOUBLE PRECISION NOT NULL, INDEX IDX_7CA5386D500D642D (tentativ_id), INDEX IDX_7CA5386D9E5F45AB (critere_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE message (id INT AUTO_INCREMENT NOT NULL, sender_id INT NOT NULL, receiver_id INT NOT NULL, objet VARCHAR(255) NOT NULL, message LONGTEXT NOT NULL, been_send TINYINT(1) NOT NULL, INDEX IDX_B6BD307FF624B39D (sender_id), INDEX IDX_B6BD307FCD53EDB6 (receiver_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE question (id INT AUTO_INCREMENT NOT NULL, teste_id INT NOT NULL, question VARCHAR(255) NOT NULL, INDEX IDX_B6F7494E80AA0132 (teste_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -34,11 +30,7 @@ final class Version20231203173821 extends AbstractMigration
         $this->addSql('CREATE TABLE tentative (id INT AUTO_INCREMENT NOT NULL, teste_id INT NOT NULL, user_id INT DEFAULT NULL, date_tentative DATETIME NOT NULL, INDEX IDX_DBC382F980AA0132 (teste_id), INDEX IDX_DBC382F9A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE teste (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, type_teste_id INT DEFAULT NULL, label VARCHAR(255) NOT NULL, description LONGTEXT DEFAULT NULL, image_teste VARCHAR(255) DEFAULT NULL, INDEX IDX_E6B4490FA76ED395 (user_id), INDEX IDX_E6B4490F4D5526CE (type_teste_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE type_teste (id INT AUTO_INCREMENT NOT NULL, label VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-<<<<<<<< HEAD:migrations/Version20231203113342.php
         $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, avatar LONGTEXT DEFAULT NULL, UNIQUE INDEX UNIQ_8D93D649F85E0677 (username), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-========
-        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(180) NOT NULL, roles JSON NOT NULL COMMENT \'(DC2Type:json)\', password VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, avatar LONGTEXT DEFAULT NULL, UNIQUE INDEX UNIQ_8D93D649F85E0677 (username), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
->>>>>>>> main:migrations/Version20231203173821.php
         $this->addSql('CREATE TABLE messenger_messages (id BIGINT AUTO_INCREMENT NOT NULL, body LONGTEXT NOT NULL, headers LONGTEXT NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', available_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', delivered_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', INDEX IDX_75EA56E0FB7336F0 (queue_name), INDEX IDX_75EA56E0E3BD61CE (available_at), INDEX IDX_75EA56E016BA31DB (delivered_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE rememberme_token (series VARCHAR(88) NOT NULL, value VARCHAR(88) NOT NULL, lastUsed DATETIME NOT NULL, class VARCHAR(100) NOT NULL, username VARCHAR(200) NOT NULL, PRIMARY KEY(series)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE critere ADD CONSTRAINT FK_7F6A805380AA0132 FOREIGN KEY (teste_id) REFERENCES teste (id)');

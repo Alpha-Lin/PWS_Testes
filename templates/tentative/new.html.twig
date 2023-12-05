@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Tentative{% endblock %}
+
+{% block body %}
+    <h1>Create new Tentative</h1>
+
+    {{ include('tentative/_form.html.twig') }}
+
+    <a href="{{ path('app_tentative_index') }}">back to list</a>
+{% endblock %}

@@ -20,15 +20,21 @@ class Tentative
     private ?\DateTimeInterface $dateTentative = null;
 
     #[ORM\ManyToOne(inversedBy: 'tentatives')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Teste $teste = null;
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Teste $teste = null; //a changer plus tard
 
     #[ORM\ManyToOne(inversedBy: 'Tentatives')]
     private ?User $user = null;
 
     #[ORM\OneToMany(mappedBy: 'tentativ', targetEntity: CritereSolution::class)]
     private Collection $critereSolutions;
-
+    /**
+    public function __construct(Teste $t)
+    {
+        $this->critereSolutions = new ArrayCollection();
+        $this->teste = t;
+    }
+**/
     public function __construct()
     {
         $this->critereSolutions = new ArrayCollection();

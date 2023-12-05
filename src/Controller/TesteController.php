@@ -11,21 +11,27 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 
 #[Route('/teste')]
 class TesteController extends AbstractController
 {
     #[Route('/', name: 'app_teste_index', methods: ['GET'])]
     public function index(Request $request, TesteRepository $testeRepository): Response
-    {
-        $name = $request->query->get('name');
-        //$tests = $testeRepository->findByLabel($name);
-        if (is_null($name)) {
-            $name = "";
+    {   
+        $name = null;
+        $id = null;
+
+        if ($request->query->get('name')) {
+            $name = $request->query->get('name');
+        }
+
+        if ($request->query->get('mineOnly') === 'on') {
+            $id = $this->getuser()->getId();
         }
 
         return $this->render('teste/index.html.twig', [
-            'testes' => $testeRepository->findByLabel($name),
+            'testes' => $testeRepository->filterTeste($name, $id),
         ]);
     }
 
@@ -76,14 +82,17 @@ class TesteController extends AbstractController
             'teste' => $teste,
         ]);
     }
-
+    
     #[Route('/{id}/edit', name: 'app_teste_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Teste $teste, EntityManagerInterface $entityManager, ScriptsImageUploader $uploader): Response
     {
-        $form = $this->createForm(TesteType::class, $teste, [
-            'teste' => $teste
-        ]);
+        
+        if ($this->getUser() !== $teste->getuser() || $this->isGranted('ROLE_EDITEUR')) {
+            return $this->redirectToRoute('app_teste_index', [], Response::HTTP_SEE_OTHER);
+        }
 
+        $form = $this->createForm(TesteType::class, $teste);
+            
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -123,5 +132,12 @@ class TesteController extends AbstractController
         }
 
         return $this->redirectToRoute('app_teste_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/results', name: 'app_teste_results', methods: ['GET'])]
+    public function results(Request $request, Teste $teste): Response
+    {
+        
+        return $this->render('teste/results.html.twig');
     }
 }
