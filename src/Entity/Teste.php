@@ -17,13 +17,13 @@ class Teste
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToMany(mappedBy: 'teste', targetEntity: Tentative::class)]
+    #[ORM\OneToMany(mappedBy: 'teste',fetch: "EAGER", targetEntity: Tentative::class)]
     private Collection $tentatives;
 
-    #[ORM\OneToMany(mappedBy: 'teste', targetEntity: Question::class, cascade: ["all"])]
+    #[ORM\OneToMany(mappedBy: 'teste',fetch: "EAGER",targetEntity: Question::class, cascade: ["all"])]
     private Collection $questions;
 
-    #[ORM\OneToMany(mappedBy: 'teste', targetEntity: Critere::class, cascade: ["all"])]
+    #[ORM\OneToMany(mappedBy: 'teste',fetch: "EAGER", targetEntity: Critere::class, cascade: ["all"])]
     private Collection $criteres;
 
     #[ORM\ManyToOne(inversedBy: 'testes')]
@@ -155,6 +155,7 @@ class Teste
         return $this;
     }
 
+
     public function getTypeTeste(): ?TypeTeste
     {
         return $this->typeTeste;
@@ -207,4 +208,5 @@ class Teste
 
         return $this;
     }
+
 }
