@@ -14,27 +14,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use App\Security\LoginAuthenticator;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\File;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Validator\Constraints\Regex;
-use Symfony\Component\Validator\Constraints\EqualTo;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use App\Scripts\ImageUploader;
 
 #[Route('/profile')]
 class ProfileController extends AbstractController
 {
     #[Route('/', name: 'app_profile', methods: ['GET'])]
-    public function index(UserRepository $userRepository): Response
+    public function index(): Response
     {
         $user = $this->getUser();
         if (!$user) {
@@ -48,9 +35,7 @@ class ProfileController extends AbstractController
 
     #[Route('/edit', name: 'app_profile_edit', methods: ['GET', 'POST'])]
     public function edit(
-        Request $request, EntityManagerInterface $entityManager, ImageUploader $uploader, UserRepository $userRepository,
-        UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator
-        ): Response
+        Request $request, EntityManagerInterface $entityManager, ImageUploader $uploader, UserRepository $userRepository): Response
     {
         $user = $this->getUser();
 
@@ -96,9 +81,7 @@ class ProfileController extends AbstractController
 
     #[Route('/edit-password', name: 'app_profile_password_reset', methods: ['GET', 'POST'])]
     public function editPassword(
-        Request $request, EntityManagerInterface $entityManager, ImageUploader $uploader, UserRepository $userRepository,
-        UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator,
-        UserPasswordHasherInterface  $userPasswordHasher
+        Request $request, EntityManagerInterface $entityManager,UserPasswordHasherInterface  $userPasswordHasher
     ): Response
     {
         $user = $this->getUser();
