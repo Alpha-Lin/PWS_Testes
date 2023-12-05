@@ -1,8 +1,14 @@
-{{ form_start(form) }}
-    {{ form_row(form.label) }}
-    {{ form_row(form.description) }}
 
-    <h3>Critères</h3>
+{{ form_start(form) }}
+<div class="grid auto-rows-auto gap-5">
+    {{ form_label(form.label) }}
+    {{ form_widget(form.label) }}
+    {{ form_label(form.description) }}
+    <div class="w-[90%] overflow-hidden grid grid-cols-1 ml-auto">
+        {{ form_widget(form.description) }}
+    </div>
+</div>
+    <h3 class="border ">Critères</h3>
     <ul class="criteres"
         data-index="{{ form.criteres|length > 0 ? form.criteres|last.vars.name + 1 : 0 }}"
         data-prototype="{{ form_widget(form.criteres.vars.prototype)|e('html_attr') }}"
@@ -34,7 +40,7 @@
     <button type="button" class="add_critere_link" data-collection-holder-class="criteres">Add a critere</button>
 
     <h3>Questions</h3>
-    <ul class="questions"
+    <ul class="questions ulRelou"
         data-index="{{ form.questions|length > 0 ? form.questions|last.vars.name + 1 : 0 }}"
         data-prototype="{{ form_widget(form.questions.vars.prototype)|e('html_attr') }}"
     >
@@ -77,6 +83,7 @@
             const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
 
             const item = document.createElement('li');
+            item.className = "liRelou";
 
             item.innerHTML = collectionHolder.dataset.prototype.replace(
               /__name__/g,
@@ -112,4 +119,5 @@
     {% if teste is defined and teste.imageTeste is not empty %}
         <img class="imageTeste" src="{{ asset(uploaded_image ~ teste.imageTeste) }}" alt="teste image">
     {% endif %}
+    
 {{ form_end(form) }}
