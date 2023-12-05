@@ -22,13 +22,30 @@ class TesteRepository extends ServiceEntityRepository
     }
     
     
-    public function findByLabel($label): array
+    public function filterTeste($label, $userId): array
+    {
+        $qb = $this->createQueryBuilder('m');
+
+        if ($userId) {
+            $qb->andWhere('m.user = :user_id')
+            ->setParameter('user_id', $userId);
+        }
+
+        if ($label) {
+            $qb->andWhere('m.label LIKE :inLanguage')
+            ->setParameter('inLanguage', '%'.$label.'%');
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findById($id): ?Teste
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.label LIKE :inLanguage')
-            ->setParameter('inLanguage', '%'.$label.'%')
+            ->andWhere('m.id = :inLanguage')
+            ->setParameter('inLanguage', $id)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
         ;
     }
 
