@@ -21,14 +21,17 @@ class QuestionType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
+                'entry_options' => [
+                    'teste' => $options['teste'],
+                ]
             ]);
-        //->add('teste'); Pas besoin car ajout seulement via création de teste
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Question::class,
+            'teste' => null
         ]);
     }
 }

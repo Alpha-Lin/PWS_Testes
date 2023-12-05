@@ -32,11 +32,11 @@ class Critere
     #[ORM\Column(length: 255)]
     private ?string $interpretationMinTexte = null;
 
-    #[ORM\Column]
-    private ?int $interpretationMaxCouleur = null;
+    #[ORM\Column(length: 7)]
+    private ?string $interpretationMaxCouleur = null;
 
-    #[ORM\Column]
-    private ?int $interpretationMinCouleur = null;
+    #[ORM\Column(length: 7)]
+    private ?string $interpretationMinCouleur = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private $interpretationMaxImage = null;
@@ -49,6 +49,9 @@ class Critere
 
     #[ORM\OneToMany(mappedBy: 'critere', targetEntity: CritereSolution::class)]
     private Collection $critereSolutions;
+
+    #[ORM\Column(length: 255)]
+    private ?string $nomCritere = null;
 
     public function __construct()
     {
@@ -121,24 +124,24 @@ class Critere
         return $this;
     }
 
-    public function getInterpretationMaxCouleur(): ?int
+    public function getInterpretationMaxCouleur(): ?string
     {
         return $this->interpretationMaxCouleur;
     }
 
-    public function setInterpretationMaxCouleur(int $interpretationMaxCouleur): static
+    public function setInterpretationMaxCouleur(string $interpretationMaxCouleur): static
     {
         $this->interpretationMaxCouleur = $interpretationMaxCouleur;
 
         return $this;
     }
 
-    public function getInterpretationMinCouleur(): ?int
+    public function getInterpretationMinCouleur(): ?string
     {
         return $this->interpretationMinCouleur;
     }
 
-    public function setInterpretationMinCouleur(int $interpretationMinCouleur): static
+    public function setInterpretationMinCouleur(string $interpretationMinCouleur): static
     {
         $this->interpretationMinCouleur = $interpretationMinCouleur;
 
@@ -232,5 +235,17 @@ class Critere
     public function __toString(): string
     {
         return "Critère n°" . $this->id;
+    }
+
+    public function getNomCritere(): ?string
+    {
+        return $this->nomCritere;
+    }
+
+    public function setNomCritere(string $nomCritere): static
+    {
+        $this->nomCritere = $nomCritere;
+
+        return $this;
     }
 }
