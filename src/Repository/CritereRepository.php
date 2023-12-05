@@ -20,6 +20,17 @@ class CritereRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Critere::class);
     }
+    
+       public function findById($value): ?Critere
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+    
 
 //    /**
 //     * @return Critere[] Returns an array of Critere objects
