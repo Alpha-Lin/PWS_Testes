@@ -6,11 +6,16 @@ use App\Entity\Tentative;
 use App\Entity\Teste;
 use App\Entity\Question;
 use App\Entity\Solution;
+use App\Entity\CritereSolution;
+
 
 use App\Form\TentativeType;
+
 use App\Repository\TentativeRepository;
 use App\Repository\TesteRepository;
 use App\Repository\QuestionRepository;
+use App\Repository\CritereRepository;
+
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -43,7 +48,7 @@ class TentativeController extends AbstractController
     }
 
     #[Route('/for/{id}', name: 'app_tentative_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, Teste $teste, TesteRepository $testeRepository, QuestionRepository $questionRepository): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, Teste $teste, TesteRepository $testeRepository, QuestionRepository $questionRepository , CritereRepository $critereRepository): Response
     {
         $form = $this->createFormBuilder();
         foreach ($teste->getQuestions() as $question) {
@@ -68,10 +73,37 @@ class TentativeController extends AbstractController
             $tentative->setTeste($teste);    
             $tentative->setUser($this->getUser());
             $tentative->setDateTentative(new \Datetime());
-            
-            // dd($form);
-
+            $reponses = $form->getviewData();
+            echo(count($reponses));
+            $map = array();
+            $listecriteresol = array();
+            foreach($reponses as $reponse){
+                echo($reponse);
+                $point = $reponse->getPoint();
+                $crit = $reponse->getCritere();
+                if(!key_exists($crit->getId(),$map)){
+                    $map[$crit->getId()] = $point;
+                }else{
+                    $x = $map[$crit->getId()];
+                    $map[$crit->getId()] = $x + $point;
+                }
+            }
             $entityManager->persist($tentative);
+            foreach ($map as $key => $val){
+                $cs = new CritereSolution();
+                $cs->setTentativ($tentative);
+                $cs->setPoint($val);
+                $cs->setCritere($critereRepository->findById($key));
+                echo $key."==>".$val."\n";
+                //dd($cs);
+                $entityManager->persist($cs);
+
+            }   
+            //dd($map);
+            //echo($x->get)
+            //echo($x->getId());
+            //dd($reponses);
+
             $entityManager->flush();
             return $this->redirectToRoute('app_tentative_show', ["id"=>$tentative->getId()], Response::HTTP_SEE_OTHER);
         }
@@ -81,7 +113,7 @@ class TentativeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_tentative_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_tentative_show', methods: ['GET', 'POST'])]
     public function show(Request $request, Tentative $tentative): Response
     {
         return $this->render('tentative/show.html.twig', [
