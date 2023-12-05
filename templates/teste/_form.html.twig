@@ -8,6 +8,7 @@
         data-prototype="{{ form_widget(form.criteres.vars.prototype)|e('html_attr') }}"
     >
         {% for critere in form.criteres %}
+            <li>{{ form_row(critere.nomCritere) }}</li>
             <li>{{ form_row(critere.scoreMax) }}</li>
             <li>{{ form_row(critere.scoreDefaut) }}</li>
             <li>{{ form_row(critere.interpretationMaxTexte) }}</li>
