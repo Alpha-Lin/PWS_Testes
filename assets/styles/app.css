@@ -96,7 +96,8 @@ body {
     background-color: #d2dede;
 }
 
-.formDefault button[type=submit] {
+button[type=submit] {
+    margin-top: 2em;
     background-color: #5A5BFF;
     width: 20vw;
 }
