@@ -9,7 +9,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class MessageCrudController extends AbstractCrudController
-{
+{   
+
+    use Trait\ReadOnlyTrait;
+ 
     public static function getEntityFqcn(): string
     {
         return Message::class;
