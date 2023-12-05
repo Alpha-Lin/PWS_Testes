@@ -21,6 +21,9 @@ class QuestionType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
+                'entry_options' => [
+                    'teste' => $options['teste'],
+                ]
             ]);
     }
 
@@ -28,6 +31,7 @@ class QuestionType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Question::class,
+            'teste' => null
         ]);
     }
 }

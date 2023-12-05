@@ -19,7 +19,7 @@ class SolutionType extends AbstractType
             ->add('point')
             ->add('critere', EntityType::class, [
                 'class' => Critere::class,
-                // 'choices' => $options['teste']->getCriteres() Marche pas
+                'choices' => $options['teste']->getCriteres()
             ]);
     }
 

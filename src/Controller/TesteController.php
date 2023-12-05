@@ -18,7 +18,7 @@ class TesteController extends AbstractController
 {
     #[Route('/', name: 'app_teste_index', methods: ['GET'])]
     public function index(Request $request, TesteRepository $testeRepository): Response
-    {   
+    {
         $name = null;
         $id = null;
 
@@ -82,17 +82,16 @@ class TesteController extends AbstractController
             'teste' => $teste,
         ]);
     }
-    
+
     #[Route('/{id}/edit', name: 'app_teste_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Teste $teste, EntityManagerInterface $entityManager, ScriptsImageUploader $uploader): Response
     {
-        
         if ($this->getUser() !== $teste->getuser() || $this->isGranted('ROLE_EDITEUR')) {
             return $this->redirectToRoute('app_teste_index', [], Response::HTTP_SEE_OTHER);
         }
 
         $form = $this->createForm(TesteType::class, $teste);
-            
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -137,7 +136,7 @@ class TesteController extends AbstractController
     #[Route('/{id}/results', name: 'app_teste_results', methods: ['GET'])]
     public function results(Request $request, Teste $teste): Response
     {
-        
+
         return $this->render('teste/results.html.twig');
     }
 }

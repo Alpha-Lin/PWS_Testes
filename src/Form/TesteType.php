@@ -42,6 +42,9 @@ class TesteType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
+                'entry_options' => [
+                    'teste' => $options['data'],
+                ]
             ])
             // Permet de mettre le button à la fin
             ->add('save', SubmitType::class, [
@@ -52,8 +55,7 @@ class TesteType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Teste::class,
-            'teste' => null
+            'data_class' => Teste::class
         ]);
     }
 }
