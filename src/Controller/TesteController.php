@@ -20,15 +20,22 @@ class TesteController extends AbstractController
 {
     #[Route('/', name: 'app_teste_index', methods: ['GET'])]
     public function index(Request $request, TesteRepository $testeRepository): Response
-    {
-        $name = $request->query->get('name');
+    {   
+        $name = null;
+        $id = null;
         //$tests = $testeRepository->findByLabel($name);
-        if (is_null($name)) {
-            $name = "";
+        if ($request->query->get('name')) {
+            $name = $request->query->get('name');
         }
 
+        if ($request->query->get('mineOnly') === 'on') {
+            $id = $this->getuser()->getId();
+        }
+
+
+
         return $this->render('teste/index.html.twig', [
-            'testes' => $testeRepository->findByLabel($name),
+            'testes' => $testeRepository->filterTeste($name, $id),
         ]);
     }
 
