@@ -53,6 +53,7 @@ class TesteType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Teste::class,
+            'teste' => null
         ]);
     }
 }

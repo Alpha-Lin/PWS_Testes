@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Question;
-use App\Entity\Critere;
 use App\Entity\Teste;
 use App\Form\TesteType;
 use App\Repository\TesteRepository;
@@ -82,9 +80,10 @@ class TesteController extends AbstractController
     #[Route('/{id}/edit', name: 'app_teste_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Teste $teste, EntityManagerInterface $entityManager, ScriptsImageUploader $uploader): Response
     {
-        
-        $form = $this->createForm(TesteType::class, $teste);
-            
+        $form = $this->createForm(TesteType::class, $teste, [
+            'teste' => $teste
+        ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -99,13 +98,13 @@ class TesteController extends AbstractController
 
                 $indexCriteres++;
             }
- 
+
             // Vérifie qu'une image est envoyée
             if ($form->get('imageTeste')->getData() != null)
                 $teste->setImageTeste($uploader->upload($form->get('imageTeste')->getData()));
 
             $entityManager->flush();
-  
+
             return $this->redirectToRoute('app_teste_edit', ['id' => $teste->getId()], Response::HTTP_SEE_OTHER);
         }
 

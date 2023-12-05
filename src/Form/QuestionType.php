@@ -22,7 +22,6 @@ class QuestionType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false,
             ]);
-        //->add('teste'); Pas besoin car ajout seulement via création de teste
     }
 
     public function configureOptions(OptionsResolver $resolver): void
