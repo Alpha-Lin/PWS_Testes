@@ -12,6 +12,9 @@ use App\Repository\TentativeRepository;
 use App\Repository\TesteRepository;
 use App\Repository\QuestionRepository;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -31,68 +34,48 @@ class TentativeController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_tentative_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager,TesteRepository $testeRepository, QuestionRepository $questionRepository): Response
+    #[Route('/teste/{id}', name: 'app_tentative_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, Teste $teste, TesteRepository $testeRepository, QuestionRepository $questionRepository): Response
     {
-        $save = $request->query->get('testId');
-        $test = $testeRepository->findById($save);
-        $tentative = new Tentative();
-        $tentative->setTeste($test);
-        if(is_null($test)){
-            $test = new Teste();
-            $test->setLabel("pour les tests");
-            $tentative->setTeste($test);
-            $question1 = new Question();
-            $question2 = new Question();
-
-            $question1->setQuestion("Chien ou banane");
-            $question2->setQuestion("Question 2");
-
-            $solution1 = new Solution();
-            $solution1->setNomSolution("banane");
-            $question1->addSolution($solution1);
-
-            $solution2 = new Solution();
-            $solution2->setNomSolution("chien");
-            $question1->addSolution($solution2);
-            
-            $solution3 = new Solution();
-            $solution3->setNomSolution("oui");
-            $question2->addSolution($solution3);
-
-            $test->addQuestion($question1);
-            $test->addQuestion($question2);
-            $entityManager->persist($test);
-            $entityManager->persist($question1);
-            $entityManager->persist($question2);
-            $entityManager->persist($solution1);
-            $entityManager->persist($solution2);
-            $entityManager->persist($solution3);
+        $form = $this->createFormBuilder();
+        foreach ($teste->getQuestions() as $question) {
+            $form->add(
+                strval($question->getid()), ChoiceType::class, [
+                'choice_value' => 'id',
+                'choice_label' => 'nomSolution',
+                'label'=> $question->getQuestion(),
+                'choices' => $question->getSolutions(),
+                'expanded' => false,
+                'multiple' => false,
+                'required' => true
+            ]);
         }
-        //dd($test->getQuestions());
-        $form = $this->createForm(TentativeType::class, $tentative);
+        $form = $form
+            ->getForm()
+        ;
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $tentative = new Tentative();
+            $tentative->setTeste($teste);    
             $tentative->setUser($this->getUser());
             $tentative->setDateTentative(new \Datetime());
-            dd($request);
-
             
+            dd($form);
+
             $entityManager->persist($tentative);
             $entityManager->flush();
             return $this->redirectToRoute('app_tentative_show', ["id"=>$tentative->getId()], Response::HTTP_SEE_OTHER);
         }
+        
         return $this->render('tentative/new.html.twig', [
-            'tentative' => $tentative,
-            'form' => $form,
-            'questions' => $tentative->getTeste()->getQuestions()
+            'form' => $form
         ]);
     }
 
     #[Route('/{id}', name: 'app_tentative_show', methods: ['GET'])]
     public function show(Request $request, Tentative $tentative): Response
     {
-        dd($request);
         return $this->render('tentative/show.html.twig', [
             'tentative' => $tentative,
         ]);

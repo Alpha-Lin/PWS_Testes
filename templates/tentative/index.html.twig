@@ -20,7 +20,6 @@
                 <td>{{ tentative.dateTentative ? tentative.dateTentative|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('app_tentative_show', {'id': tentative.id}) }}">show</a>
-                    <a href="{{ path('app_tentative_edit', {'id': tentative.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
