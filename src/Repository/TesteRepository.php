@@ -27,7 +27,7 @@ class TesteRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('m');
 
         if ($userId) {
-            $qb->andWhere('m.id = :user_id')
+            $qb->andWhere('m.user = :user_id')
             ->setParameter('user_id', $userId);
         }
 

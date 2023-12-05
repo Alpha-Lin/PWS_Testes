@@ -23,7 +23,7 @@ class TesteController extends AbstractController
     {   
         $name = null;
         $id = null;
-        //$tests = $testeRepository->findByLabel($name);
+
         if ($request->query->get('name')) {
             $name = $request->query->get('name');
         }
@@ -31,8 +31,6 @@ class TesteController extends AbstractController
         if ($request->query->get('mineOnly') === 'on') {
             $id = $this->getuser()->getId();
         }
-
-
 
         return $this->render('teste/index.html.twig', [
             'testes' => $testeRepository->filterTeste($name, $id),
@@ -86,11 +84,15 @@ class TesteController extends AbstractController
             'teste' => $teste,
         ]);
     }
-
+    
     #[Route('/{id}/edit', name: 'app_teste_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Teste $teste, EntityManagerInterface $entityManager, ScriptsImageUploader $uploader): Response
     {
         
+        if ($this->getUser() !== $teste->getuser() || $this->isGranted('ROLE_EDITEUR')) {
+            return $this->redirectToRoute('app_teste_index', [], Response::HTTP_SEE_OTHER);
+        }
+
         $form = $this->createForm(TesteType::class, $teste);
             
         $form->handleRequest($request);

@@ -34,7 +34,15 @@ class TentativeController extends AbstractController
         ]);
     }
 
-    #[Route('/teste/{id}', name: 'app_tentative_new', methods: ['GET', 'POST'])]
+    #[Route('/from/{id}', name: 'app_tentative_for_test', methods: ['GET'])]
+    public function tentative_for_test(TentativeRepository $tentativeRepository, $id): Response
+    {
+        return $this->render('tentative/index.html.twig', [
+            'tentatives' => $tentativeRepository->findBy(array('teste' => $id)),
+        ]);
+    }
+
+    #[Route('/for/{id}', name: 'app_tentative_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, Teste $teste, TesteRepository $testeRepository, QuestionRepository $questionRepository): Response
     {
         $form = $this->createFormBuilder();
@@ -61,7 +69,7 @@ class TentativeController extends AbstractController
             $tentative->setUser($this->getUser());
             $tentative->setDateTentative(new \Datetime());
             
-            dd($form);
+            // dd($form);
 
             $entityManager->persist($tentative);
             $entityManager->flush();
@@ -79,34 +87,5 @@ class TentativeController extends AbstractController
         return $this->render('tentative/show.html.twig', [
             'tentative' => $tentative,
         ]);
-    }
-
-    #[Route('/{id}/edit', name: 'app_tentative_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Tentative $tentative, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(TentativeType::class, $tentative);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_tentative_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('tentative/edit.html.twig', [
-            'tentative' => $tentative,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_tentative_delete', methods: ['POST'])]
-    public function delete(Request $request, Tentative $tentative, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$tentative->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($tentative);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_tentative_index', [], Response::HTTP_SEE_OTHER);
     }
 }
