@@ -17,7 +17,7 @@ use Symfony\Component\Mime\Email;
 class MessageController extends AbstractController
 {
     #[Route('/', name: 'app_message_create', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
