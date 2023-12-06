@@ -55,7 +55,7 @@ class TesteRepository extends ServiceEntityRepository
             ->leftJoin('t.tentatives', 'tentatives')
             ->groupBy('t.id')
             ->having('COUNT(tentatives.id) >= :minTentatives')
-            ->andWhere('tentatives.createdAt >= :lastHours')
+            ->andWhere('tentatives.dateTentative >= :lastHours')
             ->orderBy('COUNT(tentatives.id)', 'DESC')
             ->setParameter('minTentatives', $minTentative ) 
             ->setParameter('lastHours', new \DateTime("-$hours hours"))
@@ -67,7 +67,7 @@ class TesteRepository extends ServiceEntityRepository
     public function findLastCreatedTests($maxResult = 6)
     {
         $qb = $this->createQueryBuilder('t')
-            ->orderBy('t.createdAt', 'DESC')
+            ->orderBy('t.id', 'DESC')
             ->setMaxResults($maxResult);
 
         return $qb->getQuery()->getResult();
