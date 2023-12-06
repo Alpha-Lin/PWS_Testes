@@ -36,11 +36,13 @@ security:
             entry_point: 'form_login'
             custom_authenticator: App\Security\LoginAuthenticator
     access_control:
-        - { path: ^/dashboard, role: ROLE_USER,  }
+        - { path: ^/dashboard, role: ROLE_USER  }
         - { path: ^/login, role: PUBLIC_ACCESS }
         - { path: ^/teste, role: ROLE_USER }
-        - { path: ^/register, role: PUBLIC_ACCESS } 
-        - { path: ^/message, role: ROLE_USER } 
+        - { path: ^/contact, role: ROLE_USER } 
+        - { path: ^/profile, role: ROLE_USER } 
+        - { path: ^/admin, role: ROLE_ADMIN} 
+        - { path: /, role: PUBLIC_ACCESS } 
 
         # - { path: ^/home, roles: [ROLE_ADMIN,ROLE_USER] } 
 
