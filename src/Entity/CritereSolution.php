@@ -39,7 +39,7 @@ class CritereSolution
         return $this;
     }
 
-    public function gete(): ?Tentative
+    public function getTentative(): ?Tentative
     {
         return $this->tentative;
     }
