@@ -1,31 +1,3 @@
-{# templates/admin/fields/tentatives.html.twig #}
-<table class="min-w-full divide-y divide-gray-200">
-    <thead class="bg-gray-50">
-        <tr>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                ID
-            </th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Date
-            </th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Actions
-            </th>
-        </tr>
-    </thead>
-    <tbody class="bg-white divide-y divide-gray-200">
-        {% for tentative in field.value %}
-            <tr>
-                <td class="px-6 py-4 whitespace-nowrap">
-                    {{ tentative.id }}
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                    {{ tentative.dateTentative | date('d-m-Y') }}
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Consulter</a>
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+{% for tentative in field.value %}
+    <p>Tentative du {{ tentative.dateTentative | date('d-m-Y') }} : <a href="">consulter</a></p>
+{% endfor %}

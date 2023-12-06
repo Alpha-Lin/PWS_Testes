@@ -55,7 +55,7 @@ class UserCrudController extends AbstractCrudController
             AssociationField::new('testes'),
             AssociationField::new('Tentatives'),
 
-            FormField::addTab('Quizz'),
+            FormField::addTab('Testes'),
             AssociationField::new('testes'),
             CollectionField::new('testes')
                 ->setTemplatePath('admin/fields/testes.html.twig')

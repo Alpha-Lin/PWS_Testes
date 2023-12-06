@@ -1,12 +1,8 @@
 {% for teste in field.value %}
-<ul> <!-- liste des questions -->
-        {% for question in teste.questions %}
-            <li>{{question.question }}</li>
-                <ul> <!-- liste des solutions-->
-                    {% for solution in question.solutions %}
-                        <li>{{solution.nomSolution}} :  {{solution.critere}} {{solution.point}} </li>
-                    {% endfor %}
-                </ul>
-        {% endfor %}
-    </ul>
+    <p>Teste {{ loop.index }} : <a href="
+    {{ ea_url()
+            .setController('App\\Controller\\Admin\\TesteCrudController')
+            .setAction('detail')
+            .setEntityId(teste.id)
+        }}">{{teste.label}}</a></p>
 {% endfor %}
