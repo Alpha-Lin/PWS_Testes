@@ -33,6 +33,7 @@
                     {% if is_granted('ROLE_ADMIN') or app.user.id == teste.user.id %}
                             <a href="{{ path('app_teste_show', {'id': teste.id}) }}">show</a> | 
                             <a href="{{ path('app_teste_edit', {'id': teste.id}) }}">edit</a> |
+                            <a href="{{ path('app_teste_delete', {'id': teste.id}) }}">supprimer</a> |
                     {% endif %}
                     <a href="{{ path('app_tentative_new', {'id': teste.id}) }}">essayer</a> | 
                     <a href="{{ path('app_tentative_for_test', {'id': teste.id}) }}">mes tentatives</a>
