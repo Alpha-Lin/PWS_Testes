@@ -10,6 +10,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ColorField;
 
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
+
 class CritereCrudController extends AbstractCrudController
 {
 
@@ -33,4 +35,16 @@ class CritereCrudController extends AbstractCrudController
             AssociationField::new('teste')->hideOnForm()
         ];
     }
+
+    
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add('nomCritere')
+            ->add('scoreMax')
+            ->add('scoreDefaut')
+            ->add('teste')
+        ;
+    }
+
 }
