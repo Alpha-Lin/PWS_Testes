@@ -7,7 +7,10 @@
 
     {{ include('critere_solution/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_critere_solution_index') }}">back to list</a>
 
-    {{ include('critere_solution/_delete_form.html.twig') }}
+    <div class="grid grid-cols-2 m-[0_auto_0_auto]">
+        <a class="btn bg-gray-400" href="{{ path('app_critere_solution_index') }}">back to list</a>
+
+        {{ include('critere_solution/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

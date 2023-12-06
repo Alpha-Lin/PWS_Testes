@@ -37,7 +37,7 @@ new Chart(document.getElementById('graph'), {
           {
               label: "Résultats",
               data: data.map(row => row.val),
-              backgroundColor: 'rgba(54, 162, 235, 0.5)',
+              backgroundColor: 'rgba(54, 162, 235, 0.5)', //il lèche le sapin
               borderColor: 'rgba(54, 162, 235, 1)',
               borderWidth: 1,
               yAxisID: 'y-axis-1'

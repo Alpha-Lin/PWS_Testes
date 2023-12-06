@@ -4,5 +4,128 @@
 
 {% block body %}
 
+<h1>Bienvenue</h1>
+
+<h2>Les quizz les plus populaires</h2>
+
+<div class="carousel {% if populaire|length == 0 %}empty{% endif %}">
+
+    {% for teste in populaire %}
+    <div class="card card1">
+        <div class="title">{{ teste.label }}</div>
+        {% if teste.imageTeste != null %}
+            <div class="image">{{ teste.imageTeste }}</div>
+        {% else %}
+            <div class="image"><img src="{{ asset('resrc/noideabro.jpeg') }}"/></div>
+        {% endif %}
+        <a class="try" href="{{ path('app_tentative_new', {'id': teste.id}) }}">essayer</a> 
+        <a class="myTries" href="{{ path('app_tentative_for_test', {'id': teste.id}) }}">mes tentatives</a>
+    <div>
+
+    <div class="carouselBtn">
+        <button class="btn bg-red-700" id="next1">suivant</button>
+        <button class="btn bg-blue-700" id="prev1">précedent</button>
+    </div>
+    {% else %}
+        <h3 class="rien">Aucun quizz</h3>
+    {% endfor %}
+</div>
+
+<h2>Les derniers quizz ajoutés</h2>
+
+<div class="carousel {% if dernier|length == 0 %}empty{% endif %}">
+    
+    {% for teste in dernier %}
+    <div class="card card2">
+        <div class="title">{{ teste.label }}</div>
+        {% if teste.imageTeste != null %}
+            <div class="image">{{ teste.imageTeste }}</div>
+        {% else %}
+            <div class="image"><img src="{{ asset('resrc/noideabro.jpeg') }}"/></div>
+        {% endif %}
+        
+        <a class="try" href="{{ path('app_tentative_new', {'id': teste.id}) }}">essayer</a> 
+        <a class="myTries" href="{{ path('app_tentative_for_test', {'id': teste.id}) }}">mes tentatives</a>
+    </div>
+    <div class="carouselBtn">
+        <button class="btn bg-blue-700" id="prev2">précedent</button>
+        <button class="btn bg-red-700" id="next2">suivant</button>
+    </div>
+    {% else %}
+        <h3 class="rien">Aucun quizz</h3>
+    {% endfor %}
+    
+</div>
+
+
+<script>
+
+const cards1 = document.querySelectorAll('.card1');
+const cards2 = document.querySelectorAll('.card2');
+
+let c1 = 0;
+let c2 = 0;
+
+const next1 = document.getElementById('next1');
+const prev1 = document.getElementById('prev1');
+const next2 = document.getElementById('next2');
+const prev2 = document.getElementById('prev2');
+
+if (next1 != null) {
+    next1.addEventListener('click', (e) => {
+        if (c1 != cards1.length-1) {
+            c1++;
+            cards1.forEach((c) => {
+                    c.style.transform += "translate(-16.2em)";
+            });
+        }
+    });
+}
+
+if (next2 != null) {
+    next2.addEventListener('click', (e) => {
+        if (c2 != cards2.length-1) {
+            c2++;
+            cards2.forEach((c) => {
+                    c.style.transform += "translate(-16.2em)";
+            });
+        
+        }
+        
+       
+    });
+}
+
+if (prev1 != null) {
+    prev1.addEventListener('click', (e) => {
+        if (c1 != 0) {
+            c1--;
+            cards1.forEach((c) => {
+                    c.style.transform += "translate(16.2em)";
+            });
+        
+        }
+        console.log(c1);
+    });
+}
+
+if (prev2 != null) {
+    prev2.addEventListener('click', (e) => {
+        if (c2 != 0) {
+            c2--;
+            cards2.forEach((c) => {
+                    c.style.transform += "translate(16.2em)";
+            });
+        
+        }
+        console.log(c2);
+    });
+}
+
+
+
+</script>
 
 {% endblock %}
+
+

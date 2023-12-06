@@ -3,11 +3,12 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post" class="formDefault">
+<h1>Connectez-vous !</h1>
+<form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
-    <h1>Connectez-vous !</h1>
+    
     <div class="field">
         <label for="inputUsername">Username</label>
         <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
@@ -16,9 +17,9 @@
         <label for="inputPassword">Password</label>
         <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
     </div>
-    <div class="self-center">
-    <label>Remember me</label>
-    <input class="-ml-16" type="checkbox" name="_remember_me">
+    <div class="checkbox">
+        <label>Remember me</label>
+        <input type="checkbox" name="_remember_me">
     </div>
     
 
@@ -27,8 +28,8 @@
     <button type="submit">Se connecter</button>
 </form>
 
-<div class="">
-    <p class="bg-slate-400 w-20 h-8 text-center"><a href="/register">register</a></p>
-    <p class="bg-slate-400 w-32 h-8 text-center"><a href="/reset-password">reset-password</a></p>
+<div class="grid grid-cols-2 m-[0_auto_0_auto] gap-4">
+    <a class="btn bg-gray-400" href="/register">register</a>
+    <a class="btn bg-gray-400" href="/reset-password">reset-password</a>
 </div>
 {% endblock %}

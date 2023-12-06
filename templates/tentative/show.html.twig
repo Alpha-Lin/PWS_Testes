@@ -3,20 +3,16 @@
 {% block title %}Tentative{% endblock %}
 
 {% block body %}
-    <h1>Tentative</h1>
+    <h1>Tentative</h1>    
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ tentative.id }}</td>
-            </tr>
-            <tr>
-                <th>DateTentative</th>
-                <td>{{ tentative.dateTentative ? tentative.dateTentative|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="amazonTypeList">
+        <div class="case">
+        <div class="title">Id: {{ tentative.id }}</div>
+        <div class="title2">{{ tentative.dateTentative ? tentative.dateTentative|date('Y-m-d H:i:s') : '' }}</div>
+        </div>
+    </div>
 
-    <a href="{{ path('app_tentative_index') }}">back to list</a>
+    <div class="grid grid-cols-1 m-[2em_auto_2em_auto] gap-4">
+    <a class="btn bg-gray-400" href="{{ path('app_tentative_index') }}">back to list</a>
+    </div>
 {% endblock %}
