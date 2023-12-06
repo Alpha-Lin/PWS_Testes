@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\CritereRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CritereRepository::class)]
@@ -37,12 +36,6 @@ class Critere
 
     #[ORM\Column(length: 7)]
     private ?string $interpretationMinCouleur = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private $interpretationMaxImage = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private $interpretationMinImage = null;
 
     #[ORM\OneToMany(mappedBy: 'critere', targetEntity: Solution::class)]
     private Collection $solutions;
@@ -144,30 +137,6 @@ class Critere
     public function setInterpretationMinCouleur(string $interpretationMinCouleur): static
     {
         $this->interpretationMinCouleur = $interpretationMinCouleur;
-
-        return $this;
-    }
-
-    public function getInterpretationMaxImage(): ?string
-    {
-        return $this->interpretationMaxImage;
-    }
-
-    public function setInterpretationMaxImage(string $interpretationMaxImage): static
-    {
-        $this->interpretationMaxImage = $interpretationMaxImage;
-
-        return $this;
-    }
-
-    public function getInterpretationMinImage(): ?string
-    {
-        return $this->interpretationMinImage;
-    }
-
-    public function setInterpretationMinImage(string $interpretationMinImage): static
-    {
-        $this->interpretationMinImage = $interpretationMinImage;
 
         return $this;
     }

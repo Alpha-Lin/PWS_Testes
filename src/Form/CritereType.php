@@ -21,17 +21,7 @@ class CritereType extends AbstractType
             ->add('interpretationMaxTexte')
             ->add('interpretationMinTexte')
             ->add('interpretationMaxCouleur', ColorType::class)
-            ->add('interpretationMinCouleur', ColorType::class)
-            ->add('interpretationMaxImage', FileType::class, [
-                'required' => false,
-                'data_class' => null,
-                'mapped' => false
-            ])
-            ->add('interpretationMinImage', FileType::class, [
-                'required' => false,
-                'data_class' => null,
-                'mapped' => false
-            ]);
+            ->add('interpretationMinCouleur', ColorType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
