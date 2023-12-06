@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+
 body {
     background-color: rgba(235, 235, 255, 0.1);
     object-fit: fill;
@@ -40,6 +43,7 @@ body {
 
 form {
     justify-self: center;
+    background-color: white;
 }
 
 h1, h2, h3, h4 {
@@ -143,7 +147,7 @@ textarea {
     display: grid;
     gap: 1.25em;
 }
-
+/* il lèche le sapin*/
 .btn {
     border-radius: 10px;
     width: 10vw;
@@ -152,6 +156,16 @@ textarea {
     transition: 300ms ease-in-out;
     text-align: center;
     color: white;
+}
+form{
+    background-color: white;
+    padding-bottom: 1%;
+    padding-top: 1%;
+}
+table{
+    background-color: white;
+    padding-bottom: 1%;
+    padding-top: 1%;
 }
 
 
