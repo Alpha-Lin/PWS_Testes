@@ -7,5 +7,7 @@
 
     {{ include('tentative/_form.html.twig') }}
 
-    <a href="{{ path('app_tentative_index') }}">back to list</a>
+    <div class="grid grid-cols-1 m-[0_auto_0_auto]">
+    <a class="m-[2em_auto_2em_auto] btn bg-gray-400" href="{{ path('app_tentative_index') }}">back to list</a>
+    </div>
 {% endblock %}

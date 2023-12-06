@@ -4,13 +4,10 @@
 
 {% block body %}
 
-<div class="formDefault">
-    <h1 class="text-[4em] md:text-[4vw]">Edit Teste</h1>
-    
-
+<h1>Edit Teste</h1>
     
     {{ include('teste/_form.html.twig', {'button_label': 'Update'}) }}
-</div>
+
     <div class="grid grid-cols-2 m-[2em_auto_2em_auto] gap-4">
         <a class="btn bg-gray-400" href="{{ path('app_teste_index') }}">back to list</a>
 
