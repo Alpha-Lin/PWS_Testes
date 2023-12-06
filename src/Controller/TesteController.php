@@ -50,18 +50,6 @@ class TesteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $teste->setUser($this->getUser());
 
-            // Vérifie si des images sont envoyées pour les critères
-            $indexCriteres = 0;
-
-            foreach ($teste->getCriteres() as $critere) {
-                if ($form->get('criteres')->get($indexCriteres)->get('interpretationMaxImage')->getData() != null)
-                    $critere->setInterpretationMaxImage($uploader->upload($form->get('criteres')->get(0)->get('interpretationMaxImage')->getData()));
-                if ($form->get('criteres')->get($indexCriteres)->get('interpretationMinImage')->getData() != null)
-                    $critere->setInterpretationMinImage($uploader->upload($form->get('criteres')->get(0)->get('interpretationMinImage')->getData()));
-
-                $indexCriteres++;
-            }
-
             // Vérifie qu'une image est envoyée pour le teste
             if ($form->get('imageTeste')->getData() != null)
                 $teste->setImageTeste($uploader->upload($form->get('imageTeste')->getData()));
@@ -98,18 +86,6 @@ class TesteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Vérifie si des images sont envoyées pour les critères
-            $indexCriteres = 0;
-
-            foreach ($teste->getCriteres() as $critere) {
-                if ($form->get('criteres')->get($indexCriteres)->get('interpretationMaxImage')->getData() != null)
-                    $critere->setInterpretationMaxImage($uploader->upload($form->get('criteres')->get(0)->get('interpretationMaxImage')->getData()));
-                if ($form->get('criteres')->get($indexCriteres)->get('interpretationMinImage')->getData() != null)
-                    $critere->setInterpretationMinImage($uploader->upload($form->get('criteres')->get(0)->get('interpretationMinImage')->getData()));
-
-                $indexCriteres++;
-            }
-
             // Vérifie qu'une image est envoyée
             if ($form->get('imageTeste')->getData() != null)
                 $teste->setImageTeste($uploader->upload($form->get('imageTeste')->getData()));
@@ -135,5 +111,4 @@ class TesteController extends AbstractController
 
         return $this->redirectToRoute('app_teste_index', [], Response::HTTP_SEE_OTHER);
     }
-
 }

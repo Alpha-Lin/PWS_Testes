@@ -1,31 +1,8 @@
-{# templates/admin/fields/testes.html.twig #}
-<table class="min-w-full divide-y divide-gray-200">
-    <thead class="bg-gray-50">
-        <tr>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                ID
-            </th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Label
-            </th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Actions
-            </th>
-        </tr>
-    </thead>
-    <tbody class="bg-white divide-y divide-gray-200">
-        {% for teste in field.value %}
-            <tr>
-                <td class="px-6 py-4 whitespace-nowrap">
-                    {{ teste.id }}
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                    {{ teste.label }}
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Consulter</a>
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+{% for teste in field.value %}
+    <p>Teste {{ loop.index }} : <a href="
+    {{ ea_url()
+            .setController('App\\Controller\\Admin\\TesteCrudController')
+            .setAction('detail')
+            .setEntityId(teste.id)
+        }}">{{teste.label}}</a></p>
+{% endfor %}

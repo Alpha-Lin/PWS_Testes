@@ -3,8 +3,7 @@
 {% block title %}Teste{% endblock %}
 
 {% block body %}
-    <h1>Teste</h1>
-
+    <h1>{{teste.label}}</h1>
 
     <div class="amazonTypeList">
         <div class="case">
@@ -20,6 +19,7 @@
     <div class="grid grid-cols-3 m-[2em_auto_2em_auto] gap-4">
     <a class="btn bg-gray-400" href="{{ path('app_teste_index') }}">back to list</a>
     <a class="btn bg-gray-400" href="{{ path('app_teste_edit', {'id': teste.id}) }}">edit</a>
+
 
     {{ include('teste/_delete_form.html.twig') }}
     </div>

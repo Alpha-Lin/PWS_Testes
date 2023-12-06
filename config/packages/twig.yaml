@@ -3,6 +3,7 @@ twig:
     globals:
         uploaded_image: '%uploads.image%'
         default_avatar: 'resrc/rotated_logo.png'
+        default_teste: 'resrc/noideabro.jpeg'
 
 when@test:
     twig:

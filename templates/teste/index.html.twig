@@ -21,7 +21,7 @@
     
     {% for teste in testes %}
     <div class="case">
-        <!--{{ teste.id }}-->
+        <!--<a href="{{ path('app_teste_delete', {'id': teste.id}) }}">supprimer</a>-->
         <div class="title">{{ teste.label }}</div>
         {% if teste.imageTeste != null %}
             <div class="image">{{ teste.imageTeste }}</div>

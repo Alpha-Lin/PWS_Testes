@@ -16,20 +16,6 @@
             <li>{{ form_row(critere.interpretationMinTexte) }}</li>
             <li>{{ form_row(critere.interpretationMaxCouleur) }}</li>
             <li>{{ form_row(critere.interpretationMinCouleur) }}</li>
-            <li>
-                {{ form_row(critere.interpretationMaxImage) }}
-            
-                {% if critere.vars.value.interpretationMaxImage is not empty %}
-                    <img class="imageCritereMax" src="{{ asset(uploaded_image ~ critere.vars.value.interpretationMaxImage) }}" alt="Critère max image">
-                {% endif %}
-            </li>
-            <li>
-                {{ form_row(critere.interpretationMinImage) }}
-                
-                {% if critere.vars.value.interpretationMinImage is not empty %}
-                    <img class="imageCritereMax" src="{{ asset(uploaded_image ~ critere.vars.value.interpretationMinImage) }}" alt="Critère min image">
-                {% endif %}
-            </li>
         {% endfor %}
     </ul>
     

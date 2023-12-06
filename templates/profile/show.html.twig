@@ -10,14 +10,13 @@
             <p>{{ flashMessage }}</p>
         {% endfor %}
     </div>
-
     <div class="m-auto w-[80%] grid grid-cols-2 grid-rows-[3em_25em_2em]">
         <div class="col-start-1 row-start-1"><h2>Bienvenue {{ app.user.username }} !</h2></div>
         <div class="col-start-1 row-start-2 justify-items-center">
             {% if user.avatar %}
-                <img class="imageTeste object-fill h-full" src="{{ asset(uploaded_image ~ user.avatar) }}" alt="avatar image">
+                <img class="avatar object-fill h-full" src="{{ asset(uploaded_image ~ user.avatar) }}" alt="avatar image">
             {% else %}
-                <img class="imageTeste object-fill h-full" src="{{ asset(default_avatar) }}" alt="avatar image">
+                <img class="avatar object-fill h-full" src="{{ asset(default_avatar) }}" alt="avatar image">
             {% endif %}
         </div>
 
