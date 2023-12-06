@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Teste{% endblock %}
+{% block title %}Teste - teste.label{% endblock %}
 
 {% block body %}
     <h1>{{teste.label}}</h1>
@@ -11,16 +11,26 @@
         {% if teste.imageTeste is not empty %}
             <div class="image"><img src="{{ asset(uploaded_image ~ teste.imageTeste) }}" alt="teste image"></div>
         {% else %}
-            <div class="image"><img src="{{ asset('resrc/noideabro.jpeg') }}"/></div>
+            <div class="image"><img src="{{ asset(default_teste) }}"/></div>
         {% endif %}
         </div>
     </div>
 
+    {% for question in teste.questions %}
+        {{ loop.index }} : {{ question.question }}
+        <ul> <!-- Liste des solutions -->
+            {% for solution in question.solutions %}
+                <li>Solution {{ loop.index }} - {{ solution.nomSolution }} (id: {{ solution.id }}) </li>
+
+                    <li>Critère : {{ solution.critere.nomCritere }} (défaut : {{ solution.critere.scoreDefaut }}, max : {{ solution.critere.scoreMax }})</li>
+                    <li>Points : {{ solution.point }} </li>
+            {% endfor %}
+    {% endfor %}
+
+
     <div class="grid grid-cols-3 m-[2em_auto_2em_auto] gap-4">
-    <a class="btn bg-gray-400" href="{{ path('app_teste_index') }}">back to list</a>
-    <a class="btn bg-gray-400" href="{{ path('app_teste_edit', {'id': teste.id}) }}">edit</a>
-
-
     {{ include('teste/_delete_form.html.twig') }}
+    <a class="btn bg-gray-400" href="{{ path('app_teste_index') }}">Retour</a>
+    <a class="btn bg-gray-400" href="{{ path('app_teste_edit', {'id': teste.id}) }}">Editer</a>
     </div>
 {% endblock %}

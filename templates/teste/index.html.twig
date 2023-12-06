@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Teste index{% endblock %}
+{% block title %}Parcourir{% endblock %}
 
 {% block body %}
-    <h1>Teste index</h1>
+    <h1>Parcourir les testes</h1>
     <form>
         <label for="name">Filtre par nom</label>
         <input type= "text" id="name" name="name" value="">
@@ -26,7 +26,7 @@
         {% if teste.imageTeste != null %}
             <div class="image">{{ teste.imageTeste }}</div>
         {% else %}
-            <div class="image"><img src="{{ asset('resrc/noideabro.jpeg') }}"/></div>
+            <div class="image"><img src="{{ asset(default_teste) }}"/></div>
         {% endif %}
             {% if is_granted('ROLE_ADMIN') or app.user.id == teste.user.id %}
                     <a class="show" href="{{ path('app_teste_show', {'id': teste.id}) }}">show</a> 
