@@ -74,7 +74,7 @@ class TentativeController extends AbstractController
             $tentative->setUser($this->getUser());
             $tentative->setDateTentative(new \Datetime());
             $reponses = $form->getviewData();
-            echo(count($reponses));
+
             $map = array();
             $listecriteresol = array();
             foreach($reponses as $reponse){
@@ -91,21 +91,15 @@ class TentativeController extends AbstractController
             $entityManager->persist($tentative);
             foreach ($map as $key => $val){
                 $cs = new CritereSolution();
-                $cs->setTentativ($tentative);
+                $cs->setTentative($tentative);
                 $cs->setPoint($val);
                 $cs->setCritere($critereRepository->findById($key));
-                echo $key."==>".$val."\n";
-                //dd($cs);
                 $entityManager->persist($cs);
 
             }   
-            //dd($map);
-            //echo($x->get)
-            //echo($x->getId());
-            //dd($reponses);
 
             $entityManager->flush();
-            return $this->redirectToRoute('app_tentative_show', ["id"=>$tentative->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_tentative_results', ["id"=>$tentative->getId()]);
         }
         
         return $this->render('tentative/new.html.twig', [
@@ -119,5 +113,18 @@ class TentativeController extends AbstractController
         return $this->render('tentative/show.html.twig', [
             'tentative' => $tentative,
         ]);
+    }
+
+    #[Route('/{id}/results', name: 'app_tentative_results', methods: ['GET'])]
+    public function results(Request $request, Tentative $tentative): Response
+    {
+
+        return $this->render(
+            'teste/results.html.twig', [
+            'tentative' => $tentative,
+            'teste' => $tentative->getTeste(),
+            'critereSolution' => $tentative->getCritereSolutions(),
+            ]
+        );
     }
 }

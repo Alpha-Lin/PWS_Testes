@@ -2,20 +2,19 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Tentative;
+use App\Entity\Critere;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class TentativeCrudController extends AbstractCrudController
+class CritereCrudController extends AbstractCrudController
 {
 
-    use Trait\ReadOnlyTrait;
-
+    use Trait\InlineActions;
     public static function getEntityFqcn(): string
     {
-        return Tentative::class;
+        return Critere::class;
     }
 
     /*

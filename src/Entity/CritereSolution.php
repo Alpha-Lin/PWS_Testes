@@ -16,10 +16,10 @@ class CritereSolution
     #[ORM\Column]
     private ?float $point = null;
 
-    #[ORM\ManyToOne(inversedBy: 'critereSolutions')]
-    private ?Tentative $tentativ = null;
+    #[ORM\ManyToOne(inversedBy: 'critereSolutions', fetch: "EAGER")]
+    private ?Tentative $tentative = null;
 
-    #[ORM\ManyToOne(inversedBy: 'critereSolutions')]
+    #[ORM\ManyToOne(inversedBy: 'critereSolutions', fetch: "EAGER")]
     private ?Critere $critere = null;
 
     public function getId(): ?int
@@ -39,14 +39,14 @@ class CritereSolution
         return $this;
     }
 
-    public function getTentativ(): ?Tentative
+    public function getTentative(): ?Tentative
     {
-        return $this->tentativ;
+        return $this->tentative;
     }
 
-    public function setTentativ(?Tentative $tentativ): static
+    public function setTentative(?Tentative $tentative): static
     {
-        $this->tentativ = $tentativ;
+        $this->tentative = $tentative;
 
         return $this;
     }

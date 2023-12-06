@@ -49,6 +49,30 @@ class TesteRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findPopularTests($hours = 24, $maxResult = 6, $minTentative = 1)
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->leftJoin('t.tentatives', 'tentatives')
+            ->groupBy('t.id')
+            ->having('COUNT(tentatives.id) >= :minTentatives')
+            ->andWhere('tentatives.dateTentative >= :lastHours')
+            ->orderBy('COUNT(tentatives.id)', 'DESC')
+            ->setParameter('minTentatives', $minTentative ) 
+            ->setParameter('lastHours', new \DateTime("-$hours hours"))
+            ->setMaxResults($maxResult);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findLastCreatedTests($maxResult = 6)
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->orderBy('t.id', 'DESC')
+            ->setMaxResults($maxResult);
+
+        return $qb->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Teste[] Returns an array of Teste objects
 //     */
