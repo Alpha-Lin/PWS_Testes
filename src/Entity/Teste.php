@@ -41,11 +41,15 @@ class Teste
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageTeste = null;
 
+    #[ORM\OneToMany(mappedBy: 'test', targetEntity: Commentaire::class, orphanRemoval: true)]
+    private Collection $commentaires;
+
     public function __construct()
     {
         $this->tentatives = new ArrayCollection();
         $this->questions = new ArrayCollection();
         $this->criteres = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -208,5 +212,33 @@ class Teste
 
         return $this;
     }
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
 
+    public function addCommentaire(Commentaire $commentaire): static
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires->add($commentaire);
+            $commentaire->setTest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): static
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getTest() === $this) {
+                $commentaire->setTest(null);
+            }
+        }
+
+        return $this;
+    }
 }
