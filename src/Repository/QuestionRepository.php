@@ -45,4 +45,21 @@ class QuestionRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+public function findAll(): array
+   {
+        return $this->createQueryBuilder('q')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+public function findByTestId($value): array
+   {
+        return $this->createQueryBuilder('q')
+            ->andWhere('q.teste = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

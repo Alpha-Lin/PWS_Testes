@@ -5,7 +5,8 @@
 {% block body %}
     <h1>Create new Message</h1>
 
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <p>{{ flashMessage }}</p>
+    {% endfor %}
     {{ include('message/_form.html.twig') }}
-
-    <a href="{{ path('app_message_index') }}">back to list</a>
 {% endblock %}

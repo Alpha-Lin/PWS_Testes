@@ -32,16 +32,16 @@ class Critere
     #[ORM\Column(length: 255)]
     private ?string $interpretationMinTexte = null;
 
-    #[ORM\Column]
-    private ?int $interpretationMaxCouleur = null;
+    #[ORM\Column(length: 7)]
+    private ?string $interpretationMaxCouleur = null;
 
-    #[ORM\Column]
-    private ?int $interpretationMinCouleur = null;
+    #[ORM\Column(length: 7)]
+    private ?string $interpretationMinCouleur = null;
 
-    #[ORM\Column(type: Types::BLOB)]
+    #[ORM\Column(length: 255, nullable: true)]
     private $interpretationMaxImage = null;
 
-    #[ORM\Column(type: Types::BLOB)]
+    #[ORM\Column(length: 255, nullable: true)]
     private $interpretationMinImage = null;
 
     #[ORM\OneToMany(mappedBy: 'critere', targetEntity: Solution::class)]
@@ -49,6 +49,9 @@ class Critere
 
     #[ORM\OneToMany(mappedBy: 'critere', targetEntity: CritereSolution::class)]
     private Collection $critereSolutions;
+
+    #[ORM\Column(length: 255)]
+    private ?string $nomCritere = null;
 
     public function __construct()
     {
@@ -121,48 +124,48 @@ class Critere
         return $this;
     }
 
-    public function getInterpretationMaxCouleur(): ?int
+    public function getInterpretationMaxCouleur(): ?string
     {
         return $this->interpretationMaxCouleur;
     }
 
-    public function setInterpretationMaxCouleur(int $interpretationMaxCouleur): static
+    public function setInterpretationMaxCouleur(string $interpretationMaxCouleur): static
     {
         $this->interpretationMaxCouleur = $interpretationMaxCouleur;
 
         return $this;
     }
 
-    public function getInterpretationMinCouleur(): ?int
+    public function getInterpretationMinCouleur(): ?string
     {
         return $this->interpretationMinCouleur;
     }
 
-    public function setInterpretationMinCouleur(int $interpretationMinCouleur): static
+    public function setInterpretationMinCouleur(string $interpretationMinCouleur): static
     {
         $this->interpretationMinCouleur = $interpretationMinCouleur;
 
         return $this;
     }
 
-    public function getInterpretationMaxImage()
+    public function getInterpretationMaxImage(): ?string
     {
         return $this->interpretationMaxImage;
     }
 
-    public function setInterpretationMaxImage($interpretationMaxImage): static
+    public function setInterpretationMaxImage(string $interpretationMaxImage): static
     {
         $this->interpretationMaxImage = $interpretationMaxImage;
 
         return $this;
     }
 
-    public function getInterpretationMinImage()
+    public function getInterpretationMinImage(): ?string
     {
         return $this->interpretationMinImage;
     }
 
-    public function setInterpretationMinImage($interpretationMinImage): static
+    public function setInterpretationMinImage(string $interpretationMinImage): static
     {
         $this->interpretationMinImage = $interpretationMinImage;
 
@@ -225,6 +228,23 @@ class Critere
                 $critereSolution->setCritere(null);
             }
         }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return "Critère n°" . $this->id;
+    }
+
+    public function getNomCritere(): ?string
+    {
+        return $this->nomCritere;
+    }
+
+    public function setNomCritere(string $nomCritere): static
+    {
+        $this->nomCritere = $nomCritere;
 
         return $this;
     }

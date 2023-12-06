@@ -19,16 +19,22 @@ class Tentative
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateTentative = null;
 
-    #[ORM\ManyToOne(inversedBy: 'tentatives')]
+    #[ORM\ManyToOne(inversedBy: 'tentatives', fetch: "EAGER")]
     #[ORM\JoinColumn(nullable: false)]
     private ?Teste $teste = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Tentatives')]
+    #[ORM\ManyToOne(inversedBy: 'Tentatives', fetch: "EAGER")]
     private ?User $user = null;
 
     #[ORM\OneToMany(mappedBy: 'tentativ', targetEntity: CritereSolution::class)]
     private Collection $critereSolutions;
-
+    /**
+    public function __construct(Teste $t)
+    {
+        $this->critereSolutions = new ArrayCollection();
+        $this->teste = t;
+    }
+**/
     public function __construct()
     {
         $this->critereSolutions = new ArrayCollection();
@@ -76,6 +82,11 @@ class Tentative
         return $this;
     }
 
+    public function __toString() {
+        return (string) $this->id;
+    }
+
+
     /**
      * @return Collection<int, CritereSolution>
      */
@@ -88,7 +99,7 @@ class Tentative
     {
         if (!$this->critereSolutions->contains($critereSolution)) {
             $this->critereSolutions->add($critereSolution);
-            $critereSolution->setTentativ($this);
+            $critereSolution->setTentative($this);
         }
 
         return $this;
@@ -98,8 +109,8 @@ class Tentative
     {
         if ($this->critereSolutions->removeElement($critereSolution)) {
             // set the owning side to null (unless already changed)
-            if ($critereSolution->getTentativ() === $this) {
-                $critereSolution->setTentativ(null);
+            if ($critereSolution->getTentative() === $this) {
+                $critereSolution->setTentative(null);
             }
         }
 

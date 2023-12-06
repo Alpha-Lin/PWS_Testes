@@ -1,0 +1,8 @@
+{% for teste in field.value %}
+    <p>Teste {{ loop.index }} : <a href="
+    {{ ea_url()
+            .setController('App\\Controller\\Admin\\TesteCrudController')
+            .setAction('detail')
+            .setEntityId(teste.id)
+        }}">{{teste.label}}</a></p>
+{% endfor %}

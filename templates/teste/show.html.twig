@@ -3,29 +3,35 @@
 {% block title %}Teste{% endblock %}
 
 {% block body %}
-    <h1>Teste</h1>
+    <h1>{{teste.label}}</h1>
+    {% if teste.imageTeste is not empty %}
+    <tr>
+        <th>ImageTeste</th>
+        <td>
+            <img class="imageTeste" src="{{ asset(uploaded_image ~ teste.imageTeste) }}" alt="teste image">
+        </td>
+    </tr>
+    {% endif %}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ teste.id }}</td>
-            </tr>
-            {% if teste.imageTeste is not empty %}
-            <tr>
-                <th>ImageTeste</th>
-                <td>
-                    <img class="imageTeste" src="{{ asset(uploaded_image ~ teste.imageTeste) }}" alt="teste image">
-                </td>
-                
-            </tr>
-            {% endif %}
-        </tbody>
-    </table>
+    <ul> <!-- Liste des questions -->
+    {% for question in teste.questions %}
+        <ul> <!-- Liste des solutions -->
+            {% for solution in question.solutions %}
+                <li>Solution {{ loop.index }} - {{ solution.nomSolution }} (id: {{ solution.id }}) </li>
+                <ul>    
+                    <li>Critère : {{ solution.critere.nomCritere }} (défaut : {{ solution.critere.scoreDefaut }}, max : {{ solution.critere.scoreMax }})</li>
+                    <li>Points : {{ solution.point }} </li>
+                </ul>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</ul>
 
-    <a href="{{ path('app_teste_index') }}">back to list</a>
+    <div>
+        <a href="{{ path('app_teste_index') }}">back to list</a>
+        <a href="{{ path('app_teste_edit', {'id': teste.id}) }}">edit</a>
+    </div>
 
-    <a href="{{ path('app_teste_edit', {'id': teste.id}) }}">edit</a>
 
     {{ include('teste/_delete_form.html.twig') }}
 {% endblock %}

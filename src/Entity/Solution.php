@@ -31,8 +31,6 @@ class Solution
     #[ORM\Column]
     private ?float $point = null;
 
-
-
     public function __construct()
     {
         $this->tentatives = new ArrayCollection();
@@ -93,7 +91,7 @@ class Solution
 
     public function __toString(): string
     {
-        return $nomSolution;
+        return $this->nomSolution;
     }
 
     public function getCritere(): ?Critere
@@ -119,4 +117,5 @@ class Solution
 
         return $this;
     }
+
 }

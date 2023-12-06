@@ -1,0 +1,3 @@
+{% for tentative in field.value %}
+    <p>Tentative du {{ tentative.dateTentative | date('d-m-Y') }} : <a href="">consulter</a></p>
+{% endfor %}

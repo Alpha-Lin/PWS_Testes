@@ -3,9 +3,10 @@
 {% block title %}New Teste{% endblock %}
 
 {% block body %}
-    <h1>Create new Teste</h1>
+<div class="formDefault">
+    <h1 class="text-[4em] md:text-[4vw]">Nouveau quizz</h1>
 
     {{ include('teste/_form.html.twig') }}
-
-    <a href="{{ path('app_teste_index') }}">back to list</a>
+</div>
+    <a class="m-[2em_auto_2em_auto] btn bg-gray-400" href="{{ path('app_teste_index') }}">back to list</a>
 {% endblock %}

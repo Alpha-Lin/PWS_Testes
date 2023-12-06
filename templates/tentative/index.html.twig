@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tentative index{% endblock %}
+
+{% block body %}
+    <h1>Tentative index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>DateTentative</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tentative in tentatives %}
+            <tr>
+                <td>{{ tentative.id }}</td>
+                <td>{{ tentative.dateTentative ? tentative.dateTentative|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_tentative_results', {'id': tentative.id}) }}">show</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

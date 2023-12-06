@@ -1,0 +1,9 @@
+<ul> <!-- Liste des solutions -->
+    {% for solution in field.value %}
+        <li>Solution {{ loop.index }} - {{ solution.nomSolution }} (id: {{ solution.id }}) </li>
+        <ul>    
+            <li>Critère : {{ solution.critere.nomCritere }} (défaut : {{ solution.critere.scoreDefaut }}, max : {{ solution.critere.scoreMax }})</li>
+            <li>Points : {{ solution.point }} </li>
+        </ul>
+    {% endfor %}
+</ul>

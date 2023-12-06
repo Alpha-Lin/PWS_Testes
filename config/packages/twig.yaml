@@ -2,6 +2,7 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     globals:
         uploaded_image: '%uploads.image%'
+        default_avatar: 'resrc/rotated_logo.png'
 
 when@test:
     twig:

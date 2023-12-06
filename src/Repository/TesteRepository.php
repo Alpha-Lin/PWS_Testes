@@ -22,14 +22,55 @@ class TesteRepository extends ServiceEntityRepository
     }
     
     
-    public function findByLabel($label): array
+    public function filterTeste($label, $userId): array
+    {
+        $qb = $this->createQueryBuilder('m');
+
+        if ($userId) {
+            $qb->andWhere('m.user = :user_id')
+            ->setParameter('user_id', $userId);
+        }
+
+        if ($label) {
+            $qb->andWhere('m.label LIKE :inLanguage')
+            ->setParameter('inLanguage', '%'.$label.'%');
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findById($id): ?Teste
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.label LIKE :inLanguage')
-            ->setParameter('inLanguage', '%'.$label.'%')
+            ->andWhere('m.id = :inLanguage')
+            ->setParameter('inLanguage', $id)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
         ;
+    }
+
+    public function findPopularTests($hours = 24, $maxResult = 6, $minTentative = 1)
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->leftJoin('t.tentatives', 'tentatives')
+            ->groupBy('t.id')
+            ->having('COUNT(tentatives.id) >= :minTentatives')
+            ->andWhere('tentatives.dateTentative >= :lastHours')
+            ->orderBy('COUNT(tentatives.id)', 'DESC')
+            ->setParameter('minTentatives', $minTentative ) 
+            ->setParameter('lastHours', new \DateTime("-$hours hours"))
+            ->setMaxResults($maxResult);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findLastCreatedTests($maxResult = 6)
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->orderBy('t.id', 'DESC')
+            ->setMaxResults($maxResult);
+
+        return $qb->getQuery()->getResult();
     }
 
 //    /**

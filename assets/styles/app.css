@@ -37,3 +37,132 @@ body {
 .logo {
     background-image: url('../../public/resrc/StonksQuizz.png');
 }
+/*
+.formDefault {
+    align-self: center;
+    justify-self: center;
+    width: 50vh;
+    display: grid;
+    grid-template-rows: 3em;
+    grid-auto-rows: 5em;
+    align-content: center;
+    gap:2em;
+    
+}
+*/
+.formDefault {
+    align-self: center;
+    justify-self: center;
+}
+
+.formDefault h1, h2, h3, h4 {
+    text-align: center;
+}
+
+.formDefault h2 {
+    font-size: xx-large;
+}
+
+.formDefault h3 {
+    font-size: x-large;
+}
+
+.formDefault h4 {
+    font-size: large;
+}
+
+.field {
+    display: grid;
+    grid-template-rows: auto auto;
+}
+
+.formDefault textarea {
+    border-radius: 10px;
+    border: solid 2px #5A5BFF;
+}
+
+.formDefault button {
+    background-color: #ACB5B5;
+    border-radius: 10px;
+    width: 15vw;
+    min-width: 8em;
+    height: 2em;
+    margin: 0 auto 0 auto;
+    transition: 300ms ease-in-out;
+    color: white;
+}
+
+.formDefault button:hover {
+    background-color: #d2dede;
+}
+
+button[type=submit] {
+    margin-top: 2em;
+    background-color: #5A5BFF;
+    width: 20vw;
+}
+
+.formDefault button[type=submit]:hover {
+    background-color: #8383ff;
+}
+
+.formDefault div {
+    display: grid;
+    grid-auto-rows: auto;
+    gap: 1.25em;
+}
+
+
+input, select {
+    border: solid 2px #5A5BFF;
+    background-color: white;
+    width: 90%;
+    height: 2.5em;
+    padding-left: 2%;
+    margin-left: auto;
+    border-radius: 10px;
+}
+
+input[type=file] {
+    border: none;
+    background-color: transparent;
+}
+
+textarea {
+    padding-left: 2%;
+}
+
+.ulRelou button {
+    margin-bottom: 2em;
+}
+
+.ulRelou li div {
+    display: grid;
+    grid-auto-rows: auto;
+    gap: 1.25em;
+}
+
+
+.liRelou {
+    display: grid;
+    grid-auto-rows: auto;
+    gap: 1.25em;
+    margin-bottom: 5%;
+}
+
+.liRelou div div {
+    display: grid;
+    gap: 1.25em;
+}
+
+.btn {
+    border-radius: 10px;
+    width: 10vw;
+    min-width: 8em;
+    height: 2em;
+    transition: 300ms ease-in-out;
+    text-align: center;
+    color: white;
+}
+
+
