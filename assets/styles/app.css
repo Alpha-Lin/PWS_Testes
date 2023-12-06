@@ -210,6 +210,7 @@ textarea {
     overflow: hidden;
 }
 
+
 .image {
     grid-row: 1;
     grid-column: 1/-1;
@@ -282,6 +283,65 @@ textarea {
 }
 
 .case a {
+    height: 2em;
+    border-radius: 10px;
+    width: 90%;
+    justify-self: center;
+    transition: 300ms ease-in-out;
+}
+
+.carousel {
+    margin-top: 2%;
+    justify-self: center;
+    width: 16em;
+    height: 30em;
+    overflow: auto;
+    display: grid;
+    grid-template-rows: 20em 3em;
+    grid-template-columns: 100%;
+    grid-auto-flow: column;
+    grid-auto-columns: 16em;
+    gap: 3px;
+    overflow-x: hidden;
+}
+
+.empty {
+    height: 3em;
+    overflow-y: hidden;
+}
+
+.carouselBtn {
+    grid-row: 2;
+    grid-column: 1;
+    border: solid 2px red;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-around;
+}
+
+.carouselBtn button {
+    width: 2em;
+}
+
+
+.card {
+    grid-row: 1;
+    background-color: #272d3c99;
+    width: 100%;
+    height: 100%;
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 10em;
+    grid-auto-rows: auto;
+    text-align: center;
+    border-radius: 20px;
+    overflow: hidden;
+
+    transition: 1s;
+}
+
+.card a {
     height: 2em;
     border-radius: 10px;
     width: 90%;
