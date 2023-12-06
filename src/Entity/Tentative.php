@@ -20,8 +20,8 @@ class Tentative
     private ?\DateTimeInterface $dateTentative = null;
 
     #[ORM\ManyToOne(inversedBy: 'tentatives', fetch: "EAGER")]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?Teste $teste = null; //a changer plus tard
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Teste $teste = null;
 
     #[ORM\ManyToOne(inversedBy: 'Tentatives', fetch: "EAGER")]
     private ?User $user = null;
