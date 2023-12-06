@@ -9,6 +9,7 @@
     <div class="amazonTypeList">
         {% for tentative in tentatives %}
             <div class="case">
+            <div class="image"><img src="{{ asset(defaut_tentative) }}"/></div>
             <div class="title">{{ tentative.dateTentative ? tentative.dateTentative|date('Y-m-d H:i:s') : '' }}</div>
                 
             <div class="show"><a href="{{ path('app_tentative_results', {'id': tentative.id}) }}">show</a></div>
