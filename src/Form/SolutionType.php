@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Teste;
 use App\Entity\Critere;
 use App\Entity\Solution;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -17,7 +18,8 @@ class SolutionType extends AbstractType
             ->add('nomSolution')
             ->add('point')
             ->add('critere', EntityType::class, [
-                'class' => Critere::class
+                'class' => Critere::class,
+                'choices' => $options['teste']->getCriteres()
             ]);
     }
 
@@ -25,6 +27,9 @@ class SolutionType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Solution::class,
+            'teste' => null
         ]);
+
+        $resolver->setRequired('teste');
     }
 }
