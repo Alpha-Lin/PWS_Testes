@@ -3,10 +3,11 @@
 {% block title %}New Teste{% endblock %}
 
 {% block body %}
-<div class="formDefault">
-    <h1 class="text-[4em] md:text-[4vw]">Nouveau quizz</h1>
+<h1>Nouveau quizz</h1>
 
-    {{ include('teste/_form.html.twig') }}
+{{ include('teste/_form.html.twig') }}
+
+<div class="grid grid-cols-1 m-[0_auto_0_auto]">
+<a class="m-[2em_auto_2em_auto] btn bg-gray-400" href="{{ path('app_teste_index') }}">back to list</a>
 </div>
-    <a class="m-[2em_auto_2em_auto] btn bg-gray-400" href="{{ path('app_teste_index') }}">back to list</a>
 {% endblock %}

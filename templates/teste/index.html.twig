@@ -5,15 +5,91 @@
 {% block body %}
     <h1>Teste index</h1>
     <form>
-        <label for ="name">Filtre par nom</label>
-        <input type = "text" id = "name" name = "name" value = "">
+        <label for="name">Filtre par nom</label>
+        <input type= "text" id="name" name="name" value="">
 
-        <label for ="name">Uniquement mes testes</label>
-        <input type="checkbox"  id="mineOnly" name="mineOnly" />
-
-        <input type = "submit">
+        <div class="checkbox">
+        <label for="name">Uniquement mes testes</label>
+        <input type="checkbox"  id="mineOnly" name="mineOnly"/>
+        </div>
+        <input type="submit" value="Filtrer">
     </form>
 
+    <a href="{{ path('app_teste_new') }}">Create new</a>
+
+    <div class="amazonTypeList">
+    
+    {% for teste in testes %}
+    <div class="case">
+        <!--{{ teste.id }}-->
+        <div class="title">{{ teste.label }}</div>
+        <div class="image">{{ teste.imageTeste }}</div>
+            {% if is_granted('ROLE_ADMIN') or app.user.id == teste.user.id %}
+                    <a class="show" href="{{ path('app_teste_show', {'id': teste.id}) }}">show</a>  
+                    <a class="edit" href="{{ path('app_teste_edit', {'id': teste.id}) }}">edit</a> 
+            {% endif %}
+        <a class="try" href="{{ path('app_tentative_new', {'id': teste.id}) }}">essayer</a>  
+        <a class="tries" href="{{ path('app_tentative_for_test', {'id': teste.id}) }}">mes tentatives</a>
+    </div>
+    {% else %}
+        <h2>Aucun quizz trouver</h2>
+    {% endfor %}
+
+    {% for teste in testes %}
+    <div class="case">
+        <!-- {{ teste.id }} -->
+        {{ teste.label }}
+        {{ teste.imageTeste }}
+            {% if is_granted('ROLE_ADMIN') or app.user.id == teste.user.id %}
+                    <a href="{{ path('app_teste_show', {'id': teste.id}) }}">show</a>  
+                    <a href="{{ path('app_teste_edit', {'id': teste.id}) }}">edit</a> 
+            {% endif %}
+        <a href="{{ path('app_tentative_new', {'id': teste.id}) }}">essayer</a> 
+        <a href="{{ path('app_tentative_for_test', {'id': teste.id}) }}">mes tentatives</a>
+    </div>
+    {% else %}
+        <h2>Aucun quizz trouver</h2>
+    {% endfor %}
+
+    {% for teste in testes %}
+    <div class="case">
+        {{ teste.id }}
+        {{ teste.label }}
+        {{ teste.imageTeste }}
+            {% if is_granted('ROLE_ADMIN') or app.user.id == teste.user.id %}
+                    <a href="{{ path('app_teste_show', {'id': teste.id}) }}">show</a> 
+                    <a href="{{ path('app_teste_edit', {'id': teste.id}) }}">edit</a> 
+            {% endif %}
+        <a href="{{ path('app_tentative_new', {'id': teste.id}) }}">essayer</a> 
+        <a href="{{ path('app_tentative_for_test', {'id': teste.id}) }}">mes tentatives</a>
+    </div>
+    {% else %}
+        <h2>Aucun quizz trouver</h2>
+    {% endfor %}
+
+    {% for teste in testes %}
+    <div class="case">
+        {{ teste.id }}
+        {{ teste.label }}
+        {% if teste.imageTeste != null %}
+            {{ teste.imageTeste }}
+        {% else %}
+            <img src="{{ asset('resrc/noideabro.jpeg') }}"/>
+        {% endif %}
+            {% if is_granted('ROLE_ADMIN') or app.user.id == teste.user.id %}
+                    <a href="{{ path('app_teste_show', {'id': teste.id}) }}">show</a> 
+                    <a href="{{ path('app_teste_edit', {'id': teste.id}) }}">edit</a> 
+            {% endif %}
+        <a href="{{ path('app_tentative_new', {'id': teste.id}) }}">essayer</a> 
+        <a href="{{ path('app_tentative_for_test', {'id': teste.id}) }}">mes tentatives</a>
+    </div>
+    {% else %}
+        <h2>Aucun quizz trouver</h2>
+    {% endfor %}
+    
+    
+    </div>
+    <!--
     <table class="table">
         <thead>
             <tr>
@@ -45,6 +121,6 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_teste_new') }}">Create new</a>
+    -->
+    
 {% endblock %}
