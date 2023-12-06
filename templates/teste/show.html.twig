@@ -4,14 +4,17 @@
 
 {% block body %}
     <h1>{{teste.label}}</h1>
-    {% if teste.imageTeste is not empty %}
+
     <tr>
         <th>ImageTeste</th>
         <td>
-            <img class="imageTeste" src="{{ asset(uploaded_image ~ teste.imageTeste) }}" alt="teste image">
+            {% if teste.imageTeste %}
+                <img class="imageTeste" src="{{ asset(uploaded_image ~ teste.imageTeste) }}" alt="image du teste image">
+            {% else %}
+                <img class="imageTeste" src="{{ asset(default_teste) }}" alt="avatar image" width="200">
+            {% endif %}
         </td>
     </tr>
-    {% endif %}
 
     <ul> <!-- Liste des questions -->
     {% for question in teste.questions %}
