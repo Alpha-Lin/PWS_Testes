@@ -11,7 +11,7 @@
             <div class="case">
             <div class="title">{{ tentative.dateTentative ? tentative.dateTentative|date('Y-m-d H:i:s') : '' }}</div>
                 
-            <div class="show"><a href="{{ path('app_tentative_show', {'id': tentative.id}) }}">show</a></div>
+            <div class="show"><a href="{{ path('app_tentative_results', {'id': tentative.id}) }}">show</a></div>
             <div class="edit"><a href="{{ path('app_tentative_new', {'id': tentative.teste.id}) }}">Repasser</a></div>
             </div>
 
