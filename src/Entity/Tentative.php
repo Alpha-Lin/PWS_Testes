@@ -19,11 +19,11 @@ class Tentative
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateTentative = null;
 
-    #[ORM\ManyToOne(inversedBy: 'tentatives')]
+    #[ORM\ManyToOne(inversedBy: 'tentatives', fetch: "EAGER")]
     #[ORM\JoinColumn(nullable: true)]
     private ?Teste $teste = null; //a changer plus tard
 
-    #[ORM\ManyToOne(inversedBy: 'Tentatives')]
+    #[ORM\ManyToOne(inversedBy: 'Tentatives', fetch: "EAGER")]
     private ?User $user = null;
 
     #[ORM\OneToMany(mappedBy: 'tentativ', targetEntity: CritereSolution::class)]
@@ -99,7 +99,7 @@ class Tentative
     {
         if (!$this->critereSolutions->contains($critereSolution)) {
             $this->critereSolutions->add($critereSolution);
-            $critereSolution->setTentativ($this);
+            $critereSolution->setTentative($this);
         }
 
         return $this;
@@ -109,8 +109,8 @@ class Tentative
     {
         if ($this->critereSolutions->removeElement($critereSolution)) {
             // set the owning side to null (unless already changed)
-            if ($critereSolution->getTentativ() === $this) {
-                $critereSolution->setTentativ(null);
+            if ($critereSolution->getTentative() === $this) {
+                $critereSolution->setTentative(null);
             }
         }
 
