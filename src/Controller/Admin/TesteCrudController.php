@@ -26,17 +26,18 @@ class TesteCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            FormField::addTab('Teste')->onlyOnDetail(),
             Field::new('id')->onlyOnIndex(),
+            Field::new('label'),
             ImageField::new('imageTeste')
                 ->setUploadDir('public/uploads/img')
                 ->setBasePath('uploads/img')
                 ->setUploadedFileNamePattern('[slug]-[timestamp].[extension]'),
             AssociationField::new('user')->onlyOnIndex(),
             AssociationField::new('typeTeste'),
-
-            FormField::addTab('Questions')->onlyOnDetail(),
-            ArrayField::new('questions')->onlyOnDetail()
+            AssociationField::new('questions'),
+            CollectionField::new('questions')
+                ->setTemplatePath('admin/fields/visualisationTestes.html.twig')
+                ->onlyOnDetail(),
         ];
     }
 
