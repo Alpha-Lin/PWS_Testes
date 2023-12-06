@@ -22,7 +22,7 @@ class RegistrationController extends AbstractController
     {
 
         if ($this->getUser()) {
-            return $this->redirectToRoute('user_index');
+            return $this->redirectToRoute('app_profile');
         }
 
         $user = new User();

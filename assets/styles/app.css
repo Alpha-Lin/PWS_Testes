@@ -183,21 +183,108 @@ textarea {
 
 
 .amazonTypeList {
-    margin: auto;
-    width: 70%;
-    border: solid 3px blue;
+    margin: 0 auto 0 auto;
+    width: 80%;
     display: grid;
     grid-auto-rows: auto;
-    grid-template-columns: repeat(auto-fit, 14em);
+    grid-template-columns: repeat(auto-fit, 16em);
     justify-content: space-around;
     row-gap: 2em;
 
 }
 
+.rien {
+    grid-column: 1/-1;
+}
+
 
 .case {
-    border: solid 2px red;
+    background-color: #272d3c99;
+    height: 20em;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 10em;
     grid-auto-rows: auto;
+    text-align: center;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.image {
+    grid-row: 1;
+    grid-column: 1/-1;
+}
+
+.image img {
+    overflow-x: hidden;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.title {
+    
+    text-overflow: ellipsis;
+    grid-column: 1/-1;
+    grid-row: 2;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: x-large;
+}
+
+.title2 {
+    text-overflow: ellipsis;
+    grid-column: 1/-1;
+    grid-row: 3;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: x-large;
+}
+
+.try {
+    grid-column: 2;
+    grid-row: 3;
+    background-color: #5A5BFF;
+}
+
+.try:hover {
+    background-color: #8383ff;
+}
+
+.myTries {
+    grid-column: 1;
+    grid-row: 3;
+    background-color: #bdbdfc;
+}
+
+.myTries:hover {
+    background-color: #d7d7ff;
+}
+
+.show {
+    grid-column: 2;
+    grid-row: 4;
+    background-color: #a8aebd;
+}
+
+.show:hover {
+    background-color: #c6cad3;
+}
+
+.edit {
+    grid-column: 1;
+    grid-row: 4;
+    background-color: #5f6064;
+}
+
+.edit:hover {
+    background-color: #8f9198;
+}
+
+.case a {
+    height: 2em;
+    border-radius: 10px;
+    width: 90%;
+    justify-self: center;
+    transition: 300ms ease-in-out;
 }

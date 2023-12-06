@@ -5,22 +5,18 @@
 {% block body %}
     <h1>CritereSolution</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ critere_solution.id }}</td>
-            </tr>
-            <tr>
-                <th>Point</th>
-                <td>{{ critere_solution.point }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="amazonTypeList">
+        <div class="case">
+        <div class="title">Id: {{ critere_solution.id }}</div>
+        <div class="title2">Point: {{ critere_solution.point }}</div>
+        </div>
+    </div>
 
+    <div class="grid grid-cols-3 m-[2em_auto_2em_auto] gap-4">
     <a href="{{ path('app_critere_solution_index') }}">back to list</a>
 
     <a href="{{ path('app_critere_solution_edit', {'id': critere_solution.id}) }}">edit</a>
 
     {{ include('critere_solution/_delete_form.html.twig') }}
+    </div>
 {% endblock %}
