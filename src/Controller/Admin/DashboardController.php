@@ -35,13 +35,13 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {   
         yield MenuItem::section('Moderation');
-        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class);
+        yield MenuItem::linkToCrud('Utilisateurs++', 'fas fa-user', User::class)->setController(SuperUserCrudController::class);
+        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class)->setController(UserCrudController::class);
         yield MenuItem::linkToCrud('Message', 'fas fa-envelope', Message::class);       
 
         yield MenuItem::section('Quizz');
         yield MenuItem::linkToCrud('Type de teste', 'fas fa-tags', TypeTeste::class);
-        yield MenuItem::linkToCrud('Testes', 'fas fa-hashtag', Teste::class)->setController(TesteCrudController::class);
-        yield MenuItem::linkToCrud('Tentatives', 'fas fa-list-check', Tentative::class);
+        yield MenuItem::linkToCrud('Testes', 'fas fa-hashtag', Teste::class);
         yield MenuItem::linkToCrud('Questions', 'fas fa-commenting', Question::class);
         yield MenuItem::linkToCrud('Criteres', 'fas  fa-wand-magic-sparkles', Critere::class);
         
@@ -49,6 +49,5 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToLogout('Logout', 'fa fa-sign-out');
         yield MenuItem::linkToRoute('Profile', 'fa fa-user-cog', 'app_profile');
     }
-
-    
+  
 }

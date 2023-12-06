@@ -22,11 +22,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
-class UserCrudController extends AbstractCrudController
+class SuperUserCrudController extends AbstractCrudController
 {
 
-    use Trait\NoUpdateTrait;
-    use Trait\InlineActions;
+    use Trait\SuperUserTrait;
 
     private UserPasswordHasherInterface $userPasswordHasher;
 
@@ -42,31 +41,16 @@ class UserCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            FormField::addTab('Information utilisateur'),
             IdField::new('id')->onlyOnDetail(),
             TextField::new('username'),
             TextField::new('password')->onlyWhenCreating(),
             EmailField::new('email'),
-            ChoiceField::new('roles')->hideOnForm(),
+            ChoiceField::new('roles')->setChoices(PossibleRoles::cases())->allowMultipleChoices(),
             ImageField::new('avatar')
                 ->setUploadDir('public/uploads/img')
                 ->setBasePath('uploads/img')
-                ->setUploadedFileNamePattern('[slug]-[timestamp].[extension]'),
-            AssociationField::new('testes'),
-            AssociationField::new('Tentatives'),
-
-            FormField::addTab('Quizz'),
-            AssociationField::new('testes'),
-            CollectionField::new('testes')
-                ->setTemplatePath('admin/fields/testes.html.twig')
-                ->onlyOnDetail(),
-            
-            FormField::addTab('Tentatives'),
-            AssociationField::new('Tentatives'),
-            CollectionField::new('Tentatives')            
-                ->setTemplatePath('admin/fields/tentatives.html.twig')
-                ->onlyOnDetail(),
-        ];  
+                ->setUploadedFileNamePattern('[slug]-[timestamp].[extension]'), 
+        ];
     }
 
     public function configureFilters(Filters $filters): Filters

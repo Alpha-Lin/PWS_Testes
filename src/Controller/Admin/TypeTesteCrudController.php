@@ -17,8 +17,6 @@ class TypeTesteCrudController extends AbstractCrudController
         return TypeTeste::class;
     }
 
-    
-
     public function configureFields(string $pageName): iterable
     {
         return [
