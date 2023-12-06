@@ -5,36 +5,22 @@
 {% block body %}
     <h1>{{teste.label}}</h1>
 
-    <tr>
-        <th>ImageTeste</th>
-        <td>
-            {% if teste.imageTeste %}
-                <img class="imageTeste" src="{{ asset(uploaded_image ~ teste.imageTeste) }}" alt="image du teste image">
-            {% else %}
-                <img class="imageTeste" src="{{ asset(default_teste) }}" alt="avatar image" width="200">
-            {% endif %}
-        </td>
-    </tr>
-
-    <ul> <!-- Liste des questions -->
-    {% for question in teste.questions %}
-        <ul> <!-- Liste des solutions -->
-            {% for solution in question.solutions %}
-                <li>Solution {{ loop.index }} - {{ solution.nomSolution }} (id: {{ solution.id }}) </li>
-                <ul>    
-                    <li>Critère : {{ solution.critere.nomCritere }} (défaut : {{ solution.critere.scoreDefaut }}, max : {{ solution.critere.scoreMax }})</li>
-                    <li>Points : {{ solution.point }} </li>
-                </ul>
-            {% endfor %}
-        </ul>
-    {% endfor %}
-</ul>
-
-    <div>
-        <a href="{{ path('app_teste_index') }}">back to list</a>
-        <a href="{{ path('app_teste_edit', {'id': teste.id}) }}">edit</a>
+    <div class="amazonTypeList">
+        <div class="case">
+        <div class="title">Id: {{ teste.id }}</div>
+        {% if teste.imageTeste is not empty %}
+            <div class="image"><img src="{{ asset(uploaded_image ~ teste.imageTeste) }}" alt="teste image"></div>
+        {% else %}
+            <div class="image"><img src="{{ asset('resrc/noideabro.jpeg') }}"/></div>
+        {% endif %}
+        </div>
     </div>
+
+    <div class="grid grid-cols-3 m-[2em_auto_2em_auto] gap-4">
+    <a class="btn bg-gray-400" href="{{ path('app_teste_index') }}">back to list</a>
+    <a class="btn bg-gray-400" href="{{ path('app_teste_edit', {'id': teste.id}) }}">edit</a>
 
 
     {{ include('teste/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

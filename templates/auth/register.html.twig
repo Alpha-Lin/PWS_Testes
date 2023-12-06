@@ -3,20 +3,26 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-<div class="formDefault">
-    <h1>Register</h1>
-
+    
+<h1>Register</h1>
     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
+    
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.username) }}
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        <div  class="checkbox">
+            {{ form_row(registrationForm.agreeTerms) }}
+        </div>
 
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
+
+
+<div class="grid grid-cols-1 m-[0_auto_0_auto]">
+    <a class="btn bg-gray-400" href="/login">Se connecter</a>
 </div>
 {% endblock %}

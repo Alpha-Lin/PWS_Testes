@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ResetPasswordType;
 use App\Form\EditUserType;
+use App\Repository\TesteRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,6 +31,7 @@ class ProfileController extends AbstractController
 
         return $this->render('profile/show.html.twig', [
             'user' => $this->getUser(),
+            'testes' => $this->getUser()->getTestes()
         ]);
     }
 

@@ -4,32 +4,20 @@
 
 {% block body %}
     <h1>CritereSolution index</h1>
+    
+    <a class="btn bg-blue-600 justify-self-center" href="{{ path('app_critere_solution_new') }}">Create new</a>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Point</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="amazonTypeList">
+
         {% for critere_solution in critere_solutions %}
-            <tr>
-                <td>{{ critere_solution.id }}</td>
-                <td>{{ critere_solution.point }}</td>
-                <td>
-                    <a href="{{ path('app_critere_solution_show', {'id': critere_solution.id}) }}">show</a>
-                    <a href="{{ path('app_critere_solution_edit', {'id': critere_solution.id}) }}">edit</a>
-                </td>
-            </tr>
+            <div class="case">
+                <div class"titre">{{ critere_solution.point }}</div>
+                <a class="show" href="{{ path('app_critere_solution_show', {'id': critere_solution.id}) }}">show</a>
+                <a class="edit" href="{{ path('app_critere_solution_edit', {'id': critere_solution.id}) }}">edit</a>
+            </div>
         {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
+                <h2 class="rien">no records found</h2>
         {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_critere_solution_new') }}">Create new</a>
+    </div>
 {% endblock %}

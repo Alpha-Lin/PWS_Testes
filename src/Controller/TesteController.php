@@ -16,6 +16,9 @@ use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 #[Route('/teste')]
 class TesteController extends AbstractController
 {
+    /**
+     * @method User|null getUser()
+     */
     #[Route('/', name: 'app_teste_index', methods: ['GET'])]
     public function index(Request $request, TesteRepository $testeRepository): Response
     {
@@ -27,7 +30,7 @@ class TesteController extends AbstractController
         }
 
         if ($request->query->get('mineOnly') === 'on') {
-            $id = $this->getuser()->getId();
+            $id = $this->getUser()->getId();
         }
 
         return $this->render('teste/index.html.twig', [
