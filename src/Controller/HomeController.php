@@ -17,9 +17,13 @@ class HomeController extends AbstractController
     }
 
     #[Route('/dashboard', name:'user_index')]
-    public function user_index(): Response
+    public function user_index(TesteRepository $testeRepository): Response
     {
-        return $this->render('home/dashboard.html.twig');
+
+        return $this->render('home/dashboard.html.twig', [
+            'populaire' => $testeRepository->findPopularTests(6, 6, 1),
+            'dernier' =>  $testeRepository->findLastCreatedTests(6)
+        ]);
     }
 
 
