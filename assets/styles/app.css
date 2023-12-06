@@ -37,19 +37,7 @@ body {
 .logo {
     background-image: url('../../public/resrc/StonksQuizz.png');
 }
-/*
-.formDefault {
-    align-self: center;
-    justify-self: center;
-    width: 50vh;
-    display: grid;
-    grid-template-rows: 3em;
-    grid-auto-rows: 5em;
-    align-content: center;
-    gap:2em;
-    
-}
-*/
+
 form {
     justify-self: center;
 }
@@ -313,7 +301,6 @@ textarea {
 .carouselBtn {
     grid-row: 2;
     grid-column: 1;
-    border: solid 2px red;
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-content: space-around;

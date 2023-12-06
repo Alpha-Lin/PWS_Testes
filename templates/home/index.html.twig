@@ -18,10 +18,6 @@
         {% else %}
             <div class="image"><img src="{{ asset('resrc/noideabro.jpeg') }}"/></div>
         {% endif %}
-            {% if is_granted('ROLE_ADMIN') or app.user.id == teste.user.id %}
-                    <a class="show" href="{{ path('app_teste_show', {'id': teste.id}) }}">show</a> 
-                    <a class="edit" href="{{ path('app_teste_edit', {'id': teste.id}) }}">edit</a> 
-            {% endif %}
         <a class="try" href="{{ path('app_tentative_new', {'id': teste.id}) }}">essayer</a> 
         <a class="myTries" href="{{ path('app_tentative_for_test', {'id': teste.id}) }}">mes tentatives</a>
     <div>
@@ -47,52 +43,7 @@
         {% else %}
             <div class="image"><img src="{{ asset('resrc/noideabro.jpeg') }}"/></div>
         {% endif %}
-            {% if is_granted('ROLE_ADMIN') or app.user.id == teste.user.id %}
-                    <a class="show" href="{{ path('app_teste_show', {'id': teste.id}) }}">show</a> 
-                    <a class="edit" href="{{ path('app_teste_edit', {'id': teste.id}) }}">edit</a> 
-            {% endif %}
-        <a class="try" href="{{ path('app_tentative_new', {'id': teste.id}) }}">essayer</a> 
-        <a class="myTries" href="{{ path('app_tentative_for_test', {'id': teste.id}) }}">mes tentatives</a>
-    </div>
-    <div class="card card2">
-        <div class="title">{{ teste.label }}</div>
-        {% if teste.imageTeste != null %}
-            <div class="image">{{ teste.imageTeste }}</div>
-        {% else %}
-            <div class="image"><img src="{{ asset('resrc/noideabro.jpeg') }}"/></div>
-        {% endif %}
-            {% if is_granted('ROLE_ADMIN') or app.user.id == teste.user.id %}
-                    <a class="show" href="{{ path('app_teste_show', {'id': teste.id}) }}">show</a> 
-                    <a class="edit" href="{{ path('app_teste_edit', {'id': teste.id}) }}">edit</a> 
-            {% endif %}
-        <a class="try" href="{{ path('app_tentative_new', {'id': teste.id}) }}">essayer</a> 
-        <a class="myTries" href="{{ path('app_tentative_for_test', {'id': teste.id}) }}">mes tentatives</a>
-    </div>
-    <div class="card card2">
-        <div class="title">{{ teste.label }}</div>
-        {% if teste.imageTeste != null %}
-            <div class="image">{{ teste.imageTeste }}</div>
-        {% else %}
-            <div class="image"><img src="{{ asset('resrc/noideabro.jpeg') }}"/></div>
-        {% endif %}
-            {% if is_granted('ROLE_ADMIN') or app.user.id == teste.user.id %}
-                    <a class="show" href="{{ path('app_teste_show', {'id': teste.id}) }}">show</a> 
-                    <a class="edit" href="{{ path('app_teste_edit', {'id': teste.id}) }}">edit</a> 
-            {% endif %}
-        <a class="try" href="{{ path('app_tentative_new', {'id': teste.id}) }}">essayer</a> 
-        <a class="myTries" href="{{ path('app_tentative_for_test', {'id': teste.id}) }}">mes tentatives</a>
-    </div>
-    <div class="card card2">
-        <div class="title">{{ teste.label }}</div>
-        {% if teste.imageTeste != null %}
-            <div class="image">{{ teste.imageTeste }}</div>
-        {% else %}
-            <div class="image"><img src="{{ asset('resrc/noideabro.jpeg') }}"/></div>
-        {% endif %}
-            {% if is_granted('ROLE_ADMIN') or app.user.id == teste.user.id %}
-                    <a class="show" href="{{ path('app_teste_show', {'id': teste.id}) }}">show</a> 
-                    <a class="edit" href="{{ path('app_teste_edit', {'id': teste.id}) }}">edit</a> 
-            {% endif %}
+        
         <a class="try" href="{{ path('app_tentative_new', {'id': teste.id}) }}">essayer</a> 
         <a class="myTries" href="{{ path('app_tentative_for_test', {'id': teste.id}) }}">mes tentatives</a>
     </div>

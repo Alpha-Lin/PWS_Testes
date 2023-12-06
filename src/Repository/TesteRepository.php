@@ -73,6 +73,14 @@ class TesteRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findByUser($userId) : array {
+        $qb = $this->createQueryBuilder('m');
+        $qb->andWhere('m.user = :user_id')
+            ->setParameter('user_id', $userId);
+
+        return $qb->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Teste[] Returns an array of Teste objects
 //     */
