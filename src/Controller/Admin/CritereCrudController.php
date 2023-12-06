@@ -2,28 +2,19 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Question;
+use App\Entity\Critere;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
-class QuestionCrudController extends AbstractCrudController
-{    
-    
-    use Trait\NoCreateTrait;
-    use Trait\InlineActions;
 
+class CritereCrudController extends AbstractCrudController
+{
+
+    use Trait\InlineActions;
     public static function getEntityFqcn(): string
     {
-        return Question::class;
-    }
-
-    public function configureFilters(Filters $filters): Filters
-    {
-        return $filters
-            ->add('question')
-        ;
+        return Critere::class;
     }
 
     /*
@@ -36,7 +27,4 @@ class QuestionCrudController extends AbstractCrudController
         ];
     }
     */
-
-
-    
 }

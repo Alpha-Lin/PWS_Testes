@@ -6,14 +6,16 @@ use App\Entity\Teste;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
-
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 class TesteCrudController extends AbstractCrudController
 {
 
-    use Trait\ReadOnlyTrait;
+    use Trait\NoCreateTrait;
+    use Trait\InlineActions;
 
     public static function getEntityFqcn(): string
     {
@@ -24,15 +26,28 @@ class TesteCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            FormField::addTab('First Tab'),
-            Field::new('id'),
-            // ImageField::new('imageTeste')->setBasePath('path_to_your_image_uploads')->hideOnIndex(),
-            AssociationField::new('user')->hideOnIndex(),
-            AssociationField::new('typeTeste')->hideOnIndex(),
+            FormField::addTab('Teste')->onlyOnDetail(),
+            Field::new('id')->onlyOnIndex(),
+            ImageField::new('imageTeste')
+                ->setUploadDir('public/uploads/img')
+                ->setBasePath('uploads/img')
+                ->setUploadedFileNamePattern('[slug]-[timestamp].[extension]'),
+            AssociationField::new('user')->onlyOnIndex(),
+            AssociationField::new('typeTeste'),
 
-            FormField::addTab('Questions'),
-            ArrayField::new('questions')
+            FormField::addTab('Questions')->onlyOnDetail(),
+            ArrayField::new('questions')->onlyOnDetail()
         ];
+    }
+
+    
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add('user')
+            ->add('typeTeste')
+            ->add('questions')
+        ;
     }
 
 

@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Tentative;
 use App\Entity\Question;
+use App\Entity\Critere;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -42,9 +43,12 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Testes', 'fas fa-hashtag', Teste::class)->setController(TesteCrudController::class);
         yield MenuItem::linkToCrud('Tentatives', 'fas fa-list-check', Tentative::class);
         yield MenuItem::linkToCrud('Questions', 'fas fa-commenting', Question::class);
+        yield MenuItem::linkToCrud('Criteres', 'fas  fa-wand-magic-sparkles', Critere::class);
         
         yield MenuItem::section("Mon compte");
         yield MenuItem::linkToLogout('Logout', 'fa fa-sign-out');
-        yield MenuItem::linkToRoute('Profile', 'fa fa-user-cog', '...', ['...' => '...']);
+        yield MenuItem::linkToRoute('Profile', 'fa fa-user-cog', 'app_profile');
     }
+
+    
 }

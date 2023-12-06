@@ -12,12 +12,14 @@ class TentativeCrudController extends AbstractCrudController
 {
 
     use Trait\ReadOnlyTrait;
+    use Trait\InlineActions;
 
     public static function getEntityFqcn(): string
     {
         return Tentative::class;
     }
 
+    
     /*
     public function configureFields(string $pageName): iterable
     {

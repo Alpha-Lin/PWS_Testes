@@ -9,12 +9,15 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class TypeTesteCrudController extends AbstractCrudController
-{
+{   
+    use Trait\InlineActions;
+
     public static function getEntityFqcn(): string
     {
         return TypeTeste::class;
     }
 
+    
     /*
     public function configureFields(string $pageName): iterable
     {
