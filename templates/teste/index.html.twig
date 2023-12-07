@@ -23,11 +23,11 @@
     <div class="case">
         <!--<a href="{{ path('app_teste_delete', {'id': teste.id}) }}">supprimer</a>-->
         <div class="title">{{ teste.label }}</div>
-        {% if teste.imageTeste != null %}
-            <div class="image">{{ teste.imageTeste }}</div>
-        {% else %}
-            <div class="image"><img src="{{ asset(default_teste) }}"/></div>
-        {% endif %}
+            {% if teste.imageTeste != null %}
+                <div class="image"><img src="{{  asset(uploaded_image ~ teste.imageTeste) }}"/></div>
+            {% else %}
+                <div class="image"><img src="{{ asset(default_teste) }}"/></div>
+            {% endif %}
             {% if is_granted('ROLE_ADMIN') or app.user.id == teste.user.id %}
                     <a class="show" href="{{ path('app_teste_show', {'id': teste.id}) }}">show</a> 
                     <a class="edit" href="{{ path('app_teste_edit', {'id': teste.id}) }}">edit</a> 

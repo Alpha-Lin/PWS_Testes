@@ -1,15 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tentative index{% endblock %}
+{% block title %}Vos tentatives{% endblock %}
 
 {% block body %}
-    <h1>Tentative index</h1>
-
+    <h1>Vos tentatives</h1>
 
     <div class="amazonTypeList">
         {% for tentative in tentatives %}
             <div class="case">
-            <div class="image"><img src="{{ asset(defaut_tentative) }}"/></div>
+            {% if tentative.teste.imageTeste %}
+                <div class="image"><img src="{{ asset(uploaded_image ~ tentative.teste.imageTeste) }}"></div>
+            {% else %}
+                <div class="image"><img src="{{ asset(default_teste) }}"/></div>
+            {% endif %}
             <div class="title">{{ tentative.dateTentative ? tentative.dateTentative|date('Y-m-d H:i:s') : '' }}</div>
                 
             <div class="show"><a href="{{ path('app_tentative_results', {'id': tentative.id}) }}">show</a></div>
