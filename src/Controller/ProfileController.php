@@ -22,7 +22,7 @@ use App\Scripts\ImageUploader;
 class ProfileController extends AbstractController
 {
     #[Route('/', name: 'app_profile', methods: ['GET'])]
-    public function index(): Response
+    public function index(TesteRepository $testeRepository): Response
     {
         $user = $this->getUser();
         if (!$user) {
@@ -31,7 +31,7 @@ class ProfileController extends AbstractController
 
         return $this->render('profile/show.html.twig', [
             'user' => $this->getUser(),
-            'testes' => $this->getUser()->getTestes()
+            'testes' => $testeRepository->findPopularTests()
         ]);
     }
 
@@ -68,9 +68,7 @@ class ProfileController extends AbstractController
                 }
 
                 $entityManager->flush();
-                return $this->render('profile/show.html.twig', [
-                    'user' => $user
-                ]);
+                return $this->redirectToRoute('app_profile');
             }
         }
 

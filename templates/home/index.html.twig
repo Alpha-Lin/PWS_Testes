@@ -14,9 +14,9 @@
     <div class="card card1">
         <div class="title">{{ teste.label }}</div>
         {% if teste.imageTeste != null %}
-            <div class="image">{{ teste.imageTeste }}</div>
+            <div class="image"><img src="{{ asset(uploaded_image ~ teste.imageTeste) }}"></div>
         {% else %}
-            <div class="image"><img src="{{ asset('resrc/noideabro.jpeg') }}"/></div>
+            <div class="image"><img src="{{ asset(default_teste) }}"/></div>
         {% endif %}
         <a class="try" href="{{ path('app_tentative_new', {'id': teste.id}) }}">essayer</a> 
         <a class="myTries" href="{{ path('app_tentative_for_test', {'id': teste.id}) }}">mes tentatives</a>
@@ -39,9 +39,9 @@
     <div class="card card2">
         <div class="title">{{ teste.label }}</div>
         {% if teste.imageTeste != null %}
-            <div class="image">{{ teste.imageTeste }}</div>
+            <div class="image"><img src="{{ asset(uploaded_image ~ teste.imageTeste) }}"></div>
         {% else %}
-            <div class="image"><img src="{{ asset('resrc/noideabro.jpeg') }}"/></div>
+            <div class="image"><img src="{{ asset(default_teste) }}"/></div>
         {% endif %}
         
         <a class="try" href="{{ path('app_tentative_new', {'id': teste.id}) }}">essayer</a> 

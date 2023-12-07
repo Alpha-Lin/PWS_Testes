@@ -4,6 +4,7 @@ twig:
         uploaded_image: '%uploads.image%'
         default_avatar: 'resrc/rotated_logo.png'
         default_teste: 'resrc/noideabro.jpeg'
+        defaut_tentative: 'resrc/java.png'
 
 when@test:
     twig:

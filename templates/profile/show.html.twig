@@ -32,21 +32,20 @@
 
     <h2>Les quizz les plus populaires</h2>
 
-<div class="carousel {% if testes|length == 0 %}empty{% endif %}">
-
+<div class="carousel {% if testes| length == 0 %}empty{% endif %}">
     {% for teste in testes %}
     <div class="card">
         <div class="title">{{ teste.label }}</div>
         {% if teste.imageTeste != null %}
-            <div class="image">{{ teste.imageTeste }}</div>
+            <div class="image"><img src="{{asset(uploaded_image ~ teste.imageTeste)}}"/></div>
         {% else %}
-            <div class="image"><img src="{{ asset('resrc/noideabro.jpeg') }}"/></div>
+            <div class="image"><img src="{{ asset(default_teste) }}"/></div>
         {% endif %}
         <a class="show" href="{{ path('app_teste_show', {'id': teste.id}) }}">show</a> 
         <a class="edit" href="{{ path('app_teste_edit', {'id': teste.id}) }}">edit</a> 
         <a class="try" href="{{ path('app_tentative_new', {'id': teste.id}) }}">essayer</a> 
         <a class="myTries" href="{{ path('app_tentative_for_test', {'id': teste.id}) }}">mes tentatives</a>
-    </div>
+</div>
     
     <div class="carouselBtn">
         <button class="btn bg-blue-700" id="prev">précedent</button>

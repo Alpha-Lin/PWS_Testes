@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Message{% endblock %}
+{% block title %}Envoyer un message{% endblock %}
 
 {% block body %}
-    <h1>Create new Message</h1>
+    <h1>Envoyer un message</h1>
 
     {% for flashMessage in app.session.flashbag.get('success') %}
         <p>{{ flashMessage }}</p>
