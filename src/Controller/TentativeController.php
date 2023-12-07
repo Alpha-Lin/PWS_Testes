@@ -125,7 +125,7 @@ class TentativeController extends AbstractController
     {
 
         return $this->render(
-            'teste/results.html.twig',
+            'tentative/results.html.twig',
             [
                 'tentative' => $tentative,
                 'teste' => $tentative->getTeste(),

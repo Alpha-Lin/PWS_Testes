@@ -47,14 +47,16 @@
         <a class="try" href="{{ path('app_tentative_new', {'id': teste.id}) }}">essayer</a> 
         <a class="myTries" href="{{ path('app_tentative_for_test', {'id': teste.id}) }}">mes tentatives</a>
     </div>
+    
+    {% else %}
+        <h3 class="rien">Aucun quizz</h3>
+    {% endfor %}
+
+    
     <div class="carouselBtn">
         <button class="btn bg-blue-700" id="prev2">précedent</button>
         <button class="btn bg-red-700" id="next2">suivant</button>
     </div>
-    {% else %}
-        <h3 class="rien">Aucun quizz</h3>
-    {% endfor %}
-    
 </div>
 
 
