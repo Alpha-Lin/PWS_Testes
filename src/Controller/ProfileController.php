@@ -68,9 +68,7 @@ class ProfileController extends AbstractController
                 }
 
                 $entityManager->flush();
-                return $this->render('profile/show.html.twig', [
-                    'user' => $user
-                ]);
+                return $this->redirectToRoute('app_profile');
             }
         }
 
