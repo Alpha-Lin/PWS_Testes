@@ -12,7 +12,8 @@ Ensuite :
 Ensuite lancer le script INSERTION_BASE.sql ou lancer les INSERT suivant : 
 
 ```sql
-INSERT INTO User (username,password, email, roles) VALUES ('superadmin', 'superadmin', 'changeme@gmail.com', 'ROLE_SUPER_ADMIN');
+INSERT INTO `user` (`id`, `username`, `roles`, `password`, `email`, `avatar`) VALUES
+(1, 'superadmin', '[\"SUPER_ADMIN_ROLE\"]', '$2y$13$vzxAJB/iDDrmNi6MbnATcOvHSFh9G3qTMGuu..Ld1CpjfQodZH4dm', 'changeme@changeme.com', NULL);
 
 INSERT INTO type_teste (label,description) VALUES ('baton', 'Diagramme en bâton');
 INSERT INTO type_teste (label,description) VALUES ('horizontal', 'Diagramme horizontal');
