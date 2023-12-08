@@ -26,7 +26,7 @@ class Tentative
     #[ORM\ManyToOne(inversedBy: 'Tentatives', fetch: "EAGER")]
     private ?User $user = null;
 
-    #[ORM\OneToMany(mappedBy: 'tentativ', targetEntity: CritereSolution::class)]
+    #[ORM\OneToMany(mappedBy: 'tentative', targetEntity: CritereSolution::class)]
     private Collection $critereSolutions;
     /**
     public function __construct(Teste $t)

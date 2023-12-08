@@ -5,13 +5,21 @@ const data = JSON.parse(dataDiv.dataset.val);
     document.getElementById('graph'),
     {
       type: 'bar',
+      options: {
+        responsive: true,
+      },
       data: {
-        labels: data.map(row => row.crit), 
         datasets: [
           {
-            label: 'Résultats',
-            data: data.map(row => row.val)
+            label: data.map(row => row.crit1),
+            data: data.map(row => row.val),
+            backgroundColor: data.map(row => row.coul1),
           },
+          {
+            label: data.map(row => row.crit2),
+            data: data.map(row => row.val),
+            backgroundColor: data.map(row => row.coul2),
+          }
         ]
       }
     }

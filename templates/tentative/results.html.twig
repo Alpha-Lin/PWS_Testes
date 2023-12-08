@@ -7,47 +7,29 @@
 <div class="relative m-[auto] h-[75vh] w-[75vw]">
 <canvas class="p-0 m-[auto] block w-[800px] h-[600px] absolute top-0 bottom-0 left-0 right-0" id="graph"></canvas>
 </div>
-<!--  !!! LA MANIÈRE DONT LES DONNÉES SONT PASSÉES AU JS VA CHANGER
+<div class="js-graph-params" data-val='{{ tentative }}'></div>
 
-'tentative' => $tentative,
-                'teste' => $tentative->getTeste(),
-                'critereSolution' => $tentative->getCritereSolutions(),
- -->
 
-{% if teste.type == "Baton" %}
-<div class="js-graph-params" data-val='[{"crit":"A", "val":5}, {"crit":"B", "val":10}, {"crit":"C", "val":15}, {"crit":"D", "val":20}, {"crit":"E", "val":25}, {"crit":"F", "val":100}]'></div>
+{% if teste.typeTeste == "baton" %}
 
 <script type="module" src="{{ asset('javascript/barre.js') }}"></script>
 {% endif %}
 
 
-
-
-{% if teste.type == "Horizontal" %}
-<div class="js-graph-params" data-val='[
-  {"borne":50},
-  {"crit1":"A", "crit2":"B", "val":-20}, 
-  {"crit1":"A", "crit2":"B", "val":10}, 
-  {"crit1":"A", "crit2":"B", "val":-5}, 
-  {"crit1":"A", "crit2":"B", "val":30}, 
-  {"crit1":"A", "crit2":"B", "val":0}, 
-  {"crit1":"A", "crit2":"B", "val":15}
-]'></div>
+{% if teste.typeTeste == "horizontal" %}
 
 <script type="module" src="{{ asset('javascript/8values.js') }}"></script>
 {% endif %}
 
 <!-- Radar -->
 
-{% if teste.type == "Radar" %}
-<!--
-<div class="relative m-[auto] h-[75vh] w-[75vw]">
-<canvas class="p-0 m-[auto] block w-[800px] h-[600px] absolute top-0 bottom-0 left-0 right-0" id="graph"></canvas>
-</div>-->
 
-<div class="js-graph-params" data-val='[{"crit":"A", "val":20}, {"crit":"B", "val":80}, {"crit":"C", "val":15}, {"crit":"D", "val":50}, {"crit":"E", "val":25}, {"crit":"F", "val":100}]'></div>
+
+{% if teste.typeTeste == "radar" %}
 
 <script type="module" src="{{ asset('javascript/radar.js') }}"></script>
 {% endif %}
+
+
 
 {% endblock %}

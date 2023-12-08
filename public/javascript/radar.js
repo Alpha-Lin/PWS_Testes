@@ -8,7 +8,8 @@ new Chart(document.getElementById('graph'), {
         datasets: [
           {
             label: 'Résultats',
-            data: data.map(row => row.val)
+            data: data.map(row => row.val),
+            fillColor: data.map(row => row.coul),
           },
         ]
       },

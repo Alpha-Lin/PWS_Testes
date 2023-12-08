@@ -15,9 +15,9 @@
         {% endif %}
         </div>
     </div>
-
+    <div class="m-auto">
     {% for question in teste.questions %}
-        {{ loop.index }} : {{ question.question }}
+        <h3>Question{{ loop.index }} : {{ question.question }}</h3>
         <ul> <!-- Liste des solutions -->
             {% for solution in question.solutions %}
                 <li>Solution {{ loop.index }} - {{ solution.nomSolution }} (id: {{ solution.id }}) </li>
@@ -26,7 +26,7 @@
                     <li>Points : {{ solution.point }} </li>
             {% endfor %}
     {% endfor %}
-
+    </div>
 
     <div class="grid grid-cols-3 m-[2em_auto_2em_auto] gap-4">
     {{ include('teste/_delete_form.html.twig') }}

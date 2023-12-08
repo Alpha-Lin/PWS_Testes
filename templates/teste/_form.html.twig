@@ -48,6 +48,8 @@
     
     <button type="button" class="add_question_link" data-collection-holder-class="questions">Add a question</button>
 
+
+
     <script>
         const addFormDeleteLink = (item, msg) => {
             const removeFormButton = document.createElement('button');
@@ -101,5 +103,7 @@
     {% if teste is defined and teste.imageTeste is not empty %}
         <img class="imageTeste" src="{{ asset(uploaded_image ~ teste.imageTeste) }}" alt="teste image">
     {% endif %}
+
+    {{ form_row(form.typeTeste) }}
     
 {{ form_end(form) }}

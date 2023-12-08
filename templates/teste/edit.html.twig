@@ -8,7 +8,7 @@
     
     {{ include('teste/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <div class="grid grid-cols-2 m-[2em_auto_2em_auto] gap-4">
+    <div class="grid grid-cols-2 grid-rows-1 m-[2em_auto_2em_auto] gap-4">
         <a class="btn bg-gray-400" href="{{ path('app_teste_index') }}">back to list</a>
 
         {{ include('teste/_delete_form.html.twig') }}
