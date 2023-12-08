@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos résultats{% endblock %}
+
+{% block body %}
+
+<div class="relative m-[auto] h-[75vh] w-[75vw]">
+<canvas class="p-0 m-[auto] block w-[800px] h-[600px] absolute top-0 bottom-0 left-0 right-0" id="graph"></canvas>
+</div>
+<div class="js-graph-params" data-val='{{ tentative }}'></div>
+
+
+{% if teste.typeTeste == "baton" %}
+
+<script type="module" src="{{ asset('javascript/barre.js') }}"></script>
+{% endif %}
+
+
+{% if teste.typeTeste == "horizontal" %}
+
+<script type="module" src="{{ asset('javascript/8values.js') }}"></script>
+{% endif %}
+
+<!-- Radar -->
+
+
+
+{% if teste.typeTeste == "radar" %}
+
+<script type="module" src="{{ asset('javascript/radar.js') }}"></script>
+{% endif %}
+
+
+
+{% endblock %}

@@ -8,7 +8,7 @@
 
 <h2>Les quizz les plus populaires</h2>
 
-<div class="carousel {% if populaire|length == 0 %}empty{% endif %}">
+<div class="carouse {% if populaire|length == 0 %}empty{% endif %}">
 
     {% for teste in populaire %}
     <div class="card card1">
@@ -20,15 +20,19 @@
         {% endif %}
         <a class="try" href="{{ path('app_tentative_new', {'id': teste.id}) }}">essayer</a> 
         <a class="myTries" href="{{ path('app_tentative_for_test', {'id': teste.id}) }}">mes tentatives</a>
-    <div>
-
-    <div class="carouselBtn">
-        <button class="btn bg-red-700" id="next1">suivant</button>
-        <button class="btn bg-blue-700" id="prev1">précedent</button>
     </div>
+
+    
     {% else %}
         <h3 class="rien">Aucun quizz</h3>
     {% endfor %}
+
+    {% if populaire %}
+        <div class="carouselBtn">
+            <button class="btn bg-blue-700" id="prev1">précedent</button>
+            <button class="btn bg-red-700" id="next1">suivant</button>
+        </div>
+    {% endif %}
 </div>
 
 <h2>Les derniers quizz ajoutés</h2>
@@ -47,14 +51,17 @@
         <a class="try" href="{{ path('app_tentative_new', {'id': teste.id}) }}">essayer</a> 
         <a class="myTries" href="{{ path('app_tentative_for_test', {'id': teste.id}) }}">mes tentatives</a>
     </div>
+    
+    {% else %}
+        <h3 class="rien">Aucun quizz</h3>
+    {% endfor %}
+
+    {% if dernier %}
     <div class="carouselBtn">
         <button class="btn bg-blue-700" id="prev2">précedent</button>
         <button class="btn bg-red-700" id="next2">suivant</button>
     </div>
-    {% else %}
-        <h3 class="rien">Aucun quizz</h3>
-    {% endfor %}
-    
+    {% endif %}
 </div>
 
 

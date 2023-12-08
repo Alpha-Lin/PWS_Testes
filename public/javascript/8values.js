@@ -1,6 +1,6 @@
 var dataDiv = document.querySelector('.js-graph-params');
 const data = JSON.parse(dataDiv.dataset.val);
-
+console.log();
 
 const options = {
   responsive: true,
@@ -11,8 +11,8 @@ const options = {
           type: 'linear',
           position: 'bottom',
           beginAtZero: true,
-          min: -data[0]["borne"],
-          max: data[0]["borne"],
+          min: -data[Object.keys(data).length-1]["borne"],
+          max: data[Object.keys(data).length-1]["borne"],
           ticks: {
               stepSize: 5
           }
@@ -37,8 +37,7 @@ new Chart(document.getElementById('graph'), {
           {
               label: "Résultats",
               data: data.map(row => row.val),
-              backgroundColor: 'rgba(54, 162, 235, 0.5)', //il lèche le sapin
-              borderColor: 'rgba(54, 162, 235, 1)',
+              backgroundColor:  data.map(row => ((row.val) >= 0) ? row.coul2 : row.coul1), //il lèche le sapin
               borderWidth: 1,
               yAxisID: 'y-axis-1'
           }

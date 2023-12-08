@@ -42,8 +42,10 @@ body {
 }
 
 form {
+    margin-top: 5em;
     justify-self: center;
     background-color: white;
+    outline: 3rem solid white;
 }
 
 h1, h2, h3, h4 {

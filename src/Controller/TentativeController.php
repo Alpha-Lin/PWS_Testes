@@ -123,11 +123,47 @@ class TentativeController extends AbstractController
     #[Route('/{id}/results', name: 'app_tentative_results', methods: ['GET'])]
     public function results(Request $request, Tentative $tentative): Response
     {
+        if ($tentative->getTeste()->getTypeTeste() == "baton") {
+            $rep = '[';
+            $max = 0;
+
+            foreach ($tentative->getCritereSolutions() as $val) {
+                $max = ($max < $val->getCritere()->getScoreMax()) ? $val->getCritere()->getScoreMax() : $max;
+                $rep .= '{"crit":"'.$val->getCritere()->getInterpretationMinTexte()
+                    .'","val":"'.$val->getPoint()
+                    .'","coul":"'.$val->getCritere()->getInterpretationMinCouleur().'"},';
+            }
+            $rep .= '{"borne":"'.$max.'"}]';
+        }
+
+        if ($tentative->getTeste()->getTypeTeste() == "horizontal") {
+            $rep = '[';
+            $max = 0;
+
+            foreach ($tentative->getCritereSolutions() as $val) {
+                $max = ($max < $val->getCritere()->getScoreMax()) ? $val->getCritere()->getScoreMax() : $max;
+                $rep .= '{"crit1":"'.$val->getCritere()->getInterpretationMinTexte()
+                    .'","crit2":"'.$val->getCritere()->getInterpretationMaxTexte()
+                    .'","val":"'.$val->getPoint()
+                    .'","coul1":"'.$val->getCritere()->getInterpretationMinCouleur()
+                    .'","coul2":"'.$val->getCritere()->getInterpretationMaxCouleur().'"},';
+            }
+            $rep .= '{"borne":"'.$max.'"}]';
+        }
+
+        if ($tentative->getTeste()->getTypeTeste() == "radar") {
+            $rep = '[';
+            foreach ($tentative->getCritereSolutions() as $val) {
+                $rep .= '{"crit":"'.$val->getCritere()->getInterpretationMinTexte()
+                    .'","val":"'.$val->getPoint().'"},';
+            }
+            $rep .= '{"coul":"'.$tentative->getCritereSolutions()[0]->getCritere()->getInterpretationMinCouleur().'"}]';
+        }
 
         return $this->render(
-            'teste/results.html.twig',
+            'tentative/results.html.twig',
             [
-                'tentative' => $tentative,
+                'tentative' => $rep,
                 'teste' => $tentative->getTeste(),
                 'critereSolution' => $tentative->getCritereSolutions(),
             ]

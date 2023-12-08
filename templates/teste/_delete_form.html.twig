@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('app_teste_delete', {'id': teste.id}) }}" onsubmit="return confirm('Voulez-vous supprimer ce teste?');">
+<form class="outline-none -mt-0 bg-[#ffffff00]" method="post" action="{{ path('app_teste_delete', {'id': teste.id}) }}" onsubmit="return confirm('Voulez-vous supprimer ce teste?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ teste.id) }}">
     <button class="btn bg-red-500">Suppression</button>
 </form>
