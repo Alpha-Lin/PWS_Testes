@@ -160,6 +160,7 @@ class TentativeController extends AbstractController
             $rep .= '{"coul":"'.$tentative->getCritereSolutions()[0]->getCritere()->getInterpretationMinCouleur().'"}]';
         }
 
+
         return $this->render(
             'tentative/results.html.twig',
             [

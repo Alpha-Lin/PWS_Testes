@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 
 class TypeTesteCrudController extends AbstractCrudController
 {   
+    use Trait\NoDeleteTrait;
     use Trait\InlineActions;
 
     public static function getEntityFqcn(): string
