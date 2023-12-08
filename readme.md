@@ -27,7 +27,8 @@ Finalement, lancer `symfony serve`.
 
 ------------------------------
 
-Features
+Features : 
+
 Un dashboard avec de multiples options
 + Si SUPER_ADMIN, création, édition et suppression de compte
 + Consultation et création de compte (utilisateur uniquement), et consultation des testes. 
@@ -38,14 +39,14 @@ Un dashboard avec de multiples options
   
 Enregistrement sur le site
 + Login avec remember-me
-+ Reset du mot de passe via un token envoyé par email
++ Reset du mot de passe via un token envoyé par email (email)
 + Reset du mot de passe via la page profile, si connecté.
 
 Des features utilisateur 
-+ Edition du profile et ajout d’un avatar.
-+ Création des testes constitué de questions, critères et solutions.
++ Edition du profile et ajout d’un avatar (upload)
++ Création des testes (upload) constitué de questions, critères et solutions.
 + Passage de teste, et consultation des essais antérieure.
 + Visualisation des d’un essai, soit passé, soit après redirection
 + Boutons edition, suppression des testes selon le role, et le ownsership.
 + Trie des testes par nom et ownsership.
-+ Page contact avec envoie de mail.
++ Page contact avec envoie de mail (envoie email)
