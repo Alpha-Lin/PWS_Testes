@@ -9,17 +9,13 @@ const data = JSON.parse(dataDiv.dataset.val);
         responsive: true,
       },
       data: {
+        labels: data.map(row => row.crit),
         datasets: [
           {
-            label: data.map(row => row.crit1),
+            label: data.map(row => row.crit),
             data: data.map(row => row.val),
-            backgroundColor: data.map(row => row.coul1),
+            backgroundColor: data.map(row => row.coul),
           },
-          {
-            label: data.map(row => row.crit2),
-            data: data.map(row => row.val),
-            backgroundColor: data.map(row => row.coul2),
-          }
         ]
       }
     }
