@@ -16,7 +16,7 @@ class CritereCrudController extends AbstractCrudController
 {
 
     use Trait\InlineActions;
-    use Trait\ReadOnlyTrait;
+    use Trait\NoCreateTrait;
 
     public static function getEntityFqcn(): string
     {
