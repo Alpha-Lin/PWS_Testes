@@ -38,8 +38,11 @@ class TentativeController extends AbstractController
         if ($this->isGranted('ROLE_USER') == false)
             return $this->redirectToRoute('public_index');
 
+        $tentatives = $this->getUser()->getTentatives();
+        $tentatives = array_reverse($tentatives->toArray());
+        
         return $this->render('tentative/index.html.twig', [
-            'tentatives' => $this->getUser()->getTentatives(),
+            'tentatives' => $tentatives
         ]);
     }
 
