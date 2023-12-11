@@ -203,7 +203,7 @@ class Critere
 
     public function __toString(): string
     {
-        return "Critère n°" . $this->id;
+        return $this->nomCritere;
     }
 
     public function getNomCritere(): ?string
